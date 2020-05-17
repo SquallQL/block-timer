@@ -11,7 +11,8 @@
     "common-config-webpack-plugin": "^2.0.1",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
