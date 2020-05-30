@@ -17,7 +17,7 @@ export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
     currentRun: {
-      cycle: 0,
+      cycle: 1,
       isActive: false,
     },
     timers: [
