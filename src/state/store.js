@@ -5,6 +5,14 @@ import * as types from "./actionTypes";
 
 Vue.use(Vuex);
 
+const defaultTimer = {
+  isInterval: true,
+  isInfinite: false,
+  active: 30,
+  rest: 10,
+  cycle: 3,
+};
+
 export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
@@ -13,13 +21,7 @@ export default new Vuex.Store({
       isActive: false,
     },
     timers: [
-      {
-        isInterval: true,
-        isInfinite: false,
-        active: 30,
-        rest: 10,
-        cycle: 3,
-      },
+      defaultTimer,
       {
         isInterval: false,
         isInfinite: true,
@@ -36,8 +38,8 @@ export default new Vuex.Store({
     timers: (state) => state.timers,
   },
   mutations: {
-    addTimer(state, data) {
-      state.timers.push(data);
+    addTimer(state) {
+      state.timers.push(defaultTimer);
     },
     removeTimer(state, id) {
       state.timers = state.timers.filter((_, index) => index !== id);
@@ -67,8 +69,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    addTimer({ commit }, timerData) {
-      commit(types.ADD_TIMER, timerData);
+    addTimer({ commit }) {
+      commit(types.ADD_TIMER);
     },
     removeTimer({ commit }, id) {
       commit(types.REMOVE_TIMER, id);

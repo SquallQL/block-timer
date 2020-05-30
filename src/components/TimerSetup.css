@@ -1,0 +1,101 @@
+.TimerSetup-root {
+  margin: 0 0 20px 0;
+  padding: 4px;
+}
+
+.time-row {
+  display: flex;
+
+  padding: 6px;
+
+  background-color: rgba(255, 255, 255, 50%);
+  border: 4px solid #ffc9c9;
+}
+
+.time-start-hover {
+  border-color: #f9abab;
+}
+
+.time-isActive {
+  border-color: #ff7373;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  min-width: 100px;
+}
+
+.check-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 0 20px;
+
+  font-size: 16px;
+}
+
+.number {
+  color: #000000;
+  font-size: 38px;
+}
+
+.active-time {
+  color: #ff5656;
+}
+
+.rest-time {
+  color: #6ac5f9;
+}
+
+.time-symbol {
+  position: absolute;
+  top: 21px;
+  left: 0px;
+  font-size: 30px;
+}
+
+.start-btn {
+  display: flex;
+  justify-content: center;
+
+  min-width: 150px;
+
+  font-size: 28px;
+
+  border: none;
+  background-color: #ffc9c9;
+
+  cursor: pointer;
+}
+
+.btn-isActive {
+  background-color: #ff7373;
+}
+
+.start-btn:hover {
+  background-color: #f9abab;
+}
+
+.subtitle {
+  color: #636363;
+  font-size: 14px;
+}
+
+.subtitle-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.check-option {
+  margin-bottom: 6px;
+}
