@@ -8,9 +8,9 @@ Vue.use(Vuex);
 const defaultTimer = {
   isInterval: true,
   isInfinite: false,
-  active: 3,
-  rest: 3,
-  cycle: 2,
+  active: 30,
+  rest: 30,
+  cycle: 20,
 };
 
 export default new Vuex.Store({
@@ -27,10 +27,10 @@ export default new Vuex.Store({
       defaultTimer,
       {
         isInterval: false,
-        isInfinite: true,
+        isInfinite: false,
         active: 60,
         rest: 10,
-        cycle: 3,
+        cycle: 1,
       },
     ],
   },
@@ -68,17 +68,17 @@ export default new Vuex.Store({
     addTotalTime(state) {
       state.totalTime += 1;
     },
-    setActiveTime(state, { id, value }) {
+    setActiveTime(state, { id, activeTime }) {
       const updateTimer = findTimer(state, id);
-      return (updateTimer.active = value);
+      return (updateTimer.active = activeTime);
     },
-    setRestTime(state, { id, value }) {
+    setRestTime(state, { id, restTime }) {
       const updateTimer = findTimer(state, id);
-      return (updateTimer.rest = value);
+      return (updateTimer.rest = restTime);
     },
-    setCycle(state, { id, value }) {
+    setCycle(state, { id, cycle }) {
       const updateTimer = findTimer(state, id);
-      return (updateTimer.cycle = value);
+      return (updateTimer.cycle = cycle);
     },
     toggleIntervalTimer(state, id) {
       const updateTimer = findTimer(state, id);

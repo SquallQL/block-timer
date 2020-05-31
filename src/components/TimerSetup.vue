@@ -16,6 +16,9 @@ export default {
   },
   data() {
     return {
+      activeTime: this.timer.active,
+      restTime: this.timer.rest,
+      currentCycle: this.timer.cycle,
       isHoveringStartBtn: false,
       isInterval: this.timer.isInterval,
       isInfinite: this.timer.isInfinite,
@@ -44,6 +47,9 @@ export default {
   },
   methods: {
     ...mapActions([
+      "setActiveTime",
+      "setRestTime",
+      "setCycle",
       "toggleTimer",
       "toggleIntervalTimer",
       "toggleInfiniteTimer",
@@ -59,6 +65,27 @@ export default {
       }
 
       this.toggleTimer(this.index);
+    },
+    activeChange() {
+      const castedActiveTime = Number(this.activeTime);
+
+      if (castedActiveTime) {
+        this.setActiveTime({ id: this.index, activeTime: castedActiveTime });
+      }
+    },
+    restChange() {
+      const castedRestTime = Number(this.restTime);
+
+      if (castedRestTime) {
+        this.setRestTime({ id: this.index, restTime: castedRestTime });
+      }
+    },
+    cycleChange() {
+      const castedCycle = Number(this.currentCycle);
+
+      if (castedCycle) {
+        this.setCycle({ id: this.index, cycle: castedCycle });
+      }
     },
   },
   watch: {
@@ -99,9 +126,15 @@ export default {
             Active
           </div>
           <div>
-            <span class="number" :class="{ 'active-time': isInterval }">
-              {{ timer.active }}
-            </span>
+            <input
+              class="default-input number"
+              :class="{ 'active-time': isInterval }"
+              type="text"
+              v-model="activeTime"
+              @input="activeChange"
+              maxlength="2"
+              :disabled="!canEdit"
+            />
           </div>
         </div>
         <div v-if="isInterval" class="section">
@@ -110,14 +143,30 @@ export default {
           </div>
           <div class="">
             <span class="time-symbol">/</span>
-            <span class="number rest-time">{{ timer.rest }}</span>
+            <input
+              class="default-input number"
+              :class="{ 'rest-time': isInterval }"
+              v-model="restTime"
+              @input="restChange"
+              type="text"
+              maxlength="2"
+              :disabled="!canEdit"
+            />
           </div>
         </div>
         <div class="section">
           <div class="subtitle">Cycle</div>
           <div class="number">
             <span class="time-symbol">x</span>
-            <span v-if="!isInfinite">{{ timer.cycle }}</span>
+            <input
+              v-if="!isInfinite"
+              v-model="currentCycle"
+              class="default-input number"
+              type="text"
+              @input="cycleChange"
+              maxlength="2"
+              :disabled="!canEdit"
+            />
             <span v-else>&#8734;</span>
           </div>
         </div>
