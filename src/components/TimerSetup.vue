@@ -35,6 +35,9 @@ export default {
     startText() {
       return this.isActiveTimer ? "Stop" : "Start";
     },
+    canEdit() {
+      return !this.isActiveTimer;
+    },
   },
   methods: {
     ...mapActions([
@@ -105,6 +108,7 @@ export default {
               value="interval"
               v-model="isInterval"
               @click="toggleIntervalTimer(index)"
+              :disabled="!canEdit"
             />
             <label :for="intervalID">Interval timer</label>
           </div>
@@ -115,6 +119,7 @@ export default {
               value="repeat"
               v-model="isInfinite"
               @click="toggleInfiniteTimer(index)"
+              :disabled="!canEdit"
             />
             <label :for="repeatID">Repeat forever</label>
           </div>
