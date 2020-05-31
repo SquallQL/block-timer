@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       isHoveringStartBtn: false,
-      isInterval: true,
-      isInfinite: false,
+      isInterval: this.timer.isInterval,
+      isInfinite: this.timer.isInfinite,
     };
   },
   computed: {
