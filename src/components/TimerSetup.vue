@@ -1,5 +1,6 @@
 <script>
 import "./TimerSetup.css";
+import { mapActions } from "vuex";
 
 export default {
   name: "TimerSetup",
@@ -17,7 +18,7 @@ export default {
     return {
       isHoveringStart: false,
       isInterval: true,
-      isRepeat: false,
+      isInfinite: false,
     };
   },
   computed: {
@@ -35,6 +36,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["toggleIntervalTimer", "toggleInfiniteTimer"]),
     setIsHovering(flag) {
       this.isHoveringStart = flag;
     },
@@ -85,7 +87,7 @@ export default {
           <div class="subtitle">Cycle</div>
           <div class="number">
             <span class="time-symbol">x</span>
-            <span v-if="!isRepeat">{{ timer.cycle }}</span>
+            <span v-if="!isInfinite">{{ timer.cycle }}</span>
             <span v-else>&#8734;</span>
           </div>
         </div>
@@ -96,6 +98,7 @@ export default {
               type="checkbox"
               value="interval"
               v-model="isInterval"
+              @click="toggleIntervalTimer(index)"
             />
             <label :for="intervalID">Interval timer</label>
           </div>
@@ -104,7 +107,8 @@ export default {
               :id="repeatID"
               type="checkbox"
               value="repeat"
-              v-model="isRepeat"
+              v-model="isInfinite"
+              @click="toggleInfiniteTimer(index)"
             />
             <label :for="repeatID">Repeat forever</label>
           </div>

@@ -15,7 +15,7 @@ export default {
       return this.currentRun.isActive;
     },
     activeText() {
-      return this.isInterval ? "Active: " : "Time: ";
+      return this.isInterval || !this.isActive ? "Active: " : "Time: ";
     },
   },
 };
@@ -23,12 +23,12 @@ export default {
 
 <template>
   <div class="details-root">
-    <span :class="{ 'active-time': isInterval }">
+    <span :class="{ 'active-time': isInterval || !isActive }">
       <span>{{ activeText }}</span>
       <span v-if="isActive">{{ currentRunningTimer.active }}</span>
       <span v-else>-</span>
     </span>
-    <span v-if="isInterval">
+    <span v-if="isInterval || !isActive">
       <span class="details-spacer">|</span>
       <span class="rest-time">
         <span>Rest: </span>
@@ -39,7 +39,7 @@ export default {
     <span>
       <span class="details-spacer">|</span>
       <span>Cycle: </span>
-      <span v-if="isInfinite">&#8734;</span>
+      <span v-if="isInfinite && isActive">&#8734;</span>
       <span v-else>
         <template v-if="isActive">
           {{ currentRun.cycle }}/{{ currentRunningTimer.cycle }}
