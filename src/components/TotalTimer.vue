@@ -1,13 +1,12 @@
 <script>
 import "./TotalTimer.css";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TotalTimer",
   props: {},
-  data() {
-    return {
-      time: "00:00",
-    };
+  computed: {
+    ...mapGetters(["totalTime"]),
   },
 };
 </script>
@@ -15,7 +14,7 @@ export default {
 <template>
   <div class="root">
     <p class="total-timer">
-      Workout total timer: <strong class="time">{{ time }}</strong>
+      Workout total timer: <strong class="time">{{ totalTime }}</strong>
     </p>
   </div>
 </template>

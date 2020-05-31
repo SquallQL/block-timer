@@ -7,18 +7,19 @@ export default {
   data() {
     return {
       countdown: 0,
-      count: null,
+      intervalObject: null,
     };
   },
   watch: {
     isActive(flag) {
-      clearInterval(this.count);
+      clearInterval(this.intervalObject);
 
       if (flag) {
         this.countdown = this.currentRun.time;
 
-        this.count = setInterval(() => {
+        this.intervalObject = setInterval(() => {
           this.countdown -= 1;
+          this.addTotalTime();
         }, 1000);
       }
     },
@@ -42,6 +43,7 @@ export default {
       "removeTimer",
       "setActiveTime",
       "setRestTime",
+      "addTotalTime",
     ]),
   },
 };

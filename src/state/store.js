@@ -16,6 +16,7 @@ const defaultTimer = {
 export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
+    totalTime: 0,
     currentRun: {
       cycle: 1,
       isActive: false,
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     currentRunningTimer: (state) => state.timers[state.selectedTimerID],
     selectedTimerID: (state) => state.selectedTimerID,
     timers: (state) => state.timers,
+    totalTime: (state) => state.totalTime,
   },
   mutations: {
     addTimer(state) {
@@ -51,6 +53,9 @@ export default new Vuex.Store({
       if (state.currentRun.isActive) {
         state.currentRun.time = state.timers[id].active;
       }
+    },
+    addTotalTime(state) {
+      state.totalTime += 1;
     },
     setActiveTime(state, { id, value }) {
       const updateTimer = findTimer(state, id);
@@ -82,6 +87,9 @@ export default new Vuex.Store({
     },
     toggleTimer({ commit }, id) {
       commit(types.START_TIMER, id);
+    },
+    addTotalTime({ commit }) {
+      commit(types.ADD_TOTAL_TIME);
     },
     setSelectedTimerID({ commit }, id) {
       commit(types.SET_SELECTED_TIMER_ID, id);
