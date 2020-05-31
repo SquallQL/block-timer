@@ -42,7 +42,7 @@ export default {
       <span v-if="isInfinite">&#8734;</span>
       <span v-else>
         <template v-if="isActive">
-          {{ currentRun.cycle }}/{{ currentRunningTimer.cycle }}
+          {{ currentRun.cycle + 1 }}/{{ currentRunningTimer.cycle }}
         </template>
         <template v-else>
           -/-

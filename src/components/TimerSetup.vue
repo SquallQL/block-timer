@@ -38,15 +38,27 @@ export default {
     canEdit() {
       return !this.isActiveTimer;
     },
+    isDone() {
+      return this.currentRun.cycle >= this.timer.cycle;
+    },
   },
   methods: {
     ...mapActions([
       "toggleTimer",
       "toggleIntervalTimer",
       "toggleInfiniteTimer",
+      "resetCycle",
     ]),
     setIsHovering(flag) {
       this.isHoveringStartBtn = flag;
+    },
+  },
+  watch: {
+    isDone(flag) {
+      if (flag) {
+        this.resetCycle();
+        this.$refs["start-btn"].click();
+      }
     },
   },
 };
@@ -61,6 +73,7 @@ export default {
         @click="toggleTimer(index)"
         @mouseenter="setIsHovering(true)"
         @mouseleave="setIsHovering(false)"
+        ref="start-btn"
       >
         {{ startText }}
       </button>

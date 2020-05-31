@@ -8,9 +8,9 @@ Vue.use(Vuex);
 const defaultTimer = {
   isInterval: true,
   isInfinite: false,
-  active: 30,
-  rest: 10,
-  cycle: 3,
+  active: 3,
+  rest: 3,
+  cycle: 2,
 };
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     selectedTimerID: 0,
     totalTime: 0,
     currentRun: {
-      cycle: 1,
+      cycle: 0,
       isActive: false,
       time: 0,
     },
@@ -54,6 +54,12 @@ export default new Vuex.Store({
         state.currentRun.time = state.timers[id].active;
       }
     },
+    addCycle(state) {
+      state.currentRun.cycle += 1;
+    },
+    resetCycle(state) {
+      state.currentRun.cycle = 0;
+    },
     addTotalTime(state) {
       state.totalTime += 1;
     },
@@ -87,6 +93,12 @@ export default new Vuex.Store({
     },
     toggleTimer({ commit }, id) {
       commit(types.START_TIMER, id);
+    },
+    addCycle({ commit }) {
+      commit(types.ADD_CYCLE);
+    },
+    resetCycle({ commit }) {
+      commit(types.RESET_CYCLE);
     },
     addTotalTime({ commit }) {
       commit(types.ADD_TOTAL_TIME);
