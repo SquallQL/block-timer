@@ -1,6 +1,6 @@
 <script>
 import "./TimerSetup.css";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TimerSetup",
@@ -16,12 +16,13 @@ export default {
   },
   data() {
     return {
-      isHoveringStart: false,
+      isHoveringStartBtn: false,
       isInterval: true,
       isInfinite: false,
     };
   },
   computed: {
+    ...mapGetters(["currentRun", "selectedTimerID"]),
     intervalID() {
       return `interval-${this.index}`;
     },
@@ -29,16 +30,20 @@ export default {
       return `repeat-${this.index}`;
     },
     isActiveTimer() {
-      return this.selectedTimerID === this.index;
+      return this.currentRun.isActive && this.selectedTimerID === this.index;
     },
     startText() {
-      return this.isActiveTimer ? "Current" : "Start";
+      return this.isActiveTimer ? "Stop" : "Start";
     },
   },
   methods: {
-    ...mapActions(["toggleIntervalTimer", "toggleInfiniteTimer"]),
+    ...mapActions([
+      "toggleTimer",
+      "toggleIntervalTimer",
+      "toggleInfiniteTimer",
+    ]),
     setIsHovering(flag) {
-      this.isHoveringStart = flag;
+      this.isHoveringStartBtn = flag;
     },
   },
 };
@@ -50,6 +55,7 @@ export default {
       <button
         class="start-btn"
         :class="{ 'btn-isActive': isActiveTimer }"
+        @click="toggleTimer(index)"
         @mouseenter="setIsHovering(true)"
         @mouseleave="setIsHovering(false)"
       >
@@ -60,8 +66,8 @@ export default {
       <div
         class="time-row"
         :class="{
-          'time-start-hover': isHoveringStart,
-          'time-isActive': isActiveTimer,
+          'time-isActive': !isHoveringStartBtn && isActiveTimer,
+          'time-start-hover': isHoveringStartBtn,
         }"
       >
         <div class="section">

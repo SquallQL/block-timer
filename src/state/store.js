@@ -44,8 +44,9 @@ export default new Vuex.Store({
     removeTimer(state, id) {
       state.timers = state.timers.filter((_, index) => index !== id);
     },
-    setSelectedTimerID(state, id) {
+    toggleTimer(state, id) {
       state.selectedTimerID = id;
+      state.currentRun.isActive = !state.currentRun.isActive;
     },
     setActiveTime(state, { id, value }) {
       const updateTimer = findTimer(state, id);
@@ -74,6 +75,9 @@ export default new Vuex.Store({
     },
     removeTimer({ commit }, id) {
       commit(types.REMOVE_TIMER, id);
+    },
+    toggleTimer({ commit }, id) {
+      commit(types.START_TIMER, id);
     },
     setSelectedTimerID({ commit }, id) {
       commit(types.SET_SELECTED_TIMER_ID, id);
