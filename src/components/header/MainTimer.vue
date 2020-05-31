@@ -5,13 +5,18 @@ import "./MainTimer.css";
 export default {
   name: "MainTimer",
   props: {},
-  data() {
-    return {
-      time: "00:00",
-    };
-  },
   computed: {
-    ...mapGetters(["currentRunningTimer", "timers"]),
+    ...mapGetters(["currentRun", "currentRunningTimer", "timers"]),
+    isActive() {
+      return this.currentRun.isActive;
+    },
+    time() {
+      if (!this.isActive) {
+        return "00:00";
+      }
+
+      return this.currentRun.time;
+    },
   },
   methods: {
     ...mapActions([

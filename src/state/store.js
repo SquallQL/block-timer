@@ -19,6 +19,7 @@ export default new Vuex.Store({
     currentRun: {
       cycle: 1,
       isActive: false,
+      time: 0,
     },
     timers: [
       defaultTimer,
@@ -47,6 +48,9 @@ export default new Vuex.Store({
     toggleTimer(state, id) {
       state.selectedTimerID = id;
       state.currentRun.isActive = !state.currentRun.isActive;
+      if (state.currentRun.isActive) {
+        state.currentRun.time = state.timers[id].active;
+      }
     },
     setActiveTime(state, { id, value }) {
       const updateTimer = findTimer(state, id);
