@@ -26,7 +26,9 @@ export default {
 
 <template>
   <div id="app">
-    <total-timer />
+    <div class="total-timer-container">
+      <total-timer />
+    </div>
     <main-timer-details />
     <main-timer />
     <div>

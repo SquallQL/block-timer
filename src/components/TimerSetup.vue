@@ -56,8 +56,8 @@ export default {
   watch: {
     isDone(flag) {
       if (flag) {
-        this.resetCycle();
         this.$refs["start-btn"].click();
+        this.resetCycle();
       }
     },
   },
@@ -113,6 +113,7 @@ export default {
             <span v-else>&#8734;</span>
           </div>
         </div>
+        <div class="check-spacer"></div>
         <div class="check-section">
           <div class="check-option">
             <input

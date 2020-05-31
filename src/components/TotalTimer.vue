@@ -14,7 +14,7 @@ export default {
 <template>
   <div class="root">
     <p class="total-timer">
-      Workout total timer: <strong class="time">{{ totalTime }}</strong>
+      Workout time: <strong class="time">{{ totalTime }}</strong>
     </p>
   </div>
 </template>

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
 
-  margin-top: 60px;
+  margin-top: 32px;
   width: 75%;
 
   color: #2c3e50;
@@ -12,6 +12,10 @@
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.total-timer-container {
+  margin-bottom: 32px;
 }
 
 body {
