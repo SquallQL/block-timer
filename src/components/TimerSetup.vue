@@ -22,7 +22,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentRun", "selectedTimerID"]),
+    ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
     intervalID() {
       return `interval-${this.index}`;
     },
@@ -48,9 +48,17 @@ export default {
       "toggleIntervalTimer",
       "toggleInfiniteTimer",
       "resetCycle",
+      "toggleWorkoutStarted",
     ]),
     setIsHovering(flag) {
       this.isHoveringStartBtn = flag;
+    },
+    toggleStartBtn() {
+      if (!this.isWorkoutStarted) {
+        this.toggleWorkoutStarted();
+      }
+
+      this.toggleTimer(this.index);
     },
   },
   watch: {
@@ -70,7 +78,7 @@ export default {
       <button
         class="start-btn"
         :class="{ 'btn-isActive': isActiveTimer }"
-        @click="toggleTimer(index)"
+        @click="toggleStartBtn"
         @mouseenter="setIsHovering(true)"
         @mouseleave="setIsHovering(false)"
         ref="start-btn"

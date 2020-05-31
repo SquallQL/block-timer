@@ -4,6 +4,7 @@ export const START_TIMER = "toggleTimer";
 export const ADD_CYCLE = "addCycle";
 export const RESET_CYCLE = "resetCycle";
 export const ADD_TOTAL_TIME = "addTotalTime";
+export const TOGGLE_WORKOUT_STARTED = "toggleWorkoutStarted";
 
 export const SET_SELECTED_TIMER_ID = "setSelectedTimerID";
 export const SET_ACTIVE_TIMER = "setActiveTime";

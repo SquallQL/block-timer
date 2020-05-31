@@ -17,6 +17,7 @@ export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
     totalTime: 0,
+    isWorkoutStarted: false,
     currentRun: {
       cycle: 0,
       isActive: false,
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     ],
   },
   getters: {
+    isWorkoutStarted: (state) => state.isWorkoutStarted,
     currentRun: (state) => state.currentRun,
     currentRunningTimer: (state) => state.timers[state.selectedTimerID],
     selectedTimerID: (state) => state.selectedTimerID,
@@ -53,6 +55,9 @@ export default new Vuex.Store({
       if (state.currentRun.isActive) {
         state.currentRun.time = state.timers[id].active;
       }
+    },
+    toggleWorkoutStarted(state) {
+      state.isWorkoutStarted = !state.isWorkoutStarted;
     },
     addCycle(state) {
       state.currentRun.cycle += 1;
@@ -93,6 +98,9 @@ export default new Vuex.Store({
     },
     toggleTimer({ commit }, id) {
       commit(types.START_TIMER, id);
+    },
+    toggleWorkoutStarted({ commit }) {
+      commit(types.TOGGLE_WORKOUT_STARTED);
     },
     addCycle({ commit }) {
       commit(types.ADD_CYCLE);

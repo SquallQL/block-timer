@@ -7,19 +7,18 @@ export default {
   data() {
     return {
       intervalObject: null,
-      isStarted: false,
     };
   },
   computed: {
-    ...mapGetters(["totalTime"]),
+    ...mapGetters(["totalTime", "isWorkoutStarted"]),
     btnText() {
-      return this.isStarted ? "Finish Workout" : "Start Workout";
+      return this.isWorkoutStarted ? "Finish Workout" : "Start Workout";
     },
   },
   methods: {
-    ...mapActions(["addTotalTime"]),
+    ...mapActions(["addTotalTime", "toggleWorkoutStarted"]),
     toggleTotalTimer() {
-      if (this.isStarted) {
+      if (this.isWorkoutStarted) {
         clearInterval(this.intervalObject);
       } else {
         this.intervalObject = setInterval(() => {
@@ -27,7 +26,15 @@ export default {
         }, 1000);
       }
 
-      this.isStarted = !this.isStarted;
+      this.toggleWorkoutStarted();
+    },
+  },
+  watch: {
+    isWorkoutStarted(flag) {
+      // TODO: Start the timer if it comes from the setup
+      if (flag) {
+        this.toggleTotalTimer();
+      }
     },
   },
 };
