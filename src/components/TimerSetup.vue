@@ -1,5 +1,6 @@
 <script>
 import "./TimerSetup.css";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TimerSetup",
@@ -15,12 +16,13 @@ export default {
   },
   data() {
     return {
-      isHoveringStart: false,
-      isInterval: true,
-      isRepeat: false,
+      isHoveringStartBtn: false,
+      isInterval: this.timer.isInterval,
+      isInfinite: this.timer.isInfinite,
     };
   },
   computed: {
+    ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
     intervalID() {
       return `interval-${this.index}`;
     },
@@ -28,15 +30,43 @@ export default {
       return `repeat-${this.index}`;
     },
     isActiveTimer() {
-      return this.selectedTimerID === this.index;
+      return this.currentRun.isActive && this.selectedTimerID === this.index;
     },
     startText() {
-      return this.isActiveTimer ? "Current" : "Start";
+      return this.isActiveTimer ? "Stop" : "Start";
+    },
+    canEdit() {
+      return !this.isActiveTimer;
+    },
+    isDone() {
+      return this.currentRun.cycle >= this.timer.cycle;
     },
   },
   methods: {
+    ...mapActions([
+      "toggleTimer",
+      "toggleIntervalTimer",
+      "toggleInfiniteTimer",
+      "resetCycle",
+      "toggleWorkoutStarted",
+    ]),
     setIsHovering(flag) {
-      this.isHoveringStart = flag;
+      this.isHoveringStartBtn = flag;
+    },
+    toggleStartBtn() {
+      if (!this.isWorkoutStarted) {
+        this.toggleWorkoutStarted();
+      }
+
+      this.toggleTimer(this.index);
+    },
+  },
+  watch: {
+    isDone(flag) {
+      if (flag) {
+        this.$refs["start-btn"].click();
+        this.resetCycle();
+      }
     },
   },
 };
@@ -48,8 +78,10 @@ export default {
       <button
         class="start-btn"
         :class="{ 'btn-isActive': isActiveTimer }"
+        @click="toggleStartBtn"
         @mouseenter="setIsHovering(true)"
         @mouseleave="setIsHovering(false)"
+        ref="start-btn"
       >
         {{ startText }}
       </button>
@@ -58,8 +90,8 @@ export default {
       <div
         class="time-row"
         :class="{
-          'time-start-hover': isHoveringStart,
-          'time-isActive': isActiveTimer,
+          'time-isActive': !isHoveringStartBtn && isActiveTimer,
+          'time-start-hover': isHoveringStartBtn,
         }"
       >
         <div class="section">
@@ -85,10 +117,11 @@ export default {
           <div class="subtitle">Cycle</div>
           <div class="number">
             <span class="time-symbol">x</span>
-            <span v-if="!isRepeat">{{ timer.cycle }}</span>
+            <span v-if="!isInfinite">{{ timer.cycle }}</span>
             <span v-else>&#8734;</span>
           </div>
         </div>
+        <div class="check-spacer"></div>
         <div class="check-section">
           <div class="check-option">
             <input
@@ -96,6 +129,8 @@ export default {
               type="checkbox"
               value="interval"
               v-model="isInterval"
+              @click="toggleIntervalTimer(index)"
+              :disabled="!canEdit"
             />
             <label :for="intervalID">Interval timer</label>
           </div>
@@ -104,7 +139,9 @@ export default {
               :id="repeatID"
               type="checkbox"
               value="repeat"
-              v-model="isRepeat"
+              v-model="isInfinite"
+              @click="toggleInfiniteTimer(index)"
+              :disabled="!canEdit"
             />
             <label :for="repeatID">Repeat forever</label>
           </div>

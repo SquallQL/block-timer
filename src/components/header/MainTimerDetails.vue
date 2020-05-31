@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-  <div class="details-root">
+  <div class="details-root" :class="{ 'details-hidden': !isActive }">
     <span :class="{ 'active-time': isInterval }">
       <span>{{ activeText }}</span>
       <span v-if="isActive">{{ currentRunningTimer.active }}</span>
@@ -42,7 +42,7 @@ export default {
       <span v-if="isInfinite">&#8734;</span>
       <span v-else>
         <template v-if="isActive">
-          {{ currentRun.cycle }}/{{ currentRunningTimer.cycle }}
+          {{ currentRun.cycle + 1 }}/{{ currentRunningTimer.cycle }}
         </template>
         <template v-else>
           -/-

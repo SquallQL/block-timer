@@ -8,17 +8,20 @@ Vue.use(Vuex);
 const defaultTimer = {
   isInterval: true,
   isInfinite: false,
-  active: 30,
-  rest: 10,
-  cycle: 3,
+  active: 3,
+  rest: 3,
+  cycle: 2,
 };
 
 export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
+    totalTime: 0,
+    isWorkoutStarted: false,
     currentRun: {
-      cycle: 1,
+      cycle: 0,
       isActive: false,
+      time: 0,
     },
     timers: [
       defaultTimer,
@@ -26,16 +29,18 @@ export default new Vuex.Store({
         isInterval: false,
         isInfinite: true,
         active: 60,
-        rest: 0,
-        cycle: 0,
+        rest: 10,
+        cycle: 3,
       },
     ],
   },
   getters: {
+    isWorkoutStarted: (state) => state.isWorkoutStarted,
     currentRun: (state) => state.currentRun,
     currentRunningTimer: (state) => state.timers[state.selectedTimerID],
     selectedTimerID: (state) => state.selectedTimerID,
     timers: (state) => state.timers,
+    totalTime: (state) => state.totalTime,
   },
   mutations: {
     addTimer(state) {
@@ -44,8 +49,24 @@ export default new Vuex.Store({
     removeTimer(state, id) {
       state.timers = state.timers.filter((_, index) => index !== id);
     },
-    setSelectedTimerID(state, id) {
+    toggleTimer(state, id) {
       state.selectedTimerID = id;
+      state.currentRun.isActive = !state.currentRun.isActive;
+      if (state.currentRun.isActive) {
+        state.currentRun.time = state.timers[id].active;
+      }
+    },
+    toggleWorkoutStarted(state) {
+      state.isWorkoutStarted = !state.isWorkoutStarted;
+    },
+    addCycle(state) {
+      state.currentRun.cycle += 1;
+    },
+    resetCycle(state) {
+      state.currentRun.cycle = 0;
+    },
+    addTotalTime(state) {
+      state.totalTime += 1;
     },
     setActiveTime(state, { id, value }) {
       const updateTimer = findTimer(state, id);
@@ -74,6 +95,21 @@ export default new Vuex.Store({
     },
     removeTimer({ commit }, id) {
       commit(types.REMOVE_TIMER, id);
+    },
+    toggleTimer({ commit }, id) {
+      commit(types.START_TIMER, id);
+    },
+    toggleWorkoutStarted({ commit }) {
+      commit(types.TOGGLE_WORKOUT_STARTED);
+    },
+    addCycle({ commit }) {
+      commit(types.ADD_CYCLE);
+    },
+    resetCycle({ commit }) {
+      commit(types.RESET_CYCLE);
+    },
+    addTotalTime({ commit }) {
+      commit(types.ADD_TOTAL_TIME);
     },
     setSelectedTimerID({ commit }, id) {
       commit(types.SET_SELECTED_TIMER_ID, id);
