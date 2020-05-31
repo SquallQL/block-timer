@@ -44,7 +44,6 @@ export default {
 
         this.intervalObject = setInterval(() => {
           this.countdown -= 1;
-          this.addTotalTime();
         }, 1000);
       }
     },
