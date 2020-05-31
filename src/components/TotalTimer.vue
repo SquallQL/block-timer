@@ -18,7 +18,7 @@ export default {
   methods: {
     ...mapActions(["addTotalTime", "toggleWorkoutStarted"]),
     toggleTotalTimer() {
-      if (this.isWorkoutStarted) {
+      if (this.intervalObject && this.isWorkoutStarted) {
         clearInterval(this.intervalObject);
       } else {
         this.intervalObject = setInterval(() => {
@@ -31,8 +31,8 @@ export default {
   },
   watch: {
     isWorkoutStarted(flag) {
-      // TODO: Start the timer if it comes from the setup
-      if (flag) {
+      if (flag && !this.intervalObject) {
+        this.toggleWorkoutStarted();
         this.toggleTotalTimer();
       }
     },
