@@ -17,7 +17,11 @@ export default {
       return this.currentRun.isActive;
     },
     isInterval() {
+      console.log(this.currentRunningTimer);
       return this.currentRunningTimer.isInterval;
+    },
+    isGettingReady() {
+      return this.isActive && this.isInterval && this.intervalState === "ready";
     },
     isActiveTime() {
       return (
@@ -40,7 +44,9 @@ export default {
       clearInterval(this.intervalObject);
 
       if (flag) {
-        this.countdown = this.currentRun.time;
+        this.intervalState = "ready";
+
+        this.countdown = 3;
 
         this.intervalObject = setInterval(() => {
           this.countdown -= 1;
@@ -50,16 +56,25 @@ export default {
     countdown(val) {
       if (val === 0) {
         if (this.isInterval) {
-          if (this.intervalState === "active") {
-            this.intervalState = "rest";
-            this.countdown = this.currentRunningTimer.rest;
-          } else {
-            this.intervalState = "active";
-            this.countdown = this.currentRunningTimer.active;
+          switch (this.intervalState) {
+            case "ready":
+              this.intervalState = "active";
+              this.countdown = this.currentRunningTimer.active;
+              break;
 
-            if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
-              this.addCycle();
-            }
+            case "active":
+              this.intervalState = "rest";
+              this.countdown = this.currentRunningTimer.rest;
+              break;
+
+            default:
+              this.intervalState = "active";
+              this.countdown = this.currentRunningTimer.active;
+
+              if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
+                this.addCycle();
+              }
+              break;
           }
         } else {
           this.countdown = this.currentRunningTimer.active;
@@ -81,7 +96,8 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="main-timer-root">
+    <h2 v-if="isGettingReady" class="getting-ready-text">Get ready in:</h2>
     <h1
       class="timer"
       :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
