@@ -1,6 +1,21 @@
-.timer {
-  margin-top: 0;
+.main-timer-root {
+  position: relative;
 
   font-family: "Allerta Stencil";
+}
+
+.timer {
+  margin-top: 22px;
+
   font-size: 72px;
+}
+
+.getting-ready-text {
+  position: absolute;
+  top: -10px;
+  left: -40px;
+
+  font-size: 20px;
+
+  white-space: nowrap;
 }

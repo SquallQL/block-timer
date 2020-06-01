@@ -42,7 +42,7 @@ export default {
       return !this.isActiveTimer;
     },
     isDone() {
-      return this.currentRun.cycle >= this.timer.cycle;
+      return this.isActiveTimer && this.currentRun.cycle >= this.timer.cycle;
     },
   },
   methods: {
