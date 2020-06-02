@@ -108,3 +108,15 @@
 
   border-left: 1px solid #636363;
 }
+
+.default-input {
+  text-align: center;
+  width: 50px;
+
+  background-color: transparent;
+  border: none;
+}
+
+.default-input:focus {
+  border-bottom: 2px solid #ff7373;
+}
