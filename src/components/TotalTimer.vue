@@ -11,6 +11,9 @@ export default {
   },
   computed: {
     ...mapGetters(["totalTime", "isWorkoutStarted"]),
+    formattedTime() {
+      return this.totalTime < 10 ? `0${this.totalTime}` : this.totalTime;
+    },
     btnText() {
       return this.isWorkoutStarted ? "Finish Workout" : "Start Workout";
     },
@@ -43,7 +46,7 @@ export default {
 <template>
   <div class="total-timer-root">
     <p class="total-timer">
-      Workout time: <strong class="time">{{ totalTime }}</strong>
+      Workout time: <strong class="time">{{ formattedTime }}</strong>
     </p>
     <button class="workout-start-btn" @click="toggleTotalTimer">
       {{ btnText }}

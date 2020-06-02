@@ -36,6 +36,10 @@ export default {
         return "00:00";
       }
 
+      if (this.countdown < 10) {
+        return `0${this.countdown}`;
+      }
+
       return this.countdown;
     },
   },
