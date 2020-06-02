@@ -82,6 +82,7 @@ export default {
           }
         } else {
           this.countdown = this.currentRunningTimer.active;
+          this.addCycle();
         }
       }
     },
