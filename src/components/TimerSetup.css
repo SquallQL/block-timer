@@ -115,6 +115,8 @@
 
   background-color: transparent;
   border: none;
+
+  border-bottom: 2px solid transparent;
 }
 
 .default-input:focus {
