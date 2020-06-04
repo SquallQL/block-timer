@@ -120,14 +120,14 @@ export default {
       </button>
     </div>
     <div class="wrapper">
-      <div class="wrapper-inside">
-        <div
-          class="time-row"
-          :class="{
-            'time-isActive': !isHoveringStartBtn && isActiveTimer,
-            'time-start-hover': isHoveringStartBtn,
-          }"
-        >
+      <div
+        class="wrapper-inside"
+        :class="{
+          'time-isActive': !isHoveringStartBtn && isActiveTimer,
+          'time-start-hover': isHoveringStartBtn,
+        }"
+      >
+        <div class="time-row">
           <div class="section">
             <div class="subtitle" :class="{ 'subtitle-hidden': !isInterval }">
               Active
