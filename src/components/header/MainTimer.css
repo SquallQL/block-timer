@@ -1,7 +1,7 @@
 .main-timer-root {
   position: relative;
 
-  font-family: "Allerta Stencil";
+  font-family: monospace;
 }
 
 .timer {

@@ -1,6 +1,7 @@
 <script>
 import "./TotalTimer.css";
 import { mapGetters, mapActions } from "vuex";
+import { formatTime } from "../util/timeUtils";
 
 export default {
   name: "TotalTimer",
@@ -13,6 +14,9 @@ export default {
     ...mapGetters(["totalTime", "isWorkoutStarted"]),
     btnText() {
       return this.isWorkoutStarted ? "Finish Workout" : "Start Workout";
+    },
+    formattedTime() {
+      return formatTime(this.totalTime);
     },
   },
   methods: {
@@ -43,7 +47,8 @@ export default {
 <template>
   <div class="total-timer-root">
     <p class="total-timer">
-      Workout time: <strong class="time">{{ totalTime }}</strong>
+      Workout time:
+      <strong class="time">{{ formattedTime }}</strong>
     </p>
     <button class="workout-start-btn" @click="toggleTotalTimer">
       {{ btnText }}

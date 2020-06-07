@@ -17,7 +17,6 @@ export default {
       return this.currentRun.isActive;
     },
     isInterval() {
-      console.log(this.currentRunningTimer);
       return this.currentRunningTimer.isInterval;
     },
     isGettingReady() {
@@ -34,6 +33,10 @@ export default {
     time() {
       if (!this.isActive) {
         return "00:00";
+      }
+
+      if (this.countdown < 10) {
+        return `0${this.countdown}`;
       }
 
       return this.countdown;
@@ -55,6 +58,12 @@ export default {
     },
     countdown(val) {
       if (val === 0) {
+        const sound = document.getElementById("beep_long");
+
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play();
+
         if (this.isInterval) {
           switch (this.intervalState) {
             case "ready":
@@ -78,7 +87,13 @@ export default {
           }
         } else {
           this.countdown = this.currentRunningTimer.active;
+          this.addCycle();
         }
+      } else if (val <= 3) {
+        const sound = document.getElementById("beep_short");
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play();
       }
     },
   },

@@ -9,10 +9,6 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap"
-      rel="stylesheet"
-    />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -23,6 +19,12 @@
         continue.</strong
       >
     </noscript>
+    <audio id="beep_short">
+      <source src="./beep_short.mp3" />
+    </audio>
+    <audio id="beep_long">
+      <source src="./beep_long.mp3" />
+    </audio>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
