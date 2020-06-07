@@ -44,7 +44,7 @@ export default {
     <span>
       <span class="details-spacer">|</span>
       <span>Cycle: </span>
-      <span v-if="isInfinite">&#8734;</span>
+      <span v-if="isInfinite">{{ currentRun.cycle + 1 }}</span>
       <span v-else>
         <template v-if="isActive">
           {{ currentRun.cycle + 1 }}/{{ currentRunningTimer.cycle }}
