@@ -17,7 +17,6 @@ export default {
       return this.currentRun.isActive;
     },
     isInterval() {
-      console.log(this.currentRunningTimer);
       return this.currentRunningTimer.isInterval;
     },
     isGettingReady() {

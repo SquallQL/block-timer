@@ -24,7 +24,7 @@ export default new Vuex.Store({
       time: 0,
     },
     timers: [
-      defaultTimer,
+      { ...defaultTimer },
       {
         isInterval: false,
         isInfinite: false,
@@ -44,16 +44,18 @@ export default new Vuex.Store({
   },
   mutations: {
     addTimer(state) {
-      state.timers.push(defaultTimer);
+      state.timers.push({ ...defaultTimer });
     },
     removeTimer(state, id) {
       state.timers = state.timers.filter((_, index) => index !== id);
     },
     toggleTimer(state, id) {
       state.selectedTimerID = id;
-      state.currentRun.isActive = !state.currentRun.isActive;
-      if (state.currentRun.isActive) {
-        state.currentRun.time = state.timers[id].active;
+
+      // If the toggle timer is the same id as current active,
+      // we toggle it off.
+      if (state.selectedTimerID === id) {
+        state.currentRun.isActive = !state.currentRun.isActive;
       }
     },
     toggleWorkoutStarted(state) {

@@ -17,9 +17,9 @@ export default {
   },
   data() {
     return {
-      activeTime: this.timer.active,
-      restTime: this.timer.rest,
-      currentCycle: this.timer.cycle,
+      activeTime: Number(this.timer.active),
+      restTime: Number(this.timer.rest),
+      timerCycle: Number(this.timer.cycle),
       isHoveringStartBtn: false,
       isInterval: this.timer.isInterval,
       isInfinite: this.timer.isInfinite,
@@ -47,8 +47,8 @@ export default {
     },
     total() {
       return this.isInterval
-        ? formatTime((this.timer.active + this.timer.rest) * this.timer.cycle)
-        : formatTime(this.timer.active * this.timer.cycle);
+        ? formatTime((this.activeTime + this.restTime) * this.timerCycle)
+        : formatTime(this.activeTime * this.timerCycle);
     },
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
       }
     },
     cycleChange() {
-      const castedCycle = Number(this.currentCycle);
+      const castedCycle = Number(this.timerCycle);
 
       if (castedCycle) {
         this.setCycle({ id: this.index, cycle: castedCycle });
@@ -167,7 +167,7 @@ export default {
               <span class="time-symbol">x</span>
               <input
                 v-if="!isInfinite"
-                v-model="currentCycle"
+                v-model="timerCycle"
                 class="default-input number"
                 type="text"
                 @input="cycleChange"
