@@ -43,7 +43,11 @@ export default {
       return !this.isActiveTimer;
     },
     isDone() {
-      return this.isActiveTimer && this.currentRun.cycle >= this.timer.cycle;
+      return (
+        this.isActiveTimer &&
+        !this.isInfinite &&
+        this.currentRun.cycle >= this.timer.cycle
+      );
     },
     total() {
       return this.isInterval
