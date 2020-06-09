@@ -21,18 +21,30 @@
   top: 8px;
   left: 12px;
 
-  color: #ffffff;
+  color: #ff7373;
   padding: 4px 8px;
+  min-width: 200px;
 
   font-size: 18px;
 
-  background-color: transparent;
+  background-color: #ffffff;
   border: 2px solid #ffffff;
 
   cursor: pointer;
 }
 
+.workout-start-btn-active {
+  color: #ffffff;
+
+  background-color: transparent;
+  border: 2px solid #ffffff;
+}
+
 .workout-start-btn:hover {
+  background-color: rgba(255, 255, 255, 70%);
+}
+
+.workout-start-btn-active:hover {
   background-color: rgba(255, 255, 255, 30%);
 }
 

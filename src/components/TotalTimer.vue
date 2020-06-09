@@ -50,7 +50,11 @@ export default {
       Workout time:
       <strong class="time">{{ formattedTime }}</strong>
     </p>
-    <button class="workout-start-btn" @click="toggleTotalTimer">
+    <button
+      class="workout-start-btn"
+      :class="{ 'workout-start-btn-active': isWorkoutStarted }"
+      @click="toggleTotalTimer"
+    >
       {{ btnText }}
     </button>
   </div>
