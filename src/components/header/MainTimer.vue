@@ -64,30 +64,30 @@ export default {
         sound.currentTime = 0;
         sound.play();
 
-        if (this.isInterval) {
-          switch (this.intervalState) {
-            case "ready":
-              this.intervalState = "active";
-              this.countdown = this.currentRunningTimer.active;
-              break;
+        switch (this.intervalState) {
+          case "ready":
+            this.intervalState = "active";
+            this.countdown = this.currentRunningTimer.active;
+            break;
 
-            case "active":
+          case "active":
+            if (this.isInterval) {
               this.intervalState = "rest";
               this.countdown = this.currentRunningTimer.rest;
-              break;
-
-            default:
-              this.intervalState = "active";
+            } else {
               this.countdown = this.currentRunningTimer.active;
+              this.addCycle();
+            }
+            break;
 
-              if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
-                this.addCycle();
-              }
-              break;
-          }
-        } else {
-          this.countdown = this.currentRunningTimer.active;
-          this.addCycle();
+          case "rest":
+            this.intervalState = "active";
+            this.countdown = this.currentRunningTimer.active;
+
+            if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
+              this.addCycle();
+            }
+            break;
         }
       } else if (val <= 3) {
         const sound = document.getElementById("beep_short");
