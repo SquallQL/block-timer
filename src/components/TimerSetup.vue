@@ -165,6 +165,7 @@ export default {
               />
             </div>
           </div>
+
           <div class="section">
             <div class="subtitle">Cycle</div>
             <div class="number">
@@ -181,34 +182,43 @@ export default {
               <span v-else>&#8734;</span>
             </div>
           </div>
-          <div class="check-spacer"></div>
-          <div class="check-section">
-            <div class="check-option">
-              <input
-                :id="intervalID"
-                type="checkbox"
-                value="interval"
-                v-model="isInterval"
-                @click="toggleIntervalTimer(index)"
-                :disabled="!canEdit"
-              />
-              <label :for="intervalID">Interval timer</label>
-            </div>
-            <div class="check-option">
-              <input
-                :id="repeatID"
-                type="checkbox"
-                value="repeat"
-                v-model="isInfinite"
-                @click="toggleInfiniteTimer(index)"
-                :disabled="!canEdit"
-              />
-              <label :for="repeatID">Repeat forever</label>
+          <div class="check-spacer" v-if="!isInfinite"></div>
+
+          <div class="section total-section-desktop" v-if="!isInfinite">
+            <div class="subtitle">Total</div>
+            <div class="small-number">
+              {{ total }}
             </div>
           </div>
         </div>
-        <div v-if="!isInfinite" class="timer-total-time">
-          Length: <strong>{{ total }}</strong>
+        <div class="check-section">
+          <div class="check-option">
+            <input
+              :id="intervalID"
+              type="checkbox"
+              value="interval"
+              v-model="isInterval"
+              @click="toggleIntervalTimer(index)"
+              :disabled="!canEdit"
+            />
+            <label :for="intervalID">Interval timer</label>
+          </div>
+          <div class="check-option">
+            <input
+              :id="repeatID"
+              type="checkbox"
+              value="repeat"
+              v-model="isInfinite"
+              @click="toggleInfiniteTimer(index)"
+              :disabled="!canEdit"
+            />
+            <label :for="repeatID">Repeat forever</label>
+          </div>
+        </div>
+        <div class="total-section-mobile" v-if="!isInfinite">
+          <div class="small-number">
+            Total: <strong>{{ total }}</strong>
+          </div>
         </div>
       </div>
     </div>
