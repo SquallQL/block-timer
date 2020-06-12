@@ -46,16 +46,20 @@ export default {
 
 <template>
   <div class="total-timer-root">
-    <p class="total-timer">
-      Workout time:
-      <strong class="time">{{ formattedTime }}</strong>
-    </p>
-    <button
-      class="workout-start-btn"
-      :class="{ 'workout-start-btn-active': isWorkoutStarted }"
-      @click="toggleTotalTimer"
-    >
-      {{ btnText }}
-    </button>
+    <div class="total-timer-main">
+      <p class="total-timer">
+        Workout time<strong class="time time-desktop"
+          >: {{ formattedTime }}</strong
+        >
+      </p>
+      <button
+        class="workout-start-btn"
+        :class="{ 'workout-start-btn-active': isWorkoutStarted }"
+        @click="toggleTotalTimer"
+      >
+        {{ btnText }}
+      </button>
+    </div>
+    <strong class="time time-mobile">{{ formattedTime }}</strong>
   </div>
 </template>
