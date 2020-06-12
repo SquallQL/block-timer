@@ -4,26 +4,26 @@ export function formatTime(time) {
 
     if (minutes >= 60) {
       const hours = Math.floor(minutes / 60);
-      const formattedMinutes = minutes % (hours * 60);
+      const formattedMinutes = formatBaseNumber(minutes % (hours * 60));
       const seconds = time % (60 * minutes);
 
-      return `${hours}h:${formattedMinutes}m:${formatSeconds(seconds)}s`;
+      return `${hours}h:${formattedMinutes}m:${formatBaseNumber(seconds)}s`;
     } else {
       const seconds = time % (60 * minutes);
 
-      return `${minutes}m:${formatSeconds(seconds)}s`;
+      return `${minutes}m:${formatBaseNumber(seconds)}s`;
     }
   } else if (time < 10) {
-    return formatSeconds(time);
+    return formatBaseNumber(time);
   }
 
-  return time;
+  return time.toString();
 }
 
-export function formatSeconds(num) {
+export function formatBaseNumber(num) {
   if (num < 10) {
     return `0${num}`;
   }
 
-  return num;
+  return num.toString();
 }
