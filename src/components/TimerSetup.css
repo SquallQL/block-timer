@@ -39,11 +39,9 @@
 
 .check-section {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
 
   padding: 0 20px;
+  border-top: 2px dashed #ffc9c9;
 
   font-size: 16px;
 }
@@ -51,6 +49,10 @@
 .number {
   color: #000000;
   font-size: 38px;
+}
+
+.small-number {
+  margin-top: 8px;
 }
 
 .active-time {
@@ -101,7 +103,7 @@
 }
 
 .check-option {
-  margin-bottom: 6px;
+  margin: 6px;
 }
 
 .check-spacer {
@@ -133,6 +135,26 @@
 
   color: #666666;
   font-size: 16px;
+}
 
-  border-top: 2px dashed #ffc9c9;
+.total-section-desktop {
+  padding: 8px;
+}
+
+.total-section-mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .total-section-desktop {
+    display: none;
+  }
+
+  .total-section-mobile {
+    display: block;
+  }
+
+  .check-spacer {
+    display: none;
+  }
 }

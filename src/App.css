@@ -27,3 +27,16 @@ body {
 p {
   margin: 0;
 }
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-right: 8px;
+}
+
+@media (max-width: 600px) {
+  #app {
+    width: 100%;
+    padding: 6px;
+    padding-bottom: 60px;
+  }
+}

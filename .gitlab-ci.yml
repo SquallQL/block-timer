@@ -1,3 +1,14 @@
+stages:
+  - test
+  - deploy
+jest:
+  image: node:latest
+  stage: test
+  script:
+    - npm install --progress=false
+    - npm run test
+  allow_failure: true
+
 pages:
   image: node:latest
   stage: deploy
