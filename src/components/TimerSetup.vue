@@ -50,9 +50,13 @@ export default {
       );
     },
     total() {
+      const castedActive = Number(this.activeTime);
+      const castedRest = Number(this.restTime);
+      const castedCycle = Number(this.timerCycle);
+
       return this.isInterval
-        ? formatTime((this.activeTime + this.restTime) * this.timerCycle)
-        : formatTime(this.activeTime * this.timerCycle);
+        ? formatTime((castedActive + castedRest) * castedCycle)
+        : formatTime(castedActive * castedCycle);
     },
   },
   methods: {
