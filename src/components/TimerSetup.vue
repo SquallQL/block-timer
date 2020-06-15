@@ -83,6 +83,11 @@ export default {
     activeChange() {
       const castedActiveTime = Number(this.activeTime);
 
+      // Invalid input prevent
+      if (isNaN(castedActiveTime)) {
+        this.activeTime = "";
+      }
+
       if (castedActiveTime) {
         this.setActiveTime({ id: this.index, activeTime: castedActiveTime });
       }
