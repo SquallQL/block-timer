@@ -25,14 +25,15 @@ export default {
     :style="svgStyle"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
-    viewBox="0 0 365 365"
+    width="40px"
+    x="0"
+    y="0"
+    viewBox="0 0 45 45"
     xml:space="preserve"
   >
     <g>
-      <rect x="74.5" width="70" height="360" />
-      <rect x="217.5" width="70" height="360" />
+      <rect x="15" y="10" width="4" height="30" />
+      <rect x="25" y="10" width="4" height="30" />
     </g>
   </svg>
 </template>

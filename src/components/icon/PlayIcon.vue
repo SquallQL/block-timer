@@ -25,10 +25,10 @@ export default {
     :style="svgStyle"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
+    x="0"
+    y="0"
+    width="30px"
     viewBox="0 0 210 210"
-    xml:space="preserve"
   >
     <path d="M179.07,105L30.93,210V0L179.07,105z" />
   </svg>

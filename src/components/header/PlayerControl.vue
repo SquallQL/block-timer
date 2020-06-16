@@ -48,7 +48,9 @@ export default {
 
 <template>
   <div class="player-root">
-    <play-icon v-if="isPaused" :onClick="togglePause" :color="currentColor" />
+    <div v-if="isPaused" class="play-padding">
+      <play-icon :onClick="togglePause" :color="currentColor" />
+    </div>
     <pause-icon v-else :onClick="togglePause" :color="currentColor" />
   </div>
 </template>

@@ -33,7 +33,8 @@ export default {
     </div>
     <main-timer-details />
     <main-timer />
-    <player-control v-if="currentRun.isActive" />
+    <!-- <player-control v-if="currentRun.isActive" /> -->
+    <player-control />
     <div>
       <timer-setup
         v-for="(timer, index) in timers"
