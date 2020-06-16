@@ -6,6 +6,7 @@ import MainTimerDetails from "./components/header/MainTimerDetails.vue";
 import TotalTimer from "./components/TotalTimer.vue";
 import TimerSetup from "./components/TimerSetup.vue";
 import AddTimerBtn from "./components/AddTimerBtn.vue";
+import PlayerControl from "./components/header/PlayerControl.vue";
 
 import "./App.css";
 
@@ -17,9 +18,10 @@ export default {
     MainTimerDetails,
     TimerSetup,
     AddTimerBtn,
+    PlayerControl,
   },
   computed: {
-    ...mapGetters(["timers"]),
+    ...mapGetters(["currentRun", "timers"]),
   },
 };
 </script>
@@ -31,6 +33,7 @@ export default {
     </div>
     <main-timer-details />
     <main-timer />
+    <player-control v-if="currentRun.isActive" />
     <div>
       <timer-setup
         v-for="(timer, index) in timers"

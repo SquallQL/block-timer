@@ -18,11 +18,6 @@ export default {
       return this.isInterval ? "Active: " : "Time: ";
     },
   },
-  watch: {
-    currentRunningTimer(val) {
-      console.log(val);
-    },
-  },
 };
 </script>
 
