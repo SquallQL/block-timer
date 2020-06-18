@@ -1,10 +1,12 @@
 export const ADD_TIMER = "addTimer";
 export const REMOVE_TIMER = "removeTimer";
 export const START_TIMER = "toggleTimer";
+export const TOGGLE_PAUSE = "togglePause";
 export const ADD_CYCLE = "addCycle";
 export const RESET_CYCLE = "resetCycle";
 export const ADD_TOTAL_TIME = "addTotalTime";
 export const TOGGLE_WORKOUT_STARTED = "toggleWorkoutStarted";
+export const SET_CURRENT_RUN_STATE = "setCurrentRunState";
 
 export const SET_SELECTED_TIMER_ID = "setSelectedTimerID";
 export const SET_ACTIVE_TIMER = "setActiveTime";

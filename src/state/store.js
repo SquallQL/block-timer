@@ -2,6 +2,7 @@ import Vuex from "vuex";
 import Vue from "vue";
 
 import * as types from "./actionTypes";
+import { READY_STATE } from "../constants/constants";
 
 Vue.use(Vuex);
 
@@ -10,18 +11,20 @@ const defaultTimer = {
   isInfinite: false,
   active: 30,
   rest: 30,
+  ready: 3,
   cycle: 20,
 };
 
 export default new Vuex.Store({
   state: {
     selectedTimerID: 0,
-    totalTime: 0,
     isWorkoutStarted: false,
     currentRun: {
       cycle: 0,
-      isActive: false,
       time: 0,
+      isActive: false,
+      isPaused: false,
+      state: READY_STATE,
     },
     timers: [
       { ...defaultTimer },
@@ -30,6 +33,7 @@ export default new Vuex.Store({
         isInfinite: false,
         active: 60,
         rest: 10,
+        ready: 3,
         cycle: 1,
       },
     ],
@@ -40,7 +44,6 @@ export default new Vuex.Store({
     currentRunningTimer: (state) => state.timers[state.selectedTimerID],
     selectedTimerID: (state) => state.selectedTimerID,
     timers: (state) => state.timers,
-    totalTime: (state) => state.totalTime,
   },
   mutations: {
     addTimer(state) {
@@ -49,14 +52,21 @@ export default new Vuex.Store({
     removeTimer(state, id) {
       state.timers = state.timers.filter((_, index) => index !== id);
     },
+    togglePause(state) {
+      state.currentRun.isPaused = !state.currentRun.isPaused;
+    },
     toggleTimer(state, id) {
-      state.selectedTimerID = id;
-
-      // If the toggle timer is the same id as current active,
-      // we toggle it off.
-      if (state.selectedTimerID === id) {
+      if (id !== state.selectedTimerID) {
+        state.selectedTimerID = id;
+      } else {
         state.currentRun.isActive = !state.currentRun.isActive;
       }
+
+      state.currentRun.isPaused = false;
+      state.currentRun.state = READY_STATE;
+    },
+    setCurrentRunState(state, timerState) {
+      state.currentRun.state = timerState;
     },
     toggleWorkoutStarted(state) {
       state.isWorkoutStarted = !state.isWorkoutStarted;
@@ -66,9 +76,6 @@ export default new Vuex.Store({
     },
     resetCycle(state) {
       state.currentRun.cycle = 0;
-    },
-    addTotalTime(state) {
-      state.totalTime += 1;
     },
     setActiveTime(state, { id, activeTime }) {
       const updateTimer = findTimer(state, id);
@@ -101,6 +108,12 @@ export default new Vuex.Store({
     toggleTimer({ commit }, id) {
       commit(types.START_TIMER, id);
     },
+    togglePause({ commit }) {
+      commit(types.TOGGLE_PAUSE);
+    },
+    setCurrentRunState({ commit }, timerState) {
+      commit(types.SET_CURRENT_RUN_STATE, timerState);
+    },
     toggleWorkoutStarted({ commit }) {
       commit(types.TOGGLE_WORKOUT_STARTED);
     },
@@ -109,9 +122,6 @@ export default new Vuex.Store({
     },
     resetCycle({ commit }) {
       commit(types.RESET_CYCLE);
-    },
-    addTotalTime({ commit }) {
-      commit(types.ADD_TOTAL_TIME);
     },
     setSelectedTimerID({ commit }, id) {
       commit(types.SET_SELECTED_TIMER_ID, id);

@@ -1,14 +1,25 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
+
+import {
+  ACTIVE_STATE,
+  REST_STATE,
+  READY_STATE,
+} from "../../constants/constants";
 import "./MainTimer.css";
 
 export default {
   name: "MainTimer",
+  props: {
+    shouldRewind: {
+      required: true,
+      type: Boolean,
+    },
+  },
   data() {
     return {
       countdown: null,
       intervalObject: null,
-      intervalState: "active",
     };
   },
   computed: {
@@ -16,19 +27,31 @@ export default {
     isActive() {
       return this.currentRun.isActive;
     },
+    isPaused() {
+      return this.currentRun.isPaused;
+    },
     isInterval() {
       return this.currentRunningTimer.isInterval;
     },
+    currentRunState() {
+      return this.currentRun.state;
+    },
     isGettingReady() {
-      return this.isActive && this.isInterval && this.intervalState === "ready";
+      return (
+        this.isActive && this.isInterval && this.currentRunState === READY_STATE
+      );
     },
     isActiveTime() {
       return (
-        this.isActive && this.isInterval && this.intervalState === "active"
+        this.isActive &&
+        this.isInterval &&
+        this.currentRunState === ACTIVE_STATE
       );
     },
     isRestTime() {
-      return this.isActive && this.isInterval && this.intervalState === "rest";
+      return (
+        this.isActive && this.isInterval && this.currentRunState === REST_STATE
+      );
     },
     time() {
       if (!this.isActive) {
@@ -43,16 +66,24 @@ export default {
     },
   },
   watch: {
+    shouldRewind(flag) {
+      if (flag) {
+        this.countdown = this.currentRunningTimer[this.currentRunState];
+        this.$emit("rewindCompleted");
+      }
+    },
     isActive(flag) {
       clearInterval(this.intervalObject);
 
       if (flag) {
-        this.intervalState = "ready";
+        this.setCurrentRunState(READY_STATE);
 
         this.countdown = 3;
 
         this.intervalObject = setInterval(() => {
-          this.countdown -= 1;
+          if (!this.isPaused) {
+            this.countdown -= 1;
+          }
         }, 1000);
       }
     },
@@ -64,15 +95,16 @@ export default {
         sound.currentTime = 0;
         sound.play();
 
-        switch (this.intervalState) {
-          case "ready":
-            this.intervalState = "active";
+        switch (this.currentRunState) {
+          case READY_STATE:
+            this.setCurrentRunState(ACTIVE_STATE);
             this.countdown = this.currentRunningTimer.active;
             break;
 
-          case "active":
+          case ACTIVE_STATE:
             if (this.isInterval) {
-              this.intervalState = "rest";
+              this.setCurrentRunState(REST_STATE);
+
               this.countdown = this.currentRunningTimer.rest;
             } else {
               this.countdown = this.currentRunningTimer.active;
@@ -80,8 +112,9 @@ export default {
             }
             break;
 
-          case "rest":
-            this.intervalState = "active";
+          case REST_STATE:
+            this.setCurrentRunState(ACTIVE_STATE);
+
             this.countdown = this.currentRunningTimer.active;
 
             if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
@@ -105,6 +138,7 @@ export default {
       "setRestTime",
       "addTotalTime",
       "addCycle",
+      "setCurrentRunState",
     ]),
   },
 };

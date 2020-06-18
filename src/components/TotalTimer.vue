@@ -8,10 +8,11 @@ export default {
   data() {
     return {
       intervalObject: null,
+      totalTime: 0,
     };
   },
   computed: {
-    ...mapGetters(["totalTime", "isWorkoutStarted"]),
+    ...mapGetters(["isWorkoutStarted"]),
     btnText() {
       return this.isWorkoutStarted ? "Finish Workout" : "Start Workout";
     },
@@ -20,13 +21,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["addTotalTime", "toggleWorkoutStarted"]),
+    ...mapActions(["toggleWorkoutStarted"]),
     toggleTotalTimer() {
       if (this.intervalObject && this.isWorkoutStarted) {
         clearInterval(this.intervalObject);
       } else {
         this.intervalObject = setInterval(() => {
-          this.addTotalTime();
+          this.totalTime += 1;
         }, 1000);
       }
 
