@@ -24,11 +24,11 @@ export default {
     isPaused() {
       return this.currentRun.isPaused;
     },
-    currentRunState() {
-      return this.currentRun.state;
-    },
     isInterval() {
       return this.currentRunningTimer.isInterval;
+    },
+    currentRunState() {
+      return this.currentRun.state;
     },
     isGettingReady() {
       return (
@@ -64,7 +64,7 @@ export default {
       clearInterval(this.intervalObject);
 
       if (flag) {
-        this.currentRunState = READY_STATE;
+        this.setCurrentRunState(READY_STATE);
 
         this.countdown = 3;
 

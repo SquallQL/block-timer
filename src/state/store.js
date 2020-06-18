@@ -54,16 +54,14 @@ export default new Vuex.Store({
       state.currentRun.isPaused = !state.currentRun.isPaused;
     },
     toggleTimer(state, id) {
-      state.selectedTimerID = id;
-
-      // When you toggle a timer, set the isPaused back to false
-      state.currentRun.isPaused = false;
-
-      // If the toggle timer is the same id as current active,
-      // we toggle it off.
-      if (state.selectedTimerID === id) {
+      if (id !== state.selectedTimerID) {
+        state.selectedTimerID = id;
+      } else {
         state.currentRun.isActive = !state.currentRun.isActive;
       }
+
+      state.currentRun.isPaused = false;
+      state.currentRun.state = READY_STATE;
     },
     setCurrentRunState(state, timerState) {
       state.currentRun.state = timerState;

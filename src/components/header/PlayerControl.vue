@@ -31,7 +31,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentRun"]),
+    ...mapGetters(["currentRun", "selectedTimerID"]),
     isActive() {
       return this.currentRun.isActive;
     },
@@ -49,7 +49,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["togglePause"]),
+    ...mapActions(["togglePause", "toggleTimer"]),
+    stopTimer() {
+      this.toggleTimer(this.selectedTimerID);
+    },
   },
 };
 </script>
@@ -61,6 +64,6 @@ export default {
       <play-icon :onClick="togglePause" :color="currentColor" />
     </div>
     <pause-icon v-else :onClick="togglePause" :color="currentColor" />
-    <stop-icon :onClick="() => 1" :color="currentColor" />
+    <stop-icon :onClick="stopTimer" :color="currentColor" />
   </div>
 </template>
