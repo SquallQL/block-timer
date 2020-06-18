@@ -33,9 +33,8 @@ export default {
     </div>
     <main-timer-details />
     <main-timer />
-    <!-- <player-control v-if="currentRun.isActive" /> -->
-    <player-control />
-    <div>
+    <player-control v-if="currentRun.isActive" />
+    <div class="timer-setup-section">
       <timer-setup
         v-for="(timer, index) in timers"
         :timer="timer"

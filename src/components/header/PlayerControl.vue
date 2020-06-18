@@ -4,6 +4,9 @@ import "./PlayerControl.css";
 
 import PlayIcon from "../icon/PlayIcon.vue";
 import PauseIcon from "../icon/PauseIcon.vue";
+import RepeatIcon from "../icon/RepeatIcon.vue";
+import StopIcon from "../icon/StopIcon.vue";
+
 import {
   ACTIVE_STATE,
   REST_STATE,
@@ -15,6 +18,8 @@ export default {
   components: {
     PlayIcon,
     PauseIcon,
+    RepeatIcon,
+    StopIcon,
   },
   data() {
     return {
@@ -39,6 +44,9 @@ export default {
     currentColor() {
       return this.colors[this.currentRunState];
     },
+    borderStyle() {
+      return `border-color:${this.currentColor}`;
+    },
   },
   methods: {
     ...mapActions(["togglePause"]),
@@ -47,10 +55,12 @@ export default {
 </script>
 
 <template>
-  <div class="player-root">
+  <div class="player-root" :style="borderStyle">
+    <repeat-icon :onClick="() => 2" :color="currentColor" />
     <div v-if="isPaused" class="play-padding">
       <play-icon :onClick="togglePause" :color="currentColor" />
     </div>
     <pause-icon v-else :onClick="togglePause" :color="currentColor" />
+    <stop-icon :onClick="() => 1" :color="currentColor" />
   </div>
 </template>

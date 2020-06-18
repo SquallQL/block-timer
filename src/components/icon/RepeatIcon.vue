@@ -19,22 +19,16 @@ export default {
 </script>
 <template>
   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="50 "
+    height="50"
     version="1.1"
-    id="pause"
     @click="onClick"
     :style="svgStyle"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="50px"
-    height="50px"
-    x="0"
-    y="0"
-    viewBox="0 0 45 45"
-    xml:space="preserve"
   >
     <g>
-      <rect x="15" y="10" width="4" height="25" />
-      <rect x="25" y="10" width="4" height="25" />
+      <rect x="10" y="10" width="4" height="30" />
+      <polygon points="35,10 15,25 35,40" />
     </g>
   </svg>
 </template>

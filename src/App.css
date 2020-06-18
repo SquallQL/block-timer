@@ -18,6 +18,10 @@
   margin-bottom: 32px;
 }
 
+.timer-setup-section {
+  margin-top: 50px;
+}
+
 body {
   display: flex;
   justify-content: center;
