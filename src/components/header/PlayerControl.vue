@@ -53,13 +53,16 @@ export default {
     stopTimer() {
       this.toggleTimer(this.selectedTimerID);
     },
+    rewindTimer() {
+      this.$emit("rewind");
+    },
   },
 };
 </script>
 
 <template>
   <div class="player-root" :style="borderStyle">
-    <repeat-icon :onClick="() => 2" :color="currentColor" />
+    <repeat-icon :onClick="rewindTimer" :color="currentColor" />
     <div v-if="isPaused" class="play-padding">
       <play-icon :onClick="togglePause" :color="currentColor" />
     </div>

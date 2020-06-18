@@ -11,6 +11,7 @@ const defaultTimer = {
   isInfinite: false,
   active: 30,
   rest: 30,
+  ready: 3,
   cycle: 20,
 };
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
         isInfinite: false,
         active: 60,
         rest: 10,
+        ready: 3,
         cycle: 1,
       },
     ],

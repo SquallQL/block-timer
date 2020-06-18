@@ -10,6 +10,12 @@ import "./MainTimer.css";
 
 export default {
   name: "MainTimer",
+  props: {
+    shouldRewind: {
+      required: true,
+      type: Boolean,
+    },
+  },
   data() {
     return {
       countdown: null,
@@ -60,6 +66,12 @@ export default {
     },
   },
   watch: {
+    shouldRewind(flag) {
+      if (flag) {
+        this.countdown = this.currentRunningTimer[this.currentRunState];
+        this.$emit("rewindCompleted");
+      }
+    },
     isActive(flag) {
       clearInterval(this.intervalObject);
 

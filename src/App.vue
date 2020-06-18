@@ -20,6 +20,11 @@ export default {
     AddTimerBtn,
     PlayerControl,
   },
+  data() {
+    return {
+      shouldRewind: false,
+    };
+  },
   computed: {
     ...mapGetters(["currentRun", "timers"]),
   },
@@ -32,8 +37,11 @@ export default {
       <total-timer />
     </div>
     <main-timer-details />
-    <main-timer />
-    <player-control v-if="currentRun.isActive" />
+    <main-timer
+      :shouldRewind="shouldRewind"
+      @rewindCompleted="shouldRewind = false"
+    />
+    <player-control v-if="currentRun.isActive" @rewind="shouldRewind = true" />
     <div class="timer-setup-section">
       <timer-setup
         v-for="(timer, index) in timers"
