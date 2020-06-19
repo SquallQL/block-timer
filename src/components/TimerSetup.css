@@ -129,7 +129,7 @@
 
 .timer-total-time {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 
   padding: 12px 32px;
 

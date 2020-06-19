@@ -1,4 +1,7 @@
 .player-root {
+  position: absolute;
+  left: -70%;
+
   display: flex;
   justify-content: space-evenly;
   align-items: center;

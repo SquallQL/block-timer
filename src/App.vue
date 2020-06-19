@@ -6,7 +6,6 @@ import MainTimerDetails from "./components/header/MainTimerDetails.vue";
 import TotalTimer from "./components/TotalTimer.vue";
 import TimerSetup from "./components/TimerSetup.vue";
 import AddTimerBtn from "./components/AddTimerBtn.vue";
-import PlayerControl from "./components/header/PlayerControl.vue";
 
 import "./App.css";
 
@@ -18,12 +17,6 @@ export default {
     MainTimerDetails,
     TimerSetup,
     AddTimerBtn,
-    PlayerControl,
-  },
-  data() {
-    return {
-      shouldRewind: false,
-    };
   },
   computed: {
     ...mapGetters(["currentRun", "timers"]),
@@ -37,11 +30,7 @@ export default {
       <total-timer />
     </div>
     <main-timer-details />
-    <main-timer
-      :shouldRewind="shouldRewind"
-      @rewindCompleted="shouldRewind = false"
-    />
-    <player-control v-if="currentRun.isActive" @rewind="shouldRewind = true" />
+    <main-timer />
     <div class="timer-setup-section">
       <timer-setup
         v-for="(timer, index) in timers"
