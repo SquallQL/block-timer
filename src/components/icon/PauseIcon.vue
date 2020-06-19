@@ -38,3 +38,14 @@ export default {
     </g>
   </svg>
 </template>
+<style scoped>
+#pause {
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+#pause:hover {
+  transform: scale(1.3);
+}
+</style>
