@@ -27,9 +27,20 @@ export default {
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0"
     y="0"
-    width="30px"
-    viewBox="0 0 210 210"
+    width="50px"
+    height="50px"
   >
-    <path d="M179.07,105L30.93,210V0L179.07,105z" />
+    <polygon points="17,10 40,25 17,40" />
   </svg>
 </template>
+<style scoped>
+#play {
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+#play:hover {
+  transform: scale(1.3);
+}
+</style>

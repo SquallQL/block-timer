@@ -1,5 +1,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
+import PlayerControl from "./PlayerControl.vue";
 
 import {
   ACTIVE_STATE,
@@ -10,16 +11,14 @@ import "./MainTimer.css";
 
 export default {
   name: "MainTimer",
-  props: {
-    shouldRewind: {
-      required: true,
-      type: Boolean,
-    },
+  components: {
+    PlayerControl,
   },
   data() {
     return {
       countdown: null,
       intervalObject: null,
+      shouldRewind: false,
     };
   },
   computed: {
@@ -69,7 +68,7 @@ export default {
     shouldRewind(flag) {
       if (flag) {
         this.countdown = this.currentRunningTimer[this.currentRunState];
-        this.$emit("rewindCompleted");
+        this.shouldRewind = false;
       }
     },
     isActive(flag) {
@@ -153,5 +152,6 @@ export default {
     >
       {{ time }}
     </h1>
+    <player-control v-if="isActive" @rewind="shouldRewind = true" />
   </div>
 </template>

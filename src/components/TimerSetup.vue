@@ -95,12 +95,21 @@ export default {
     restChange() {
       const castedRestTime = Number(this.restTime);
 
+      // Invalid input prevent
+      if (isNaN(castedRestTime)) {
+        this.restTime = "";
+      }
+
       if (castedRestTime) {
         this.setRestTime({ id: this.index, restTime: castedRestTime });
       }
     },
     cycleChange() {
       const castedCycle = Number(this.timerCycle);
+
+      if (isNaN(castedCycle)) {
+        this.timerCycle = "";
+      }
 
       if (castedCycle) {
         this.setCycle({ id: this.index, cycle: castedCycle });
