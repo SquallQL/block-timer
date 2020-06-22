@@ -10,9 +10,36 @@
   justify-content: space-between;
 }
 
+.close-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+
+  width: 30px;
+  height: 30px;
+
+  color: #ffffff;
+  font-weight: 600;
+
+  border-radius: 50%;
+  background-color: #f9abab;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
 .wrapper-inside {
+  position: relative;
+
   border: 4px solid #ffc9c9;
   background-color: rgba(255, 255, 255, 50%);
+
+  padding: 5px;
 }
 
 .time-row {
@@ -40,7 +67,7 @@
 .check-section {
   display: flex;
 
-  padding: 0 20px;
+  padding: 8px 20px;
   border-top: 2px dashed #ffc9c9;
 
   font-size: 16px;
@@ -145,7 +172,20 @@
   display: none;
 }
 
-@media (max-width: 600px) {
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 1s;
+}
+
+.fade-leave-active {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+@media (max-width: 800px) {
   .total-section-desktop {
     display: none;
   }

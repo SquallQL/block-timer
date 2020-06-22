@@ -36,6 +36,9 @@ export default {
     isActiveTimer() {
       return this.currentRun.isActive && this.selectedTimerID === this.index;
     },
+    isStartBtnDisabled() {
+      return this.currentRun.isActive && this.selectedTimerID !== this.index;
+    },
     startText() {
       return this.isActiveTimer ? "Stop" : "Start";
     },
@@ -61,6 +64,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      "removeTimer",
       "setActiveTime",
       "setRestTime",
       "setCycle",
@@ -79,6 +83,7 @@ export default {
       }
 
       this.toggleTimer(this.index);
+      window?.scrollTo(0, 0);
     },
     activeChange() {
       const castedActiveTime = Number(this.activeTime);
@@ -128,117 +133,121 @@ export default {
 </script>
 
 <template>
-  <div class="TimerSetup-root">
-    <div>
-      <button
-        class="start-btn"
-        :class="{ 'btn-isActive': isActiveTimer }"
-        @click="toggleStartBtn"
-        @mouseenter="setIsHovering(true)"
-        @mouseleave="setIsHovering(false)"
-        ref="start-btn"
-      >
-        {{ startText }}
-      </button>
-    </div>
-    <div class="wrapper">
-      <div
-        class="wrapper-inside"
-        :class="{
-          'time-isActive': !isHoveringStartBtn && isActiveTimer,
-          'time-start-hover': isHoveringStartBtn,
-        }"
-      >
-        <div class="time-row">
-          <div class="section">
-            <div class="subtitle" :class="{ 'subtitle-hidden': !isInterval }">
-              Active
+  <transition appear name="fade">
+    <div class="TimerSetup-root">
+      <div>
+        <button
+          class="start-btn"
+          :class="{ 'btn-isActive': isActiveTimer }"
+          @click="toggleStartBtn"
+          @mouseenter="setIsHovering(true)"
+          @mouseleave="setIsHovering(false)"
+          :disabled="isStartBtnDisabled"
+          ref="start-btn"
+        >
+          {{ startText }}
+        </button>
+      </div>
+      <div class="wrapper">
+        <div
+          class="wrapper-inside"
+          :class="{
+            'time-isActive': !isHoveringStartBtn && isActiveTimer,
+            'time-start-hover': isHoveringStartBtn,
+          }"
+        >
+          <div class="close-btn" @click="removeTimer(index)">x</div>
+          <div class="time-row">
+            <div class="section">
+              <div class="subtitle">
+                {{ isInterval ? "Active" : "Time" }}
+              </div>
+              <div>
+                <input
+                  class="default-input number"
+                  :class="{ 'active-time': isInterval }"
+                  type="text"
+                  v-model="activeTime"
+                  @input="activeChange"
+                  maxlength="2"
+                  :disabled="!canEdit"
+                />
+              </div>
             </div>
-            <div>
-              <input
-                class="default-input number"
-                :class="{ 'active-time': isInterval }"
-                type="text"
-                v-model="activeTime"
-                @input="activeChange"
-                maxlength="2"
-                :disabled="!canEdit"
-              />
+            <div v-if="isInterval" class="section">
+              <div class="subtitle">
+                Rest
+              </div>
+              <div class="">
+                <span class="time-symbol">/</span>
+                <input
+                  class="default-input number"
+                  :class="{ 'rest-time': isInterval }"
+                  v-model="restTime"
+                  @input="restChange"
+                  type="text"
+                  maxlength="2"
+                  :disabled="!canEdit"
+                />
+              </div>
             </div>
-          </div>
-          <div v-if="isInterval" class="section">
-            <div class="subtitle">
-              Rest
-            </div>
-            <div class="">
-              <span class="time-symbol">/</span>
-              <input
-                class="default-input number"
-                :class="{ 'rest-time': isInterval }"
-                v-model="restTime"
-                @input="restChange"
-                type="text"
-                maxlength="2"
-                :disabled="!canEdit"
-              />
-            </div>
-          </div>
 
-          <div class="section">
-            <div class="subtitle">Cycle</div>
-            <div class="number">
-              <span class="time-symbol">x</span>
-              <input
-                v-if="!isInfinite"
-                v-model="timerCycle"
-                class="default-input number"
-                type="text"
-                @input="cycleChange"
-                maxlength="2"
-                :disabled="!canEdit"
-              />
-              <span v-else>&#8734;</span>
+            <div class="section">
+              <div class="subtitle">Rep</div>
+              <div class="number">
+                <span class="time-symbol">x</span>
+                <input
+                  v-if="!isInfinite"
+                  v-model="timerCycle"
+                  class="default-input number"
+                  type="text"
+                  @input="cycleChange"
+                  maxlength="2"
+                  :disabled="!canEdit"
+                />
+                <span v-else>&#8734;</span>
+              </div>
+            </div>
+            <div class="check-spacer" v-if="!isInfinite"></div>
+
+            <div class="section total-section-desktop" v-if="!isInfinite">
+              <div class="subtitle">Total</div>
+              <div class="small-number">
+                {{ total }}
+              </div>
             </div>
           </div>
-          <div class="check-spacer" v-if="!isInfinite"></div>
-
-          <div class="section total-section-desktop" v-if="!isInfinite">
-            <div class="subtitle">Total</div>
+          <div class="check-section">
+            <div class="check-option">
+              <input
+                :id="intervalID"
+                type="checkbox"
+                value="interval"
+                v-model="isInterval"
+                @click="toggleIntervalTimer(index)"
+                :disabled="!canEdit"
+              />
+              <label :for="intervalID">Interval timer</label>
+            </div>
+            <div class="check-option">
+              <input
+                :id="repeatID"
+                type="checkbox"
+                value="repeat"
+                v-model="isInfinite"
+                @click="toggleInfiniteTimer(index)"
+                :disabled="!canEdit"
+              />
+              <label :for="repeatID">Repeat forever</label>
+            </div>
+          </div>
+          <div class="total-section-mobile" v-if="!isInfinite">
             <div class="small-number">
-              {{ total }}
+              Total: <strong>{{ total }}</strong>
             </div>
-          </div>
-        </div>
-        <div class="check-section">
-          <div class="check-option">
-            <input
-              :id="intervalID"
-              type="checkbox"
-              value="interval"
-              v-model="isInterval"
-              @click="toggleIntervalTimer(index)"
-              :disabled="!canEdit"
-            />
-            <label :for="intervalID">Interval timer</label>
-          </div>
-          <div class="check-option">
-            <input
-              :id="repeatID"
-              type="checkbox"
-              value="repeat"
-              v-model="isInfinite"
-              @click="toggleInfiniteTimer(index)"
-              :disabled="!canEdit"
-            />
-            <label :for="repeatID">Repeat forever</label>
-          </div>
-        </div>
-        <div class="total-section-mobile" v-if="!isInfinite">
-          <div class="small-number">
-            Total: <strong>{{ total }}</strong>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>

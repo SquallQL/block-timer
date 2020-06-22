@@ -13,7 +13,10 @@ const defaultTimer = {
   rest: 30,
   ready: 3,
   cycle: 20,
+  uid: 0,
 };
+
+let lastUID = 1;
 
 export default new Vuex.Store({
   state: {
@@ -29,6 +32,7 @@ export default new Vuex.Store({
     timers: [
       { ...defaultTimer },
       {
+        uid: 1,
         isInterval: false,
         isInfinite: false,
         active: 60,
@@ -47,10 +51,15 @@ export default new Vuex.Store({
   },
   mutations: {
     addTimer(state) {
-      state.timers.push({ ...defaultTimer });
+      lastUID += 1;
+      state.timers.push({ ...defaultTimer, uid: lastUID });
     },
     removeTimer(state, id) {
-      state.timers = state.timers.filter((_, index) => index !== id);
+      Vue.set(
+        state,
+        "timers",
+        state.timers.filter((_, index) => index !== id)
+      );
     },
     togglePause(state) {
       state.currentRun.isPaused = !state.currentRun.isPaused;
@@ -58,6 +67,7 @@ export default new Vuex.Store({
     toggleTimer(state, id) {
       if (id !== state.selectedTimerID) {
         state.selectedTimerID = id;
+        state.currentRun.isActive = true;
       } else {
         state.currentRun.isActive = !state.currentRun.isActive;
       }
