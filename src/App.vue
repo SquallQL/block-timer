@@ -36,7 +36,7 @@ export default {
         v-for="(timer, index) in timers"
         :timer="timer"
         :index="index"
-        :key="index"
+        :key="timer.uid"
       />
     </div>
     <add-timer-btn />

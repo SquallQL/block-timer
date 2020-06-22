@@ -36,9 +36,7 @@ export default {
       return this.currentRun.state;
     },
     isGettingReady() {
-      return (
-        this.isActive && this.isInterval && this.currentRunState === READY_STATE
-      );
+      return this.isActive && this.currentRunState === READY_STATE;
     },
     isActiveTime() {
       return (
