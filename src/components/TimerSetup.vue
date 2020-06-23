@@ -156,7 +156,13 @@ export default {
             'time-start-hover': isHoveringStartBtn,
           }"
         >
-          <div class="close-btn" @click="removeTimer(index)">x</div>
+          <button
+            class="close-btn"
+            @click="removeTimer(index)"
+            :disabled="isActiveTimer"
+          >
+            x
+          </button>
           <div class="time-row">
             <div class="section">
               <div class="subtitle">
@@ -193,7 +199,7 @@ export default {
             </div>
 
             <div class="section">
-              <div class="subtitle">Rep</div>
+              <div class="subtitle">Cycle</div>
               <div class="number">
                 <span class="time-symbol">x</span>
                 <input
