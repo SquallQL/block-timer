@@ -5,20 +5,10 @@
 }
 
 .timer {
-  margin-top: 22px;
+  margin-top: 62px;
   margin-bottom: 10px;
 
   font-size: 120px;
-}
-
-.getting-ready-text {
-  position: absolute;
-  top: -10px;
-  left: 0px;
-
-  font-size: 20px;
-
-  white-space: nowrap;
 }
 
 @media (max-width: 800px) {

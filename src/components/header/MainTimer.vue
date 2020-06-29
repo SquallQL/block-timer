@@ -143,7 +143,6 @@ export default {
 
 <template>
   <div class="main-timer-root">
-    <h2 v-if="isGettingReady" class="getting-ready-text">Get ready in:</h2>
     <h1
       class="timer"
       :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
