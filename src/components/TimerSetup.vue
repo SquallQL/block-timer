@@ -135,19 +135,18 @@ export default {
 <template>
   <transition appear name="fade">
     <div class="TimerSetup-root">
-      <div>
-        <button
-          class="start-btn"
-          :class="{ 'btn-isActive': isActiveTimer }"
-          @click="toggleStartBtn"
-          @mouseenter="setIsHovering(true)"
-          @mouseleave="setIsHovering(false)"
-          :disabled="isStartBtnDisabled"
-          ref="start-btn"
-        >
-          {{ startText }}
-        </button>
-      </div>
+      <button
+        class="start-btn"
+        :class="{ 'btn-isActive': isActiveTimer }"
+        @click="toggleStartBtn"
+        @mouseenter="setIsHovering(true)"
+        @mouseleave="setIsHovering(false)"
+        :disabled="isStartBtnDisabled"
+        ref="start-btn"
+      >
+        <span class="setup-id"> #{{ index + 1 }} </span>
+        {{ startText }}
+      </button>
       <div class="wrapper">
         <div
           class="wrapper-inside"

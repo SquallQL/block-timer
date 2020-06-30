@@ -61,6 +61,12 @@
   display: none;
 }
 
+.reset-arrow {
+  position: absolute;
+  top: 5px;
+  left: 230px;
+}
+
 @media (max-width: 800px) {
   .workout-start-btn {
     position: fixed;
@@ -77,6 +83,12 @@
     font-weight: 600;
 
     z-index: 2;
+  }
+
+  .reset-arrow {
+    position: absolute;
+    top: 20px;
+    left: 10px;
   }
 
   .time-mobile {
