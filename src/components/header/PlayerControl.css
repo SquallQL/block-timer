@@ -1,6 +1,6 @@
 .player-root {
   position: absolute;
-  left: -70%;
+  left: -25%;
 
   display: flex;
   justify-content: space-evenly;
@@ -11,4 +11,10 @@
 
   background-color: rgba(255, 255, 255, 50%);
   border: 4px solid black;
+}
+
+@media (max-width: 800px) {
+  .player-root {
+    left: -38%;
+  }
 }
