@@ -2,9 +2,13 @@
 import "./TotalTimer.css";
 import { mapGetters, mapActions } from "vuex";
 import { formatTime } from "../util/timeUtils";
+import ArrowCircle from "./icon/ArrowCircle.vue";
 
 export default {
   name: "TotalTimer",
+  components: {
+    ArrowCircle,
+  },
   data() {
     return {
       intervalObject: null,
@@ -33,6 +37,15 @@ export default {
 
       this.toggleWorkoutStarted();
     },
+    resetTimer() {
+      if (confirm("Do you want to restart your total workout time?")) {
+        if (this.isWorkoutStarted) {
+          this.toggleTotalTimer();
+        }
+
+        this.totalTime = 0;
+      }
+    },
   },
   watch: {
     isWorkoutStarted(flag) {
@@ -53,6 +66,9 @@ export default {
           >: {{ formattedTime }}</strong
         >
       </p>
+      <div class="reset-arrow">
+        <arrow-circle :onClick="resetTimer" />
+      </div>
       <button
         class="workout-start-btn"
         :class="{ 'workout-start-btn-active': isWorkoutStarted }"
