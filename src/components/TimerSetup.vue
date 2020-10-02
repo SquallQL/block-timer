@@ -126,7 +126,6 @@ export default {
 
       switch (e.key) {
         case "ArrowRight":
-          console.log(this.$refs[fieldsArray[nextInputIndex]]);
           this.$refs[fieldsArray[nextInputIndex]].focus();
           break;
         case "ArrowLeft":
