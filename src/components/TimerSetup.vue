@@ -5,6 +5,11 @@ import { formatTime } from "../util/timeUtils";
 
 export default {
   name: "TimerSetup",
+  inputRefNames: {
+    active: "activeInput",
+    rest: "restInput",
+    cycle: "cycleInput",
+  },
   props: {
     timer: {
       require: true,
@@ -109,6 +114,26 @@ export default {
         this.setRestTime({ id: this.index, restTime: castedRestTime });
       }
     },
+    changeField(inputName, e) {
+      const { active, rest, cycle } = this.$options.inputRefNames;
+      const fieldsArray = [active, rest, cycle];
+
+      const currentIndex = fieldsArray.indexOf(inputName);
+      const nextInputIndex =
+        fieldsArray.length - 1 === currentIndex ? 0 : currentIndex + 1;
+      const previousInputIndex =
+        currentIndex === 0 ? fieldsArray.length - 1 : currentIndex - 1;
+
+      switch (e.key) {
+        case "ArrowRight":
+          console.log(this.$refs[fieldsArray[nextInputIndex]]);
+          this.$refs[fieldsArray[nextInputIndex]].focus();
+          break;
+        case "ArrowLeft":
+          this.$refs[fieldsArray[previousInputIndex]].focus();
+          break;
+      }
+    },
     cycleChange() {
       const castedCycle = Number(this.timerCycle);
 
@@ -169,11 +194,13 @@ export default {
               </div>
               <div>
                 <input
+                  ref="activeInput"
                   class="default-input number"
                   :class="{ 'active-time': isInterval }"
                   type="text"
                   v-model="activeTime"
                   @input="activeChange"
+                  @keydown="changeField($options.inputRefNames.active, $event)"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
@@ -186,10 +213,12 @@ export default {
               <div class="">
                 <span class="time-symbol">/</span>
                 <input
+                  ref="restInput"
                   class="default-input number"
                   :class="{ 'rest-time': isInterval }"
                   v-model="restTime"
                   @input="restChange"
+                  @keydown="changeField($options.inputRefNames.rest, $event)"
                   type="text"
                   maxlength="2"
                   :disabled="!canEdit"
@@ -204,9 +233,11 @@ export default {
                 <input
                   v-if="!isInfinite"
                   v-model="timerCycle"
+                  ref="cycleInput"
                   class="default-input number"
                   type="text"
                   @input="cycleChange"
+                  @keydown="changeField($options.inputRefNames.cycle, $event)"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
