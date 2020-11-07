@@ -123,13 +123,18 @@ export default {
         fieldsArray.length - 1 === currentIndex ? 0 : currentIndex + 1;
       const previousInputIndex =
         currentIndex === 0 ? fieldsArray.length - 1 : currentIndex - 1;
+      const { target } = e;
 
       switch (e.key) {
         case "ArrowRight":
-          this.$refs[fieldsArray[nextInputIndex]].focus();
+          if (target.selectionStart >= target.value.length) {
+            this.$refs[fieldsArray[nextInputIndex]].focus();
+          }
           break;
         case "ArrowLeft":
-          this.$refs[fieldsArray[previousInputIndex]].focus();
+          if (target.selectionStart === 0) {
+            this.$refs[fieldsArray[previousInputIndex]].focus();
+          }
           break;
       }
     },
