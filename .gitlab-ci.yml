@@ -1,8 +1,15 @@
+image: node:latest
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
 stages:
   - test
   - deploy
 jest:
-  image: node:latest
   stage: test
   script:
     - npm install --progress=false
@@ -10,8 +17,8 @@ jest:
   allow_failure: true
 
 pages:
-  image: node:latest
   stage: deploy
+  needs: ['jest']
   script:
     - npm install --progress=false
     - npm run build
