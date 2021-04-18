@@ -114,30 +114,6 @@ export default {
         this.setRestTime({ id: this.index, restTime: castedRestTime });
       }
     },
-    changeField(inputName, e) {
-      const { active, rest, cycle } = this.$options.inputRefNames;
-      const fieldsArray = [active, rest, cycle];
-
-      const currentIndex = fieldsArray.indexOf(inputName);
-      const nextInputIndex =
-        fieldsArray.length - 1 === currentIndex ? 0 : currentIndex + 1;
-      const previousInputIndex =
-        currentIndex === 0 ? fieldsArray.length - 1 : currentIndex - 1;
-      const { target } = e;
-
-      switch (e.key) {
-        case "ArrowRight":
-          if (target.selectionStart >= target.value.length) {
-            this.$refs[fieldsArray[nextInputIndex]].focus();
-          }
-          break;
-        case "ArrowLeft":
-          if (target.selectionStart === 0) {
-            this.$refs[fieldsArray[previousInputIndex]].focus();
-          }
-          break;
-      }
-    },
     cycleChange() {
       const castedCycle = Number(this.timerCycle);
 
@@ -204,7 +180,6 @@ export default {
                   type="text"
                   v-model="activeTime"
                   @input="activeChange"
-                  @keydown="changeField($options.inputRefNames.active, $event)"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
@@ -222,7 +197,6 @@ export default {
                   :class="{ 'rest-time': isInterval }"
                   v-model="restTime"
                   @input="restChange"
-                  @keydown="changeField($options.inputRefNames.rest, $event)"
                   type="text"
                   maxlength="2"
                   :disabled="!canEdit"
@@ -241,7 +215,6 @@ export default {
                   class="default-input number"
                   type="text"
                   @input="cycleChange"
-                  @keydown="changeField($options.inputRefNames.cycle, $event)"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
