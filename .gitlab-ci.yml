@@ -7,20 +7,25 @@ cache:
     - .npm/
 
 stages:
+  - build
   - test
   - deploy
+
+prepare:
+  stage: build
+  script: npm ci
+
 jest:
   stage: test
+  needs: ['prepare']
   script:
-    - npm install --progress=false
     - npm run test
   allow_failure: true
 
 pages:
   stage: deploy
-  needs: ['jest']
+  needs: ['prepare']
   script:
-    - npm install --progress=false
     - npm run build
     - rm -rf public
     - mkdir public
