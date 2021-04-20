@@ -32,6 +32,9 @@ export default {
     isInterval() {
       return this.currentRunningTimer.isInterval;
     },
+    totalCycle() {
+      return this.currentRunningTimer.cycle;
+    },
     currentRunState() {
       return this.currentRun.state;
     },
@@ -43,6 +46,15 @@ export default {
         this.isActive &&
         this.isInterval &&
         this.currentRunState === ACTIVE_STATE
+      );
+    },
+    isDone() {
+      const isLastRestRep =
+        this.isRestTime && this.currentRun.cycle === this.totalCycle - 1;
+
+      return (
+        !this.isInfinite &&
+        (this.currentRun.cycle >= this.totalCycle || isLastRestRep)
       );
     },
     isRestTime() {
@@ -67,6 +79,12 @@ export default {
       if (flag) {
         this.countdown = this.currentRunningTimer[this.currentRunState];
         this.shouldRewind = false;
+      }
+    },
+    isDone(flag) {
+      if (flag) {
+        this.stopTimer();
+        this.resetCycle();
       }
     },
     isActive(flag) {
@@ -129,13 +147,15 @@ export default {
   },
   methods: {
     ...mapActions([
-      "TimerSetup",
+      "addCycle",
+      "addTotalTime",
       "removeTimer",
+      "resetCycle",
       "setActiveTime",
       "setRestTime",
-      "addTotalTime",
-      "addCycle",
       "setCurrentRunState",
+      "stopTimer",
+      "TimerSetup",
     ]),
   },
 };

@@ -1,6 +1,7 @@
 export const ADD_TIMER = "addTimer";
 export const REMOVE_TIMER = "removeTimer";
 export const START_TIMER = "toggleTimer";
+export const STOP_TIMER = "stopTimer";
 export const TOGGLE_PAUSE = "togglePause";
 export const ADD_CYCLE = "addCycle";
 export const RESET_CYCLE = "resetCycle";

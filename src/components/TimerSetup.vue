@@ -26,20 +26,25 @@ export default {
       restTime: Number(this.timer.rest),
       timerCycle: Number(this.timer.cycle),
       isHoveringStartBtn: false,
-      isInterval: this.timer.isInterval,
-      isInfinite: this.timer.isInfinite,
     };
   },
   computed: {
     ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
-    intervalID() {
-      return `interval-${this.index}`;
-    },
-    repeatID() {
-      return `repeat-${this.index}`;
+
+    canEdit() {
+      return !this.isActiveTimer;
     },
     isActiveTimer() {
       return this.currentRun.isActive && this.selectedTimerID === this.index;
+    },
+    intervalID() {
+      return `interval-${this.index}`;
+    },
+    isInterval() {
+      return this.timer.isInterval;
+    },
+    isInfinite() {
+      return this.timer.isInfinite;
     },
     isStartBtnDisabled() {
       return this.currentRun.isActive && this.selectedTimerID !== this.index;
@@ -47,15 +52,8 @@ export default {
     startText() {
       return this.isActiveTimer ? "Stop" : "Start";
     },
-    canEdit() {
-      return !this.isActiveTimer;
-    },
-    isDone() {
-      return (
-        this.isActiveTimer &&
-        !this.isInfinite &&
-        this.currentRun.cycle >= this.timer.cycle
-      );
+    repeatID() {
+      return `repeat-${this.index}`;
     },
     total() {
       const castedActive = Number(this.activeTime);
@@ -76,7 +74,6 @@ export default {
       "toggleTimer",
       "toggleIntervalTimer",
       "toggleInfiniteTimer",
-      "resetCycle",
       "toggleWorkoutStarted",
     ]),
     setIsHovering(flag) {
@@ -123,14 +120,6 @@ export default {
 
       if (castedCycle) {
         this.setCycle({ id: this.index, cycle: castedCycle });
-      }
-    },
-  },
-  watch: {
-    isDone(flag) {
-      if (flag) {
-        this.$refs["start-btn"].click();
-        this.resetCycle();
       }
     },
   },

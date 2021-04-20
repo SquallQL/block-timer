@@ -64,6 +64,9 @@ export default new Vuex.Store({
     togglePause(state) {
       state.currentRun.isPaused = !state.currentRun.isPaused;
     },
+    stopTimer(state) {
+      state.currentRun.isActive = false;
+    },
     toggleTimer(state, id) {
       if (id !== state.selectedTimerID) {
         state.selectedTimerID = id;
@@ -114,6 +117,9 @@ export default new Vuex.Store({
     },
     removeTimer({ commit }, id) {
       commit(types.REMOVE_TIMER, id);
+    },
+    stopTimer({ commit }) {
+      commit(types.STOP_TIMER);
     },
     toggleTimer({ commit }, id) {
       commit(types.START_TIMER, id);
