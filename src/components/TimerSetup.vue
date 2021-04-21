@@ -61,6 +61,17 @@ export default {
         : formatTime(castedActive * castedCycle);
     },
   },
+  watch: {
+    activeTime() {
+      this.setActiveTime({ id: this.index, activeTime: this.activeTime });
+    },
+    restTime() {
+      this.setRestTime({ id: this.index, restTime: this.restTime });
+    },
+    timerCycle() {
+      this.setCycle({ id: this.index, cycles: this.timerCycle });
+    },
+  },
   methods: {
     ...mapActions([
       "removeTimer",
@@ -72,6 +83,13 @@ export default {
       "toggleInfiniteTimer",
       "toggleWorkoutStarted",
     ]),
+    isNumber(e) {
+      let keyCode = e.keyCode ? e.keyCode : e.which;
+
+      if (keyCode < 48 || keyCode > 57) {
+        e.preventDefault();
+      }
+    },
     setIsHovering(flag) {
       this.isHoveringStartBtn = flag;
     },
@@ -82,41 +100,6 @@ export default {
 
       this.toggleTimer(this.index);
       window?.scrollTo(0, 0);
-    },
-    activeChange() {
-      const castedActiveTime = Number(this.activeTime);
-
-      // Invalid input prevent
-      if (isNaN(castedActiveTime)) {
-        this.activeTime = "";
-      }
-
-      if (castedActiveTime) {
-        this.setActiveTime({ id: this.index, activeTime: castedActiveTime });
-      }
-    },
-    restChange() {
-      const castedRestTime = Number(this.restTime);
-
-      // Invalid input prevent
-      if (isNaN(castedRestTime)) {
-        this.restTime = "";
-      }
-
-      if (castedRestTime) {
-        this.setRestTime({ id: this.index, restTime: castedRestTime });
-      }
-    },
-    cycleChange() {
-      const castedCycle = Number(this.timerCycle);
-
-      if (isNaN(castedCycle)) {
-        this.timerCycle = "";
-      }
-
-      if (castedCycle) {
-        this.setCycle({ id: this.index, cycle: castedCycle });
-      }
     },
   },
 };
@@ -164,7 +147,7 @@ export default {
                   :class="{ 'active-time': isInterval }"
                   type="text"
                   v-model="activeTime"
-                  @input="activeChange"
+                  @keypress="isNumber"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
@@ -181,7 +164,7 @@ export default {
                   class="default-input number"
                   :class="{ 'rest-time': isInterval }"
                   v-model="restTime"
-                  @input="restChange"
+                  @keypress="isNumber"
                   type="text"
                   maxlength="2"
                   :disabled="!canEdit"
@@ -199,7 +182,7 @@ export default {
                   ref="cycleInput"
                   class="default-input number"
                   type="text"
-                  @input="cycleChange"
+                  @keypress="isNumber"
                   maxlength="2"
                   :disabled="!canEdit"
                 />
