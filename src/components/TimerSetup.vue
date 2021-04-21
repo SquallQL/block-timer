@@ -25,6 +25,8 @@ export default {
       activeTime: Number(this.timer.active),
       restTime: Number(this.timer.rest),
       timerCycle: Number(this.timer.cycle),
+      isInfinite: this.timer.isInfinite,
+      isInterval: this.timer.isInterval,
       isHoveringStartBtn: false,
     };
   },
@@ -39,12 +41,6 @@ export default {
     },
     intervalID() {
       return `interval-${this.index}`;
-    },
-    isInterval() {
-      return this.timer.isInterval;
-    },
-    isInfinite() {
-      return this.timer.isInfinite;
     },
     isStartBtnDisabled() {
       return this.currentRun.isActive && this.selectedTimerID !== this.index;
