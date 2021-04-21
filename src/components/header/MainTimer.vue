@@ -9,6 +9,10 @@ import {
 } from "../../constants/constants";
 import "./MainTimer.css";
 
+const SHORT_BEEP_ID = "beep_short";
+const LONG_BEEP_ID = "beep_long";
+const COUNTDOWN_DEFAULT_VAL = 3;
+
 export default {
   name: "MainTimer",
   components: {
@@ -16,9 +20,10 @@ export default {
   },
   data() {
     return {
-      countdown: null,
+      countdown: COUNTDOWN_DEFAULT_VAL,
       intervalObject: null,
       shouldRewind: false,
+      skipNextSound: false,
     };
   },
   computed: {
@@ -93,7 +98,8 @@ export default {
       if (flag) {
         this.setCurrentRunState(READY_STATE);
 
-        this.countdown = 3;
+        this.resetCountdown();
+        this.playSound(SHORT_BEEP_ID);
 
         this.intervalObject = setInterval(() => {
           if (!this.isPaused) {
@@ -103,45 +109,20 @@ export default {
       }
     },
     countdown(val) {
+      // We only ever want to skip sound once, and that's when we just
+      // switched from on state to another, we don't want an overlapping
+      // short and long sound
+      if (this.skipNextSound) {
+        this.skipNextSound = false;
+        return;
+      }
+
       if (val === 0) {
-        const sound = document.getElementById("beep_long");
-
-        sound.pause();
-        sound.currentTime = 0;
-        sound.play();
-
-        switch (this.currentRunState) {
-          case READY_STATE:
-            this.setCurrentRunState(ACTIVE_STATE);
-            this.countdown = this.currentRunningTimer.active;
-            break;
-
-          case ACTIVE_STATE:
-            if (this.isInterval) {
-              this.setCurrentRunState(REST_STATE);
-
-              this.countdown = this.currentRunningTimer.rest;
-            } else {
-              this.countdown = this.currentRunningTimer.active;
-              this.addCycle();
-            }
-            break;
-
-          case REST_STATE:
-            this.setCurrentRunState(ACTIVE_STATE);
-
-            this.countdown = this.currentRunningTimer.active;
-
-            if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
-              this.addCycle();
-            }
-            break;
-        }
-      } else if (val <= 3) {
-        const sound = document.getElementById("beep_short");
-        sound.pause();
-        sound.currentTime = 0;
-        sound.play();
+        this.playSound(LONG_BEEP_ID);
+        this.skipNextSound = true;
+        this.changeTimerState();
+      } else if (val <= 3 && !this.skipNextSound) {
+        this.playSound(SHORT_BEEP_ID);
       }
     },
   },
@@ -157,6 +138,45 @@ export default {
       "stopTimer",
       "TimerSetup",
     ]),
+    changeTimerState() {
+      switch (this.currentRunState) {
+        case READY_STATE:
+          this.setCurrentRunState(ACTIVE_STATE);
+          this.countdown = this.currentRunningTimer.active;
+          break;
+
+        case ACTIVE_STATE:
+          if (this.isInterval) {
+            this.setCurrentRunState(REST_STATE);
+
+            this.countdown = this.currentRunningTimer.rest;
+          } else {
+            this.countdown = this.currentRunningTimer.active;
+            this.addCycle();
+          }
+          break;
+
+        case REST_STATE:
+          this.setCurrentRunState(ACTIVE_STATE);
+
+          this.countdown = this.currentRunningTimer.active;
+
+          if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
+            this.addCycle();
+          }
+          break;
+      }
+    },
+    playSound(id) {
+      const sound = document.getElementById(id);
+
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play();
+    },
+    resetCountdown() {
+      this.countdown = COUNTDOWN_DEFAULT_VAL;
+    },
   },
 };
 </script>
