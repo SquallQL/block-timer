@@ -69,7 +69,7 @@ export default {
       this.setRestTime({ id: this.index, restTime: this.restTime });
     },
     timerCycle() {
-      this.setCycle({ id: this.index, cycles: this.timerCycle });
+      this.setCycle({ id: this.index, cycle: this.timerCycle });
     },
   },
   methods: {
