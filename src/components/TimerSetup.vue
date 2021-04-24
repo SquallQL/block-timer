@@ -94,9 +94,7 @@ export default {
       this.isHoveringStartBtn = flag;
     },
     toggleStartBtn() {
-      if (!this.isWorkoutStarted) {
-        this.toggleWorkoutStarted();
-      }
+      this.toggleWorkoutStarted();
 
       this.toggleTimer(this.index);
       window?.scrollTo(0, 0);

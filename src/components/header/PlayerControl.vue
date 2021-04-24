@@ -51,9 +51,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["togglePause", "toggleTimer"]),
+    ...mapActions(["togglePause", "toggleTimer", "toggleWorkoutStarted"]),
     stopTimer() {
       this.toggleTimer(this.selectedTimerID);
+      this.toggleWorkoutStarted();
     },
     rewindTimer() {
       this.$emit("rewind");
