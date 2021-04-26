@@ -26,7 +26,7 @@ export default {
       colors: {
         [ACTIVE_STATE]: "#ff7373",
         [REST_STATE]: "#6ac5f9",
-        [READY_STATE]: "#2c3e50",
+        [READY_STATE]: "#000000",
       },
     };
   },
