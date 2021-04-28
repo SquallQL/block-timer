@@ -1,5 +1,6 @@
 <script>
 import "./TimerSetup.css";
+import OptionsMenu from "./ui/OptionsMenu";
 import { mapActions, mapGetters } from "vuex";
 import { formatTime } from "../util/timeUtils";
 
@@ -9,6 +10,9 @@ export default {
     active: "activeInput",
     rest: "restInput",
     cycle: "cycleInput",
+  },
+  components: {
+    OptionsMenu,
   },
   props: {
     timer: {
@@ -114,13 +118,7 @@ export default {
             'time-start-hover': isHoveringStartBtn,
           }"
         >
-          <button
-            class="close-btn"
-            @click="removeTimer(index)"
-            :disabled="isActiveTimer"
-          >
-            x
-          </button>
+          <options-menu :index="index" :is-disabled="isActiveTimer" />
           <div class="time-row">
             <div class="section">
               <div class="subtitle">
