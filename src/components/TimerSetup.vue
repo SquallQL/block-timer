@@ -106,21 +106,9 @@ export default {
 <template>
   <transition appear name="fade">
     <div class="TimerSetup-root">
-      <button
-        class="start-btn"
-        :class="{ 'btn-isActive': isActiveTimer }"
-        @click="toggleStartBtn"
-        @mouseenter="setIsHovering(true)"
-        @mouseleave="setIsHovering(false)"
-        :disabled="isStartBtnDisabled"
-        ref="start-btn"
-      >
-        <span class="setup-id"> #{{ index + 1 }} </span>
-        {{ startText }}
-      </button>
       <div class="wrapper">
         <div
-          class="wrapper-inside"
+          class="wrapper-inside time-start"
           :class="{
             'time-isActive': !isHoveringStartBtn && isActiveTimer,
             'time-start-hover': isHoveringStartBtn,
@@ -227,6 +215,18 @@ export default {
           </div>
         </div>
       </div>
+      <button
+        class="start-btn"
+        :class="{ 'btn-isActive': isActiveTimer }"
+        @click="toggleStartBtn"
+        @mouseenter="setIsHovering(true)"
+        @mouseleave="setIsHovering(false)"
+        :disabled="isStartBtnDisabled"
+        ref="start-btn"
+      >
+        <span class="setup-id"> #{{ index + 1 }} </span>
+        {{ startText }}
+      </button>
     </div>
   </transition>
 </template>
