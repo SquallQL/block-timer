@@ -168,6 +168,7 @@ export default {
             @input="setNewTimerName"
             :value="timerName"
             placeholder="Add timer name"
+            maxlength="24"
           />
           <a class="closeBtn" @click="removeTimer(index)">x</a>
         </div>
