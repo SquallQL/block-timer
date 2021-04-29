@@ -234,7 +234,7 @@ export default {
               </div>
             </div>
             <div class="check-spacer"></div>
-            <div class="section">
+            <div class="section start-btn-section-desktop">
               <button
                 class="start-btn"
                 :class="{
@@ -289,6 +289,22 @@ export default {
             <div class="small-number">
               Total:<strong>{{ total }}</strong>
             </div>
+          </div>
+          <div class="section start-btn-section-mobile">
+            <button
+              class="start-btn"
+              :class="{
+                'btn-isActive': isActiveTimer,
+                'btn-isRest': shouldHaveRestBackground,
+              }"
+              @click="toggleStartBtn"
+              @mouseenter="setIsHovering(true)"
+              @mouseleave="handleStartBtnOut"
+              :disabled="isStartBtnDisabled"
+              ref="start-btn"
+            >
+              {{ startText }}
+            </button>
           </div>
         </div>
       </div>
