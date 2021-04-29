@@ -119,13 +119,17 @@
   right: 24px;
 
   color: #000;
+  font-size: 24px;
+
+  background-color: transparent;
+  border: none;
 
   cursor: pointer;
 
   transition: 0.3s;
 }
 
-.closeBtn:hover {
+.closeBtn:hover:enabled {
   transform: scale(1.4);
 }
 

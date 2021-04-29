@@ -170,7 +170,13 @@ export default {
             placeholder="Add timer name"
             maxlength="24"
           />
-          <a class="closeBtn" @click="removeTimer(index)">x</a>
+          <button
+            class="closeBtn"
+            :disabled="!canEdit"
+            @click="removeTimer(index)"
+          >
+            x
+          </button>
         </div>
         <div
           class="wrapper-inside time-start"
