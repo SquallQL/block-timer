@@ -169,6 +169,7 @@ export default {
             :value="timerName"
             placeholder="Add timer name"
           />
+          <a class="closeBtn" @click="removeTimer(index)">x</a>
         </div>
         <div
           class="wrapper-inside time-start"

@@ -114,6 +114,21 @@
   border-radius: 2rem 2rem 0 0;
 }
 
+.closeBtn {
+  position: absolute;
+  right: 30px;
+
+  color: #000;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.closeBtn:hover {
+  transform: scale(1.4);
+}
+
 .timer-name {
   width: 80%;
 
