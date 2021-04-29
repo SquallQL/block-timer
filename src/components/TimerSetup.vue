@@ -106,17 +106,16 @@ export default {
 <template>
   <transition appear name="fade">
     <div class="TimerSetup-root">
-      <button
-        class="timer-name"
-        :class="{
-          'btn-isActive': isActiveTimer || isHoveringStartBtn,
-          'btn-isRest': isActiveTimer && isHoveringStartBtn,
-        }"
-      >
-        timer #{{ index + 1 }}
-      </button>
-
       <div class="wrapper">
+        <button
+          class="timer-name"
+          :class="{
+            'btn-isActive': isActiveTimer || isHoveringStartBtn,
+            'btn-isRest': isActiveTimer && isHoveringStartBtn,
+          }"
+        >
+          timer #{{ index + 1 }}
+        </button>
         <div
           class="wrapper-inside time-start"
           :class="{
