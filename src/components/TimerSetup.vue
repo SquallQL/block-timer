@@ -104,6 +104,7 @@ export default {
       "setActiveTime",
       "setRestTime",
       "setTimerName",
+      "resetCycle",
       "setCycle",
       "toggleTimer",
       "toggleIntervalTimer",
@@ -133,6 +134,7 @@ export default {
 
     toggleStartBtn() {
       this.toggleWorkoutStarted();
+      this.resetCycle();
 
       this.toggleTimer(this.index);
       window?.scrollTo(0, 0);
