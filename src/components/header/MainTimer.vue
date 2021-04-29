@@ -90,6 +90,7 @@ export default {
       if (flag) {
         this.stopTimer();
         this.resetCycle();
+        this.toggleWorkoutStarted();
       }
     },
     isActive(flag) {
@@ -133,6 +134,7 @@ export default {
       "removeTimer",
       "resetCycle",
       "setCurrentRunState",
+      "toggleWorkoutStarted",
       "stopTimer",
       "TimerSetup",
     ]),
