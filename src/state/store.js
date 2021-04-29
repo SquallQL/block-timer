@@ -7,6 +7,7 @@ import { READY_STATE } from "../constants/constants";
 Vue.use(Vuex);
 
 const defaultTimer = {
+  name: "",
   isInterval: true,
   isInfinite: false,
   active: 30,
@@ -53,6 +54,12 @@ export default new Vuex.Store({
     addTimer(state) {
       lastUID += 1;
       state.timers.push({ ...defaultTimer, uid: lastUID });
+    },
+    setTimerName(state, { id, name }) {
+      console.log(state, id, name);
+      const updateTimer = findTimer(state, id);
+      console.log(state);
+      return (updateTimer.name = name);
     },
     removeTimer(state, id) {
       Vue.set(
@@ -114,6 +121,9 @@ export default new Vuex.Store({
   actions: {
     addTimer({ commit }) {
       commit(types.ADD_TIMER);
+    },
+    setTimerName({ commit }, { id, name }) {
+      commit(types.SET_TIMER_NAME, { id, name });
     },
     removeTimer({ commit }, id) {
       commit(types.REMOVE_TIMER, id);

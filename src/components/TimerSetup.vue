@@ -1,6 +1,7 @@
 <script>
 import "./TimerSetup.css";
 import { mapActions, mapGetters } from "vuex";
+import { debounce } from "lodash";
 import { formatTime } from "../util/timeUtils";
 
 export default {
@@ -25,6 +26,7 @@ export default {
       activeTime: Number(this.timer.active),
       restTime: Number(this.timer.rest),
       timerCycle: Number(this.timer.cycle),
+      timerName: this.timer.name,
       isInfinite: this.timer.isInfinite,
       isInterval: this.timer.isInterval,
       isHoveringStartBtn: false,
@@ -77,6 +79,7 @@ export default {
       "removeTimer",
       "setActiveTime",
       "setRestTime",
+      "setTimerName",
       "setCycle",
       "toggleTimer",
       "toggleIntervalTimer",
@@ -93,6 +96,13 @@ export default {
     setIsHovering(flag) {
       this.isHoveringStartBtn = flag;
     },
+    setNewTimerName: debounce(function(e) {
+      const { value: newName } = e.target;
+
+      this.timerName = newName;
+      this.setTimerName({ id: this.index, name: newName });
+    }, 500),
+
     toggleStartBtn() {
       this.toggleWorkoutStarted();
 
@@ -107,15 +117,20 @@ export default {
   <transition appear name="fade">
     <div class="TimerSetup-root">
       <div class="wrapper">
-        <button
-          class="timer-name"
+        <div
+          class="timer-header-section"
           :class="{
             'btn-isActive': isActiveTimer || isHoveringStartBtn,
             'btn-isRest': isActiveTimer && isHoveringStartBtn,
           }"
         >
-          timer #{{ index + 1 }}
-        </button>
+          <input
+            class="timer-name"
+            @input="setNewTimerName"
+            :value="timerName"
+            placeholder="Add timer name"
+          />
+        </div>
         <div
           class="wrapper-inside time-start"
           :class="{
@@ -146,7 +161,7 @@ export default {
               <div class="subtitle">
                 Rest
               </div>
-              <div class="">
+              <div>
                 <span class="time-symbol">/</span>
                 <input
                   ref="restInput"

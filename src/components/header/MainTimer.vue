@@ -132,8 +132,6 @@ export default {
       "addTotalTime",
       "removeTimer",
       "resetCycle",
-      "setActiveTime",
-      "setRestTime",
       "setCurrentRunState",
       "stopTimer",
       "TimerSetup",
