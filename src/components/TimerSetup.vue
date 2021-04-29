@@ -126,6 +126,10 @@ export default {
         >
           <input
             class="timer-name"
+            :class="{
+              'timer-name-active': isHoveringStartBtn || isActiveTimer,
+              'timer-name-rest': isHoveringStartBtn && isActiveTimer,
+            }"
             @input="setNewTimerName"
             :value="timerName"
             placeholder="Add timer name"
