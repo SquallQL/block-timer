@@ -30,6 +30,7 @@ export default {
       isInfinite: this.timer.isInfinite,
       isInterval: this.timer.isInterval,
       isHoveringStartBtn: false,
+      isTransitioningState: false,
     };
   },
   computed: {
@@ -46,6 +47,29 @@ export default {
     },
     isStartBtnDisabled() {
       return this.currentRun.isActive && this.selectedTimerID !== this.index;
+    },
+    shouldHaveActiveBackground() {
+      const justTransitionedToRest =
+        this.isTransitioningState && !this.isActiveTimer;
+
+      if (justTransitionedToRest) {
+        return false;
+      }
+
+      return (
+        !this.shouldHaveRestBackground &&
+        (this.isActiveTimer || this.isHoveringStartBtn)
+      );
+    },
+    shouldHaveRestBackground() {
+      const justTransitionedToActive =
+        this.isTransitioningState && this.isActiveTimer;
+
+      if (justTransitionedToActive) {
+        return false;
+      }
+
+      return this.isActiveTimer && this.isHoveringStartBtn;
     },
     startText() {
       return this.isActiveTimer ? "Stop" : "Start";
@@ -86,6 +110,10 @@ export default {
       "toggleInfiniteTimer",
       "toggleWorkoutStarted",
     ]),
+    handleStartBtnOut() {
+      this.setIsHovering(false);
+      this.isTransitioningState = false;
+    },
     isNumber(e) {
       let keyCode = e.keyCode ? e.keyCode : e.which;
 
@@ -108,6 +136,11 @@ export default {
 
       this.toggleTimer(this.index);
       window?.scrollTo(0, 0);
+
+      // To make the hover not suddently become the "other"
+      // color, we want to disable the hover color change
+      // until the user has moused out of the start BTN
+      this.isTransitioningState = true;
     },
   },
 };
@@ -120,15 +153,15 @@ export default {
         <div
           class="timer-header-section"
           :class="{
-            'btn-isActive': isActiveTimer || isHoveringStartBtn,
-            'btn-isRest': isActiveTimer && isHoveringStartBtn,
+            'btn-isActive': shouldHaveActiveBackground,
+            'btn-isRest': shouldHaveRestBackground,
           }"
         >
           <input
             class="timer-name"
             :class="{
-              'timer-name-active': isHoveringStartBtn || isActiveTimer,
-              'timer-name-rest': isHoveringStartBtn && isActiveTimer,
+              'timer-name-active': shouldHaveActiveBackground,
+              'timer-name-rest': shouldHaveRestBackground,
             }"
             @input="setNewTimerName"
             :value="timerName"
@@ -138,9 +171,9 @@ export default {
         <div
           class="wrapper-inside time-start"
           :class="{
-            'time-isActive': !isHoveringStartBtn && isActiveTimer,
-            'time-start-hover': isHoveringStartBtn,
-            'time-isRest': isHoveringStartBtn && isActiveTimer,
+            'time-isActive': shouldHaveActiveBackground,
+            'time-start-hover': isHoveringStartBtn && !isTransitioningState,
+            'time-isRest': shouldHaveRestBackground,
           }"
         >
           <div class="time-row">
@@ -203,11 +236,11 @@ export default {
                 class="start-btn"
                 :class="{
                   'btn-isActive': isActiveTimer,
-                  'btn-isRest': isActiveTimer && isHoveringStartBtn,
+                  'btn-isRest': shouldHaveRestBackground,
                 }"
                 @click="toggleStartBtn"
                 @mouseenter="setIsHovering(true)"
-                @mouseleave="setIsHovering(false)"
+                @mouseleave="handleStartBtnOut"
                 :disabled="isStartBtnDisabled"
                 ref="start-btn"
               >

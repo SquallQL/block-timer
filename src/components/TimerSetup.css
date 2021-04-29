@@ -129,7 +129,6 @@
 
 .timer-name:focus {
   border-bottom: 5px solid #ff7373;
-  transition: 0.2s;
 }
 
 .timer-name-active {
