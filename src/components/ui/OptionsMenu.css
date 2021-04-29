@@ -26,15 +26,15 @@
 .options-dropdown {
   position: absolute;
   top: 35px;
-  right: -50px;
+  right: -13px;
   z-index: 10;
 
   margin: 0;
   padding: 0;
-  background: #fff;
-  color: #000;
-  border-radius: 1rem;
-  border: 4px solid #ff5656;
+  background: #252525;
+  color: #fff;
+
+  border: 4px solid #fff;
 
   list-style-type: none;
 }
@@ -70,14 +70,6 @@
   background-color: #ff5656;
   color: #fff;
 }
-
-/* .options-dropdown li:first-child:hover {
-  border-radius: 1rem 1rem 0 0;
-}
-
-.options-dropdown li:last-child:hover {
-  border-radius: 0 0 1rem 1rem;
-} */
 .options-dropdown li:active {
   background-color: #853232;
   color: #fff;

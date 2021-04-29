@@ -1,6 +1,5 @@
 <script>
 import "./TimerSetup.css";
-import OptionsMenu from "./ui/OptionsMenu";
 import { mapActions, mapGetters } from "vuex";
 import { formatTime } from "../util/timeUtils";
 
@@ -10,9 +9,6 @@ export default {
     active: "activeInput",
     rest: "restInput",
     cycle: "cycleInput",
-  },
-  components: {
-    OptionsMenu,
   },
   props: {
     timer: {
@@ -110,15 +106,25 @@ export default {
 <template>
   <transition appear name="fade">
     <div class="TimerSetup-root">
+      <button
+        class="timer-name"
+        :class="{
+          'btn-isActive': isActiveTimer || isHoveringStartBtn,
+          'btn-isRest': isActiveTimer && isHoveringStartBtn,
+        }"
+      >
+        timer #{{ index + 1 }}
+      </button>
+
       <div class="wrapper">
         <div
           class="wrapper-inside time-start"
           :class="{
             'time-isActive': !isHoveringStartBtn && isActiveTimer,
             'time-start-hover': isHoveringStartBtn,
+            'time-isRest': isHoveringStartBtn && isActiveTimer,
           }"
         >
-          <options-menu :index="index" :is-disabled="isActiveTimer" />
           <div class="time-row">
             <div class="section">
               <div class="subtitle">
@@ -173,58 +179,65 @@ export default {
                 <span v-else>&#8734;</span>
               </div>
             </div>
-            <div class="check-spacer" v-if="!isInfinite"></div>
-
-            <div class="section total-section-desktop" v-if="!isInfinite">
-              <div class="subtitle">Total</div>
-              <div class="small-number">
-                {{ total }}
+            <div class="check-spacer"></div>
+            <div class="section">
+              <button
+                class="start-btn"
+                :class="{
+                  'btn-isActive': isActiveTimer,
+                  'btn-isRest': isActiveTimer && isHoveringStartBtn,
+                }"
+                @click="toggleStartBtn"
+                @mouseenter="setIsHovering(true)"
+                @mouseleave="setIsHovering(false)"
+                :disabled="isStartBtnDisabled"
+                ref="start-btn"
+              >
+                {{ startText }}
+              </button>
+            </div>
+          </div>
+          <div class="footer-section">
+            <div class="check-section">
+              <div class="check-option">
+                <input
+                  :id="intervalID"
+                  type="checkbox"
+                  value="interval"
+                  v-model="isInterval"
+                  @click="toggleIntervalTimer(index)"
+                  :disabled="!canEdit"
+                />
+                <label :for="intervalID">Interval timer</label>
+              </div>
+              <div class="check-option">
+                <input
+                  :id="repeatID"
+                  type="checkbox"
+                  value="repeat"
+                  v-model="isInfinite"
+                  @click="toggleInfiniteTimer(index)"
+                  :disabled="!canEdit"
+                />
+                <label :for="repeatID">Repeat forever</label>
+              </div>
+            </div>
+            <div class="total-section-desktop">
+              <div class="total">
+                Total:
+                <strong v-if="!isInfinite">{{ total }}</strong>
+                <span v-else class="infinite-symbol">&#8734;</span>
               </div>
             </div>
           </div>
-          <div class="check-section">
-            <div class="check-option">
-              <input
-                :id="intervalID"
-                type="checkbox"
-                value="interval"
-                v-model="isInterval"
-                @click="toggleIntervalTimer(index)"
-                :disabled="!canEdit"
-              />
-              <label :for="intervalID">Interval timer</label>
-            </div>
-            <div class="check-option">
-              <input
-                :id="repeatID"
-                type="checkbox"
-                value="repeat"
-                v-model="isInfinite"
-                @click="toggleInfiniteTimer(index)"
-                :disabled="!canEdit"
-              />
-              <label :for="repeatID">Repeat forever</label>
-            </div>
-          </div>
+
           <div class="total-section-mobile" v-if="!isInfinite">
             <div class="small-number">
-              Total: <strong>{{ total }}</strong>
+              Total:<strong>{{ total }}</strong>
             </div>
           </div>
         </div>
       </div>
-      <button
-        class="start-btn"
-        :class="{ 'btn-isActive': isActiveTimer }"
-        @click="toggleStartBtn"
-        @mouseenter="setIsHovering(true)"
-        @mouseleave="setIsHovering(false)"
-        :disabled="isStartBtnDisabled"
-        ref="start-btn"
-      >
-        <span class="setup-id"> #{{ index + 1 }} </span>
-        {{ startText }}
-      </button>
     </div>
   </transition>
 </template>
