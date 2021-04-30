@@ -1,19 +1,29 @@
 image: node:latest
 
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
 stages:
+  - build
   - test
   - deploy
+
+prepare:
+  stage: build
+  script:
+    - npm install
 
 jest:
   stage: test
   script:
-    - npm ci
     - npm run test
   allow_failure: true
 
 pages:
   stage: deploy
-  needs: []
   script:
     - npm run build
     - rm -rf public
