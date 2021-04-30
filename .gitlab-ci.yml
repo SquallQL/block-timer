@@ -13,7 +13,7 @@ stages:
 
 prepare:
   stage: build
-  script: npm ci
+  script: npm install
 
 jest:
   stage: test
