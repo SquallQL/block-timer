@@ -14,13 +14,10 @@
   },
   "author": "Frédéric Caplette",
   "dependencies": {
-    "common-config-webpack-plugin": "^0.0.1",
     "core-js": "^3.6.4",
-    "express": "^4.17.1",
     "jest": "^26.0.1",
     "lodash": "^4.17.21",
     "v-click-outside": "^3.1.2",
-    "verbose": "^0.2.3",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"
   },

@@ -14,13 +14,12 @@ stages:
 prepare:
   stage: build
   script:
-    - npm install
+    - npm ci
 
 jest:
   stage: test
   script:
     - npm run test
-  allow_failure: true
 
 pages:
   stage: deploy
