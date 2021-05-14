@@ -187,60 +187,63 @@ export default {
           }"
         >
           <div class="time-row">
-            <div class="section">
-              <div class="subtitle">
-                {{ isInterval ? "Active" : "Time" }}
+            <div class="time-row-left">
+              <div class="section">
+                <div class="subtitle">
+                  {{ isInterval ? "Active" : "Time" }}
+                </div>
+                <div>
+                  <input
+                    ref="activeInput"
+                    class="default-input number"
+                    :class="{ 'active-time': isInterval }"
+                    type="text"
+                    v-model="activeTime"
+                    @keypress="isNumber"
+                    maxlength="2"
+                    :disabled="!canEdit"
+                  />
+                </div>
               </div>
-              <div>
-                <input
-                  ref="activeInput"
-                  class="default-input number"
-                  :class="{ 'active-time': isInterval }"
-                  type="text"
-                  v-model="activeTime"
-                  @keypress="isNumber"
-                  maxlength="2"
-                  :disabled="!canEdit"
-                />
+              <template v-if="isInterval">
+                <span class="section time-symbol">/</span>
+                <div class="section">
+                  <div class="subtitle">
+                    Rest
+                  </div>
+                  <div>
+                    <input
+                      ref="restInput"
+                      class="default-input number"
+                      :class="{ 'rest-time': isInterval }"
+                      v-model="restTime"
+                      @keypress="isNumber"
+                      type="text"
+                      maxlength="2"
+                      :disabled="!canEdit"
+                    />
+                  </div>
+                </div>
+              </template>
+              <span class="section time-symbol">x</span>
+              <div class="section">
+                <div class="subtitle">Cycle</div>
+                <div class="number">
+                  <input
+                    v-if="!isInfinite"
+                    v-model="timerCycle"
+                    ref="cycleInput"
+                    class="default-input number"
+                    type="text"
+                    @keypress="isNumber"
+                    maxlength="2"
+                    :disabled="!canEdit"
+                  />
+                  <span class="infinite" v-else>&#8734;</span>
+                </div>
               </div>
+              <div class="check-spacer"></div>
             </div>
-            <div v-if="isInterval" class="section">
-              <div class="subtitle">
-                Rest
-              </div>
-              <div>
-                <span class="time-symbol">/</span>
-                <input
-                  ref="restInput"
-                  class="default-input number"
-                  :class="{ 'rest-time': isInterval }"
-                  v-model="restTime"
-                  @keypress="isNumber"
-                  type="text"
-                  maxlength="2"
-                  :disabled="!canEdit"
-                />
-              </div>
-            </div>
-
-            <div class="section">
-              <div class="subtitle">Cycle</div>
-              <div class="number">
-                <span class="time-symbol">x</span>
-                <input
-                  v-if="!isInfinite"
-                  v-model="timerCycle"
-                  ref="cycleInput"
-                  class="default-input number"
-                  type="text"
-                  @keypress="isNumber"
-                  maxlength="2"
-                  :disabled="!canEdit"
-                />
-                <span v-else>&#8734;</span>
-              </div>
-            </div>
-            <div class="check-spacer"></div>
             <div class="section start-btn-section-desktop">
               <button
                 class="start-btn"
