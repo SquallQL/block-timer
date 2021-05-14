@@ -41,9 +41,7 @@ export default {
   <div class="total-timer-root">
     <div class="total-timer-main">
       <p class="total-timer">
-        Workout time<strong class="time time-desktop"
-          >: {{ formattedTime }}</strong
-        >
+        Workout time<span class="time time-desktop">: {{ formattedTime }}</span>
       </p>
     </div>
     <strong class="time time-mobile">{{ formattedTime }}</strong>
