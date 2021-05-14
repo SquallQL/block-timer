@@ -90,6 +90,9 @@
 }
 
 .infinite {
+  position: relative;
+  top: 4px;
+
   min-height: 50px;
   min-width: 52px;
 }
@@ -107,6 +110,7 @@
 }
 
 .time-symbol {
+  padding-top: 13px;
   font-size: 30px;
 }
 
