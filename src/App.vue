@@ -4,7 +4,7 @@ import { mapGetters } from "vuex";
 import MainTimer from "./components/header/MainTimer.vue";
 import MainTimerDetails from "./components/header/MainTimerDetails.vue";
 import TotalTimer from "./components/TotalTimer.vue";
-import TimerSetup from "./components/TimerSetup.vue";
+import TimerSetup from "./components/timer-setup/TimerSetup.vue";
 import AddTimerBtn from "./components/AddTimerBtn.vue";
 
 import "./App.css";

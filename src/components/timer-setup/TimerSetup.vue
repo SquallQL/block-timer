@@ -1,8 +1,8 @@
 <script>
-import "./TimerSetup.css";
+import "./css/TimerSetup.css";
 import { mapActions, mapGetters } from "vuex";
-import { debounce } from "lodash";
-import { formatTime } from "../util/timeUtils";
+import TimerSetupHeader from "./TimerSetupHeader";
+import { formatTime } from "../../util/timeUtils";
 
 export default {
   name: "TimerSetup",
@@ -10,6 +10,9 @@ export default {
     active: "activeInput",
     rest: "restInput",
     cycle: "cycleInput",
+  },
+  components: {
+    TimerSetupHeader,
   },
   props: {
     timer: {
@@ -26,7 +29,6 @@ export default {
       activeTime: Number(this.timer.active),
       restTime: Number(this.timer.rest),
       timerCycle: Number(this.timer.cycle),
-      timerName: this.timer.name,
       isInfinite: this.timer.isInfinite,
       isInterval: this.timer.isInterval,
       isHoveringStartBtn: false,
@@ -36,7 +38,7 @@ export default {
   computed: {
     ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
 
-    canEdit() {
+    isEditable() {
       return !this.isActiveTimer;
     },
     isActiveTimer() {
@@ -48,7 +50,7 @@ export default {
     isStartBtnDisabled() {
       return this.currentRun.isActive && this.selectedTimerID !== this.index;
     },
-    shouldHaveActiveBackground() {
+    hasActiveBackground() {
       const justTransitionedToRest =
         this.isTransitioningState && !this.isActiveTimer;
 
@@ -57,11 +59,11 @@ export default {
       }
 
       return (
-        !this.shouldHaveRestBackground &&
+        !this.hasRestBackground &&
         (this.isActiveTimer || this.isHoveringStartBtn)
       );
     },
-    shouldHaveRestBackground() {
+    hasRestBackground() {
       const justTransitionedToActive =
         this.isTransitioningState && this.isActiveTimer;
 
@@ -103,7 +105,6 @@ export default {
       "removeTimer",
       "setActiveTime",
       "setRestTime",
-      "setTimerName",
       "resetCycle",
       "setCycle",
       "toggleTimer",
@@ -125,12 +126,6 @@ export default {
     setIsHovering(flag) {
       this.isHoveringStartBtn = flag;
     },
-    setNewTimerName: debounce(function(e) {
-      const { value: newName } = e.target;
-
-      this.timerName = newName;
-      this.setTimerName({ id: this.index, name: newName });
-    }, 500),
 
     toggleStartBtn() {
       this.toggleWorkoutStarted();
@@ -152,38 +147,19 @@ export default {
   <transition appear name="fade">
     <div class="TimerSetup-root">
       <div class="wrapper">
-        <div
-          class="timer-header-section"
-          :class="{
-            'btn-isActive': shouldHaveActiveBackground,
-            'btn-isRest': shouldHaveRestBackground,
-          }"
-        >
-          <input
-            class="timer-name"
-            :class="{
-              'timer-name-active': shouldHaveActiveBackground,
-              'timer-name-rest': shouldHaveRestBackground,
-            }"
-            @input="setNewTimerName"
-            :value="timerName"
-            placeholder="Add timer name"
-            maxlength="24"
-          />
-          <button
-            class="closeBtn"
-            :disabled="!canEdit"
-            @click="removeTimer(index)"
-          >
-            x
-          </button>
-        </div>
+        <TimerSetupHeader
+          :has-active-background="hasActiveBackground"
+          :has-rest-background="hasRestBackground"
+          :index="index"
+          :is-editable="isEditable"
+          :timer="timer"
+        />
         <div
           class="wrapper-inside time-start"
           :class="{
-            'time-isActive': shouldHaveActiveBackground,
+            'time-isActive': hasActiveBackground,
             'time-start-hover': isHoveringStartBtn && !isTransitioningState,
-            'time-isRest': shouldHaveRestBackground,
+            'time-isRest': hasRestBackground,
           }"
         >
           <div class="time-row">
@@ -201,7 +177,7 @@ export default {
                     v-model="activeTime"
                     @keypress="isNumber"
                     maxlength="2"
-                    :disabled="!canEdit"
+                    :disabled="!isEditable"
                   />
                 </div>
               </div>
@@ -220,7 +196,7 @@ export default {
                       @keypress="isNumber"
                       type="text"
                       maxlength="2"
-                      :disabled="!canEdit"
+                      :disabled="!isEditable"
                     />
                   </div>
                 </div>
@@ -237,7 +213,7 @@ export default {
                     type="text"
                     @keypress="isNumber"
                     maxlength="2"
-                    :disabled="!canEdit"
+                    :disabled="!isEditable"
                   />
                   <span class="infinite" v-else>&#8734;</span>
                 </div>
@@ -249,7 +225,7 @@ export default {
                 class="start-btn"
                 :class="{
                   'btn-isActive': isActiveTimer,
-                  'btn-isRest': shouldHaveRestBackground,
+                  'btn-isRest': hasRestBackground,
                 }"
                 @click="toggleStartBtn"
                 @mouseenter="setIsHovering(true)"
@@ -270,7 +246,7 @@ export default {
                   value="interval"
                   v-model="isInterval"
                   @click="toggleIntervalTimer(index)"
-                  :disabled="!canEdit"
+                  :disabled="!isEditable"
                 />
                 <label :for="intervalID">Interval timer</label>
               </div>
@@ -281,7 +257,7 @@ export default {
                   value="repeat"
                   v-model="isInfinite"
                   @click="toggleInfiniteTimer(index)"
-                  :disabled="!canEdit"
+                  :disabled="!isEditable"
                 />
                 <label :for="repeatID">Repeat forever</label>
               </div>
@@ -305,7 +281,7 @@ export default {
               class="start-btn"
               :class="{
                 'btn-isActive': isActiveTimer,
-                'btn-isRest': shouldHaveRestBackground,
+                'btn-isRest': hasRestBackground,
               }"
               @click="toggleStartBtn"
               @mouseenter="setIsHovering(true)"

@@ -119,19 +119,6 @@
   padding: 0 12px;
 }
 
-.timer-header-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-
-  transition: 0.2s;
-
-  background-color: #ffffff;
-  border-radius: 2rem 2rem 0 0;
-}
-
 .closeBtn {
   position: absolute;
   right: 24px;
@@ -151,30 +138,6 @@
   transform: scale(1.4);
 }
 
-.timer-name {
-  width: 80%;
-
-  text-align: center;
-  font-size: 28px;
-  font-family: "Allerta Stencil";
-  color: #000;
-
-  border: none;
-
-  transition: 0.2s;
-}
-
-.timer-name:focus {
-  border-bottom: 5px solid #ff7373;
-}
-
-.timer-name-active {
-  background-color: #ff7373;
-}
-
-.timer-name-rest {
-  background-color: #6ac5f9;
-}
 .start-btn {
   height: 100%;
   min-width: 100px;
