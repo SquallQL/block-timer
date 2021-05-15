@@ -4,6 +4,9 @@ import { debounce } from "lodash";
 import "./css/TimerSetupHeader.css";
 
 export default {
+  i18n: {
+    placeholder: "Add timer name",
+  },
   props: {
     hasActiveBackground: {
       type: Boolean,
@@ -60,7 +63,7 @@ export default {
       :class="backgroundClasses"
       @input="setNewTimerName"
       :value="timerName"
-      placeholder="Add timer name"
+      :placeholder="$options.i18n.placeholder"
       maxlength="24"
     />
     <button

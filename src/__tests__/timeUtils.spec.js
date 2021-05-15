@@ -1,4 +1,4 @@
-import { formatTime } from "./timeUtils";
+import { formatTime } from "../util/timeUtils.js";
 
 describe("formatTime", () => {
   it("returns any number under 10 with a precedint 0", () => {
