@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest --watch --config ./jest.config.js"
+    "test": "jest --config ./jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "jest": "^26.0.1",
-    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "v-click-outside": "^3.1.2",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"

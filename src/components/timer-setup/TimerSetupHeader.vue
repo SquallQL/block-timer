@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from "vuex";
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 import "./css/TimerSetupHeader.css";
 
 export default {
