@@ -18,13 +18,6 @@ export default {
       return formatTime(this.totalTime);
     },
   },
-  methods: {
-    toggleTotalTimer() {
-      this.intervalObject = setInterval(() => {
-        this.totalTime += 1;
-      }, 1000);
-    },
-  },
   watch: {
     isWorkoutStarted(flag) {
       if (flag) {
@@ -32,6 +25,13 @@ export default {
       } else {
         clearInterval(this.intervalObject);
       }
+    },
+  },
+  methods: {
+    toggleTotalTimer() {
+      this.intervalObject = setInterval(() => {
+        this.totalTime += 1;
+      }, 1000);
     },
   },
 };

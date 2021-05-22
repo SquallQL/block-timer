@@ -2,6 +2,8 @@
 import "./css/TimerSetup.css";
 import { mapActions, mapGetters } from "vuex";
 import TimerSetupHeader from "./TimerSetupHeader";
+import TimerSetupInterval from "./TimerSetupInterval";
+import TimerSetupActions from "./TimerSetupActions.vue";
 import { formatTime } from "../../util/timeUtils";
 
 export default {
@@ -12,38 +14,40 @@ export default {
     cycle: "cycleInput",
   },
   components: {
+    TimerSetupActions,
     TimerSetupHeader,
+    TimerSetupInterval,
   },
   props: {
     timer: {
-      require: true,
+      required: true,
       type: Object,
     },
     index: {
-      require: true,
+      required: true,
       type: Number,
     },
   },
   data() {
     return {
-      activeTime: Number(this.timer.active),
-      restTime: Number(this.timer.rest),
-      timerCycle: Number(this.timer.cycle),
+      isHoveringStartBtn: false,
       isInfinite: this.timer.isInfinite,
       isInterval: this.timer.isInterval,
-      isHoveringStartBtn: false,
       isTransitioningState: false,
     };
   },
   computed: {
     ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
-
+    formattedTotal() {
+      return formatTime(this.timer.total);
+    },
     isEditable() {
       return !this.isActiveTimer;
     },
     isActiveTimer() {
       return this.currentRun.isActive && this.selectedTimerID === this.index;
     },
+
     intervalID() {
       return `interval-${this.index}`;
     },
@@ -73,61 +77,26 @@ export default {
 
       return this.isActiveTimer && this.isHoveringStartBtn;
     },
-    startText() {
-      return this.isActiveTimer ? "Stop" : "Start";
-    },
     repeatID() {
       return `repeat-${this.index}`;
-    },
-    total() {
-      const castedActive = Number(this.activeTime);
-      const castedRest = Number(this.restTime);
-      const castedCycle = Number(this.timerCycle);
-
-      return this.isInterval
-        ? formatTime((castedActive + castedRest) * castedCycle)
-        : formatTime(castedActive * castedCycle);
-    },
-  },
-  watch: {
-    activeTime() {
-      this.setActiveTime({ id: this.index, activeTime: this.activeTime });
-    },
-    restTime() {
-      this.setRestTime({ id: this.index, restTime: this.restTime });
-    },
-    timerCycle() {
-      this.setCycle({ id: this.index, cycle: this.timerCycle });
     },
   },
   methods: {
     ...mapActions([
-      "removeTimer",
-      "setActiveTime",
-      "setRestTime",
       "resetCycle",
-      "setCycle",
       "toggleTimer",
       "toggleIntervalTimer",
       "toggleInfiniteTimer",
       "toggleWorkoutStarted",
     ]),
-    handleStartBtnOut() {
-      this.setIsHovering(false);
+    onStartButtonEnter() {
+      this.isHoveringStartBtn = true;
+    },
+    onStartButtonOut() {
+      this.isHoveringStartBtn = false;
       this.isTransitioningState = false;
     },
-    isNumber(e) {
-      let keyCode = e.keyCode ? e.keyCode : e.which;
-
-      if (keyCode < 48 || keyCode > 57) {
-        e.preventDefault();
-      }
-    },
-    setIsHovering(flag) {
-      this.isHoveringStartBtn = flag;
-    },
-
-    toggleStartBtn() {
+    onStartButtonClick() {
       this.toggleWorkoutStarted();
       this.resetCycle();
 
@@ -162,102 +131,38 @@ export default {
             'time-isRest': hasRestBackground,
           }"
         >
-          <div class="time-row">
-            <div class="time-row-left">
-              <div class="section">
-                <div class="subtitle">
-                  {{ isInterval ? "Active" : "Time" }}
-                </div>
-                <div>
-                  <input
-                    ref="activeInput"
-                    class="default-input number"
-                    :class="{ 'active-time': isInterval }"
-                    type="text"
-                    v-model="activeTime"
-                    @keypress="isNumber"
-                    maxlength="2"
-                    :disabled="!isEditable"
-                  />
-                </div>
-              </div>
-              <template v-if="isInterval">
-                <span class="section time-symbol">/</span>
-                <div class="section">
-                  <div class="subtitle">
-                    Rest
-                  </div>
-                  <div>
-                    <input
-                      ref="restInput"
-                      class="default-input number"
-                      :class="{ 'rest-time': isInterval }"
-                      v-model="restTime"
-                      @keypress="isNumber"
-                      type="text"
-                      maxlength="2"
-                      :disabled="!isEditable"
-                    />
-                  </div>
-                </div>
-              </template>
-              <span class="section time-symbol">x</span>
-              <div class="section">
-                <div class="subtitle">Cycle</div>
-                <div class="number">
-                  <input
-                    v-if="!isInfinite"
-                    v-model="timerCycle"
-                    ref="cycleInput"
-                    class="default-input number"
-                    type="text"
-                    @keypress="isNumber"
-                    maxlength="2"
-                    :disabled="!isEditable"
-                  />
-                  <span class="infinite" v-else>&#8734;</span>
-                </div>
-              </div>
-              <div class="check-spacer"></div>
-            </div>
-            <div class="section start-btn-section-desktop">
-              <button
-                class="start-btn"
-                :class="{
-                  'btn-isActive': isActiveTimer,
-                  'btn-isRest': hasRestBackground,
-                }"
-                @click="toggleStartBtn"
-                @mouseenter="setIsHovering(true)"
-                @mouseleave="handleStartBtnOut"
-                :disabled="isStartBtnDisabled"
-                ref="start-btn"
-              >
-                {{ startText }}
-              </button>
-            </div>
-          </div>
+          <TimerSetupInterval
+            :has-active-background="hasActiveBackground"
+            :has-rest-background="hasRestBackground"
+            :index="index"
+            :is-active-timer="isActiveTimer"
+            :is-start-btn-disabled="isStartBtnDisabled"
+            :timer="timer"
+            @start-btn-enter="onStartButtonEnter"
+            @start-btn-out="onStartButtonOut"
+            @start-btn-click="onStartButtonClick"
+          />
           <div class="footer-section">
             <div class="check-section">
               <div class="check-option">
                 <input
                   :id="intervalID"
+                  v-model="isInterval"
                   type="checkbox"
                   value="interval"
-                  v-model="isInterval"
-                  @click="toggleIntervalTimer(index)"
                   :disabled="!isEditable"
+                  @click="toggleIntervalTimer(index)"
                 />
                 <label :for="intervalID">Interval timer</label>
               </div>
               <div class="check-option">
                 <input
                   :id="repeatID"
+                  v-model="isInfinite"
                   type="checkbox"
                   value="repeat"
-                  v-model="isInfinite"
-                  @click="toggleInfiniteTimer(index)"
                   :disabled="!isEditable"
+                  @click="toggleInfiniteTimer(index)"
                 />
                 <label :for="repeatID">Repeat forever</label>
               </div>
@@ -265,32 +170,27 @@ export default {
             <div class="total-section-desktop">
               <div class="total">
                 Total:
-                <strong v-if="!isInfinite">{{ total }}</strong>
+                <strong v-if="!isInfinite">{{ formattedTotal }}</strong>
                 <span v-else class="infinite-symbol">&#8734;</span>
               </div>
             </div>
           </div>
 
-          <div class="total-section-mobile" v-if="!isInfinite">
+          <div v-if="!isInfinite" class="total-section-mobile">
             <div class="small-number">
-              Total:<strong>{{ total }}</strong>
+              Total:<strong>{{ formattedTotal }}</strong>
             </div>
           </div>
           <div class="section start-btn-section-mobile">
-            <button
-              class="start-btn"
-              :class="{
-                'btn-isActive': isActiveTimer,
-                'btn-isRest': hasRestBackground,
-              }"
-              @click="toggleStartBtn"
-              @mouseenter="setIsHovering(true)"
-              @mouseleave="handleStartBtnOut"
-              :disabled="isStartBtnDisabled"
-              ref="start-btn"
-            >
-              {{ startText }}
-            </button>
+            <TimerSetupActions
+              :has-active-background="hasActiveBackground"
+              :has-rest-background="hasRestBackground"
+              :is-active-timer="isActiveTimer"
+              :is-disabled="isStartBtnDisabled"
+              @start-btn-enter="onStartButtonEnter"
+              @start-btn-out="onStartButtonOut"
+              @start-btn-click="onStartButtonClick"
+            />
           </div>
         </div>
       </div>

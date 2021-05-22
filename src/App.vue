@@ -12,11 +12,11 @@ import "./App.css";
 export default {
   name: "App",
   components: {
-    TotalTimer,
+    AddTimerBtn,
     MainTimer,
     MainTimerDetails,
     TimerSetup,
-    AddTimerBtn,
+    TotalTimer,
   },
   computed: {
     ...mapGetters(["currentRun", "timers"]),
@@ -27,18 +27,18 @@ export default {
 <template>
   <div id="app">
     <div class="total-timer-container">
-      <total-timer />
+      <TotalTimer />
     </div>
-    <main-timer-details />
-    <main-timer />
+    <MainTimerDetails />
+    <MainTimer />
     <div class="timer-setup-section">
-      <timer-setup
+      <TimerSetup
         v-for="(timer, index) in timers"
+        :key="timer.uid"
         :timer="timer"
         :index="index"
-        :key="timer.uid"
       />
     </div>
-    <add-timer-btn />
+    <AddTimerBtn />
   </div>
 </template>

@@ -2,11 +2,11 @@
 export default {
   props: {
     color: {
-      require: true,
+      required: true,
       type: String,
     },
     onClick: {
-      require: true,
+      required: true,
       type: Function,
     },
   },
@@ -24,8 +24,8 @@ export default {
     width="50 "
     height="50"
     version="1.1"
-    @click="onClick"
     :style="svgStyle"
+    @click="onClick"
   >
     <g>
       <rect x="15" y="13" width="22" height="23" />

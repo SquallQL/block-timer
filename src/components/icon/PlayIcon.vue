@@ -2,11 +2,11 @@
 export default {
   props: {
     color: {
-      require: true,
+      required: true,
       type: String,
     },
     onClick: {
-      require: true,
+      required: true,
       type: Function,
     },
   },
@@ -19,9 +19,8 @@ export default {
 </script>
 <template>
   <svg
-    version="1.1"
     id="play"
-    @click="onClick"
+    version="1.1"
     :style="svgStyle"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -29,6 +28,7 @@ export default {
     y="0"
     width="50px"
     height="50px"
+    @click="onClick"
   >
     <polygon points="17,10 40,25 17,40" />
   </svg>

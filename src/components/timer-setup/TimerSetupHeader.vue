@@ -61,10 +61,10 @@ export default {
     <input
       class="timer-name"
       :class="backgroundClasses"
-      @input="setNewTimerName"
       :value="timerName"
       :placeholder="$options.i18n.placeholder"
       maxlength="24"
+      @input="setNewTimerName"
     />
     <button
       class="closeBtn"

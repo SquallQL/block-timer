@@ -1,5 +1,4 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
-import { nextTick } from "vue";
 import Vuex from "vuex";
 import TimerSetupHeader from "../../src/components/timer-setup/TimerSetupHeader.vue";
 import { timerMock } from "./mocks/timer_mock.js";
@@ -71,13 +70,19 @@ describe("TimerSetupHeader", () => {
 
   describe("background classes", () => {
     it("applies the Active background class when `hasActiveBackground` is true", () => {
-      createWrapper({ hasActiveBackground: true, hasRestBackground: false });
+      createWrapper({
+        hasActiveBackground: true,
+        hasRestBackground: false,
+      });
 
       expect(findNameInput().classes()).toContain("timer-setup-active");
     });
 
     it("applies the Rest background class when `hasRestBackground` is true", () => {
-      createWrapper({ hasActiveBackground: false, hasRestBackground: true });
+      createWrapper({
+        hasActiveBackground: false,
+        hasRestBackground: true,
+      });
 
       expect(findNameInput().classes()).toContain("timer-setup-rest");
     });

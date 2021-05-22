@@ -37,12 +37,17 @@ export default {
 <template>
   <div v-if="currentRun.isActive" class="details-root">
     <div v-if="isGettingReady">
-      <h3 class="details-text">Get ready in:</h3>
+      <h3 class="details-text">
+        Get ready in:
+      </h3>
     </div>
     <div v-else>
       <h3
         class="details-text"
-        :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+        :class="{
+          'active-time': isActiveTime,
+          'rest-time': isRestTime,
+        }"
       >
         Cycle: {{ cycleText }}
       </h3>

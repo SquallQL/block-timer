@@ -2,26 +2,25 @@
 export default {
   props: {
     color: {
-      require: true,
+      required: true,
       type: String,
     },
     onClick: {
-      require: true,
+      required: true,
       type: Function,
     },
   },
   computed: {
     svgStyle() {
-      return `fill:#ffffff;`;
+      return "fill:#ffffff;";
     },
   },
 };
 </script>
 <template>
   <svg
-    version="1.1"
     id="pause"
-    @click="onClick"
+    version="1.1"
     :style="svgStyle"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,6 +30,7 @@ export default {
     y="0"
     viewBox="0 0 600 600"
     xml:space="preserve"
+    @click="onClick"
   >
     <g>
       <path

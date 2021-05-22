@@ -6,14 +6,22 @@ import { READY_STATE } from "../constants/constants";
 
 Vue.use(Vuex);
 
+const intervalActiveDefaut = 30;
+const intervalRestDefault = 10;
+const intervalCycleDefault = 10;
+
+const activeDefault = 60;
+const cycleDefault = 1;
+
 const defaultTimer = {
   name: "",
   isInterval: true,
   isInfinite: false,
-  active: 30,
-  rest: 30,
+  active: intervalActiveDefaut,
+  rest: intervalRestDefault,
+  cycle: intervalCycleDefault,
+  total: (intervalActiveDefaut + intervalRestDefault) * intervalCycleDefault,
   ready: 3,
-  cycle: 20,
   uid: 0,
 };
 
@@ -37,10 +45,11 @@ export const createStore = () =>
           uid: 1,
           isInterval: false,
           isInfinite: false,
-          active: 60,
+          active: activeDefault,
+          cycle: cycleDefault,
           rest: 10,
+          total: activeDefault * cycleDefault,
           ready: 3,
-          cycle: 1,
         },
       ],
     },
@@ -59,6 +68,10 @@ export const createStore = () =>
       setTimerName(state, { id, name }) {
         const updateTimer = findTimer(state, id);
         return (updateTimer.name = name);
+      },
+      setTimerTotalTime(state, { id, total }) {
+        const updateTimer = findTimer(state, id);
+        return (updateTimer.total = total);
       },
       removeTimer(state, id) {
         Vue.set(
@@ -123,6 +136,9 @@ export const createStore = () =>
       },
       setTimerName({ commit }, { id, name }) {
         commit(types.SET_TIMER_NAME, { id, name });
+      },
+      setTimerTotalTime({ commit }, { id, total }) {
+        commit(types.SET_TIMER_TOTAL_TIME, { id, total });
       },
       removeTimer({ commit }, id) {
         commit(types.REMOVE_TIMER, id);

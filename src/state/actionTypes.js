@@ -1,5 +1,6 @@
 export const ADD_TIMER = "addTimer";
 export const SET_TIMER_NAME = "setTimerName";
+export const SET_TIMER_TOTAL_TIME = "setTimerTotalTime";
 export const REMOVE_TIMER = "removeTimer";
 export const START_TIMER = "toggleTimer";
 export const STOP_TIMER = "stopTimer";

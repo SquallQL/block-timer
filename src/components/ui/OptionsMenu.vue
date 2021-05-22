@@ -51,14 +51,14 @@ export default {
 
 <template>
   <div class="options-root">
-    <button class="options-btn" @click="toggleDropdown" :disabled="isDisabled">
+    <button class="options-btn" :disabled="isDisabled" @click="toggleDropdown">
       ...
     </button>
     <transition name="fade">
       <ul
         v-if="isOpened"
-        class="options-dropdown"
         v-click-outside="toggleDropdown"
+        class="options-dropdown"
       >
         <li><a @click="deleteTimer(index)">Delete timer</a></li>
         <li><a @click="startTimer(index)">Start timer</a></li>

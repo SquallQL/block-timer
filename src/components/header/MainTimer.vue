@@ -189,6 +189,6 @@ export default {
     >
       {{ time }}
     </h1>
-    <player-control v-if="isActive" @rewind="shouldRewind = true" />
+    <PlayerControl v-if="isActive" @rewind="shouldRewind = true" />
   </div>
 </template>
