@@ -4,6 +4,10 @@ module.exports = {
     es6: true,
     jest: true,
   },
-  extends: ["airbnb", "prettier"],
-  plugins: ["vue"],
+  extends: ["plugin:vue/recommended"],
+  plugins: ["vue", "prettier"],
+  rules: {
+    "prettier/prettier": "error",
+    "comma-dangle": "always",
+  },
 };
