@@ -89,6 +89,10 @@ describe("TimerSetupHeader", () => {
   });
 
   describe("close button", () => {
+    beforeEach(() => {
+      createWrapper();
+    });
+
     it("calls the vueX action to set remove timer on click", async () => {
       await findCloseBtn().trigger("click");
 

@@ -104,9 +104,10 @@ export default {
             v-model="activeTime"
             class="default-input number"
             :class="{ 'active-time': isInterval }"
+            :disabled="!isEditable"
             type="text"
             maxlength="2"
-            :disabled="!isEditable"
+            data-testid="activeInput"
             @keypress="isNumber"
           />
         </div>
@@ -126,6 +127,7 @@ export default {
               type="text"
               maxlength="2"
               :disabled="!isEditable"
+              data-testid="restInput"
               @keypress="isNumber"
             />
           </div>
@@ -145,6 +147,7 @@ export default {
             type="text"
             maxlength="2"
             :disabled="!isEditable"
+            data-testid="cycleInput"
             @keypress="isNumber"
           />
           <span v-else class="infinite">&#8734;</span>
