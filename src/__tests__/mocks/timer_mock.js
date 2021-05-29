@@ -7,4 +7,5 @@ export const timerMock = {
   ready: 3,
   rest: 30,
   uid: 0,
+  total: 1200,
 };

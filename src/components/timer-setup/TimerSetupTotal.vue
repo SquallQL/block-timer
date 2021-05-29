@@ -24,6 +24,8 @@ export default {
   <div class="total">
     Total:
     <strong v-if="!isInfinite">{{ formattedTotal }}</strong>
-    <span v-else class="infinite-symbol">&#8734;</span>
+    <span v-else class="infinite-symbol" data-testid="infinite-symbol">
+      ∞
+    </span>
   </div>
 </template>
