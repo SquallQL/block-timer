@@ -4,19 +4,15 @@ import { mapActions, mapGetters } from "vuex";
 import TimerSetupHeader from "./TimerSetupHeader";
 import TimerSetupInterval from "./TimerSetupInterval";
 import TimerSetupActions from "./TimerSetupActions.vue";
-import { formatTime } from "../../util/timeUtils";
+import TimerSetupOptions from "./TimerSetupOptions.vue";
 
 export default {
   name: "TimerSetup",
-  inputRefNames: {
-    active: "activeInput",
-    rest: "restInput",
-    cycle: "cycleInput",
-  },
   components: {
     TimerSetupActions,
     TimerSetupHeader,
     TimerSetupInterval,
+    TimerSetupOptions,
   },
   props: {
     timer: {
@@ -31,25 +27,16 @@ export default {
   data() {
     return {
       isHoveringStartBtn: false,
-      isInfinite: this.timer.isInfinite,
-      isInterval: this.timer.isInterval,
       isTransitioningState: false,
     };
   },
   computed: {
-    ...mapGetters(["currentRun", "selectedTimerID", "isWorkoutStarted"]),
-    formattedTotal() {
-      return formatTime(this.timer.total);
-    },
+    ...mapGetters(["currentRun", "selectedTimerID"]),
     isEditable() {
       return !this.isActiveTimer;
     },
     isActiveTimer() {
       return this.currentRun.isActive && this.selectedTimerID === this.index;
-    },
-
-    intervalID() {
-      return `interval-${this.index}`;
     },
     isStartBtnDisabled() {
       return this.currentRun.isActive && this.selectedTimerID !== this.index;
@@ -77,18 +64,9 @@ export default {
 
       return this.isActiveTimer && this.isHoveringStartBtn;
     },
-    repeatID() {
-      return `repeat-${this.index}`;
-    },
   },
   methods: {
-    ...mapActions([
-      "resetCycle",
-      "toggleTimer",
-      "toggleIntervalTimer",
-      "toggleInfiniteTimer",
-      "toggleWorkoutStarted",
-    ]),
+    ...mapActions(["resetCycle", "toggleTimer", "toggleWorkoutStarted"]),
     onStartButtonEnter() {
       this.isHoveringStartBtn = true;
     },
@@ -142,45 +120,11 @@ export default {
             @start-btn-out="onStartButtonOut"
             @start-btn-click="onStartButtonClick"
           />
-          <div class="footer-section">
-            <div class="check-section">
-              <div class="check-option">
-                <input
-                  :id="intervalID"
-                  v-model="isInterval"
-                  type="checkbox"
-                  value="interval"
-                  :disabled="!isEditable"
-                  @click="toggleIntervalTimer(index)"
-                />
-                <label :for="intervalID">Interval timer</label>
-              </div>
-              <div class="check-option">
-                <input
-                  :id="repeatID"
-                  v-model="isInfinite"
-                  type="checkbox"
-                  value="repeat"
-                  :disabled="!isEditable"
-                  @click="toggleInfiniteTimer(index)"
-                />
-                <label :for="repeatID">Repeat forever</label>
-              </div>
-            </div>
-            <div class="total-section-desktop">
-              <div class="total">
-                Total:
-                <strong v-if="!isInfinite">{{ formattedTotal }}</strong>
-                <span v-else class="infinite-symbol">&#8734;</span>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="!isInfinite" class="total-section-mobile">
-            <div class="small-number">
-              Total:<strong>{{ formattedTotal }}</strong>
-            </div>
-          </div>
+          <TimerSetupOptions
+            :index="index"
+            :is-disabled="!isEditable"
+            :timer="timer"
+          />
           <div class="section start-btn-section-mobile">
             <TimerSetupActions
               :has-active-background="hasActiveBackground"

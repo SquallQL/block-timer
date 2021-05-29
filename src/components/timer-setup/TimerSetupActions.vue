@@ -23,7 +23,6 @@ export default {
   },
   computed: {
     startText() {
-      console.log("ele");
       return this.isActiveTimer ? "Stop" : "Start";
     },
   },

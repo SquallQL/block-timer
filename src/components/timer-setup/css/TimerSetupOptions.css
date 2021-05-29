@@ -1,0 +1,47 @@
+.footer-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 14px 4px;
+  border-top: 2px dashed #ffffff;
+
+  font-size: 16px;
+}
+
+.check-section {
+  display: flex;
+  align-items: center;
+}
+
+.check-option {
+  margin: 6px;
+}
+
+.total-section-desktop {
+  display: block;
+  position: absolute;
+  right: 12px;
+
+  padding: 8px;
+
+  font-size: 18px;
+}
+
+.total-section-mobile {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .check-section {
+    justify-content: center;
+  }
+
+  .total-section-desktop {
+    display: none;
+  }
+
+  .total-section-mobile {
+    display: block;
+  }
+}
