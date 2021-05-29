@@ -58,7 +58,7 @@ export default {
         this.isRestTime && this.currentRun.cycle === this.totalCycle - 1;
 
       return (
-        !this.isInfinite &&
+        this.isActive && !this.isInfinite &&
         (this.currentRun.cycle >= this.totalCycle || isLastRestRep)
       );
     },
