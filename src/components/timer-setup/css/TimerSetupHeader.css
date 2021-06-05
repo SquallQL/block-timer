@@ -30,8 +30,10 @@
 
 .timer-setup-active {
   background-color: #ff7373;
+  color: #ffffff;
 }
 
 .timer-setup-rest {
   background-color: #6ac5f9;
+  color: #ffffff;
 }
