@@ -26,17 +26,11 @@
 }
 
 .time {
-  position: absolute;
+  font-family: "Roboto Mono", monospace;
 }
 
 .time-mobile {
   display: none;
-}
-
-.reset-arrow {
-  position: absolute;
-  top: 5px;
-  left: 230px;
 }
 
 @media (max-width: 800px) {
@@ -65,6 +59,8 @@
 
   .time-mobile {
     display: block;
+
+    background-color: #ff7373;
   }
 
   .time-desktop {
