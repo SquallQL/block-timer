@@ -80,6 +80,14 @@
   font-size: 30px;
 }
 
+.active-time {
+  color: #ff5656;
+}
+
+.rest-time {
+  color: #6ac5f9;
+}
+
 @media (max-width: 800px) {
   .start-btn-section-desktop {
     display: none;
