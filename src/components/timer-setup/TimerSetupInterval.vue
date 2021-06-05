@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from "vuex";
 import TimerSetupActions from "./TimerSetupActions.vue";
+import "./css/TimerSetupInterval.css";
 
 export default {
   components: { TimerSetupActions },
@@ -155,7 +156,7 @@ export default {
       </div>
       <div class="check-spacer" />
     </div>
-    <div class="section start-btn-section-desktop">
+    <div class="start-btn-section-desktop">
       <TimerSetupActions
         :has-active-background="hasActiveBackground"
         :has-rest-background="hasRestBackground"

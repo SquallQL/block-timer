@@ -125,7 +125,7 @@ export default {
             :is-disabled="!isEditable"
             :timer="timer"
           />
-          <div class="section start-btn-section-mobile">
+          <div class="start-btn-section-mobile">
             <TimerSetupActions
               :has-active-background="hasActiveBackground"
               :has-rest-background="hasRestBackground"
