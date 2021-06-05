@@ -1,4 +1,6 @@
 <script>
+import "./css/TimerSetupActions.css";
+
 export default {
   props: {
     hasActiveBackground: {

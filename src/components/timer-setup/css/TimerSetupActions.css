@@ -1,0 +1,33 @@
+.btn-isActive {
+  transition: 0.2s;
+  background-color: #ff7373;
+  color: #ffffff;
+}
+
+.btn-isRest {
+  transition: 0.2s;
+
+  background-color: #6ac5f9;
+}
+
+.start-btn {
+  height: 100%;
+  min-width: 100px;
+  padding: 6px;
+  margin-right: 12px;
+
+  font-size: 24px;
+  color: #fff;
+
+  background-color: #ff7373;
+  border: none;
+  border-radius: 10px;
+
+  transition: 0.2s;
+
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  color: #000;
+}
