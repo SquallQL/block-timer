@@ -69,12 +69,13 @@ export default {
           <label :for="repeatID">Repeat forever</label>
         </div>
       </div>
-      <div class="total-section-desktop">
-        <TimerSetupTotal :is-infinite="isInfinite" :timer="timer" />
-      </div>
     </div>
     <div class="total-section-mobile">
-      <TimerSetupTotal :is-infinite="isInfinite" :timer="timer" />
+      <TimerSetupTotal
+        :is-infinite="isInfinite"
+        :timer="timer"
+        with-total-text
+      />
     </div>
   </div>
 </template>

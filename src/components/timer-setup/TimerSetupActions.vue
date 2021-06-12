@@ -45,7 +45,7 @@ export default {
   <button
     class="start-btn"
     :class="{
-      'btn-isActive': isActiveTimer,
+      'btn-isActive': hasActiveBackground,
       'btn-isRest': hasRestBackground,
     }"
     :disabled="isDisabled"

@@ -13,7 +13,9 @@ describe("TimerSetupHeader", () => {
     hasActiveBackground: false,
     hasRestBackground: false,
     index: 0,
+    isActiveTimer: false,
     isEditable: true,
+    isStartBtnDisabled: false,
     timer: timerMock,
   };
 

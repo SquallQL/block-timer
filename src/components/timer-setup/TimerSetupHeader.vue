@@ -2,10 +2,14 @@
 import { mapActions } from "vuex";
 import debounce from "lodash.debounce";
 import "./css/TimerSetupHeader.css";
+import TimerSetupActions from "../timer-setup/TimerSetupActions.vue";
 
 export default {
   i18n: {
     placeholder: "Add timer name",
+  },
+  components: {
+    TimerSetupActions,
   },
   props: {
     hasActiveBackground: {
@@ -20,7 +24,15 @@ export default {
       type: Number,
       required: true,
     },
+    isActiveTimer: {
+      type: Boolean,
+      required: true,
+    },
     isEditable: {
+      type: Boolean,
+      required: true,
+    },
+    isStartBtnDisabled: {
       type: Boolean,
       required: true,
     },
@@ -58,6 +70,13 @@ export default {
 </script>
 <template>
   <div class="timer-header-section" :class="backgroundClasses">
+    <button
+      class="closeBtn"
+      :disabled="!isEditable"
+      @click="removeTimer(index)"
+    >
+      x
+    </button>
     <input
       class="timer-name"
       :class="backgroundClasses"
@@ -66,12 +85,14 @@ export default {
       maxlength="24"
       @input="setNewTimerName"
     />
-    <button
-      class="closeBtn"
-      :disabled="!isEditable"
-      @click="removeTimer(index)"
-    >
-      x
-    </button>
+    <div class="startBtnContainer start-btn-section-desktop">
+      <TimerSetupActions
+        :has-active-background="hasActiveBackground"
+        :has-rest-background="hasRestBackground"
+        :is-active-timer="isActiveTimer"
+        :is-disabled="isStartBtnDisabled"
+        v-on="$listeners"
+      />
+    </div>
   </div>
 </template>

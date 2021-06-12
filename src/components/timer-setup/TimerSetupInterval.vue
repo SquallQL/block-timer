@@ -1,30 +1,18 @@
 <script>
 import { mapActions } from "vuex";
-import TimerSetupActions from "./TimerSetupActions.vue";
 import "./css/TimerSetupInterval.css";
+import TimerSetupTotal from "../timer-setup/TimerSetupTotal.vue";
 
 export default {
-  components: { TimerSetupActions },
+  components: {
+    TimerSetupTotal,
+  },
   props: {
-    hasActiveBackground: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    hasRestBackground: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     index: {
       type: Number,
       required: true,
     },
     isActiveTimer: {
-      type: Boolean,
-      required: true,
-    },
-    isStartBtnDisabled: {
       type: Boolean,
       required: true,
     },
@@ -154,16 +142,12 @@ export default {
           <span v-else class="infinite">&#8734;</span>
         </div>
       </div>
-      <div class="check-spacer" />
-    </div>
-    <div class="start-btn-section-desktop">
-      <TimerSetupActions
-        :has-active-background="hasActiveBackground"
-        :has-rest-background="hasRestBackground"
-        :is-active-timer="isActiveTimer"
-        :is-disabled="isStartBtnDisabled"
-        v-on="$listeners"
-      />
+      <span class="section time-symbol equal-section">
+        =
+      </span>
+      <div class="section total-time-section">
+        <TimerSetupTotal :timer="timer" :is-infinite="isInfinite" />
+      </div>
     </div>
   </div>
 </template>

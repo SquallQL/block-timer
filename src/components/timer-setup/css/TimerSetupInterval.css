@@ -88,8 +88,15 @@
   color: #6ac5f9;
 }
 
+.total-time-section {
+  margin-top: 12px;
+}
+
 @media (max-width: 800px) {
-  .start-btn-section-desktop {
+  .equal-section {
+    display: none;
+  }
+  .total-time-section {
     display: none;
   }
 }

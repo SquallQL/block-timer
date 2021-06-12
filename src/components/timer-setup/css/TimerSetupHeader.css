@@ -1,31 +1,38 @@
 .timer-header-section {
+  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 
   width: 100%;
+  padding: 12px 0;
 
   transition: 0.2s;
 
-  background-color: #ffffff;
-  border-radius: 2rem 2rem 0 0;
+  background-color: #3c3c3c;
+  border-radius: 4px 4px 0 0;
 }
 
 .timer-name {
-  width: 80%;
+  margin: 0 24px;
 
   text-align: center;
   font-size: 28px;
-  font-family: "Allerta Stencil";
-  color: #000;
+  font-family: "Roboto";
+  color: #fff;
 
   border: none;
+  background-color: #3c3c3c;
 
   transition: 0.2s;
 }
 
 .timer-name:focus {
   border-bottom: 5px solid #ff7373;
+}
+
+.timer-name::placeholder  {
+  color: #888888;
 }
 
 .timer-setup-active {
@@ -36,4 +43,38 @@
 .timer-setup-rest {
   background-color: #6ac5f9;
   color: #ffffff;
+}
+
+.closeBtn {
+  position: absolute;
+  left: 10px;
+
+  color: #ffffff;
+  font-size: 24px;
+
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.closeBtn:hover:enabled {
+  transform: scale(1.4);
+}
+
+.startBtnContainer {
+  position: absolute;
+  right: 10px;
+}
+
+@media (max-width: 800px) {
+  .timer-name {
+    width: 100%;
+  }
+
+  .start-btn-section-desktop {
+    display: none;
+  }
 }

@@ -1,9 +1,9 @@
 <script>
 import "./css/TimerSetup.css";
 import { mapActions, mapGetters } from "vuex";
+import TimerSetupActions from "./TimerSetupActions.vue";
 import TimerSetupHeader from "./TimerSetupHeader";
 import TimerSetupInterval from "./TimerSetupInterval";
-import TimerSetupActions from "./TimerSetupActions.vue";
 import TimerSetupOptions from "./TimerSetupOptions.vue";
 
 export default {
@@ -98,8 +98,13 @@ export default {
           :has-active-background="hasActiveBackground"
           :has-rest-background="hasRestBackground"
           :index="index"
+          :is-active-timer="isActiveTimer"
           :is-editable="isEditable"
+          :is-start-btn-disabled="isStartBtnDisabled"
           :timer="timer"
+          @start-btn-enter="onStartButtonEnter"
+          @start-btn-out="onStartButtonOut"
+          @start-btn-click="onStartButtonClick"
         />
         <div
           class="wrapper-inside time-start"
@@ -116,9 +121,6 @@ export default {
             :is-active-timer="isActiveTimer"
             :is-start-btn-disabled="isStartBtnDisabled"
             :timer="timer"
-            @start-btn-enter="onStartButtonEnter"
-            @start-btn-out="onStartButtonOut"
-            @start-btn-click="onStartButtonClick"
           />
           <TimerSetupOptions
             :index="index"
