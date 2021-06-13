@@ -4,7 +4,6 @@
   justify-content: flex-start;
 
   padding: 14px 4px;
-  border-top: 2px dashed #ffffff;
 
   font-size: 16px;
 }
@@ -43,5 +42,11 @@
 
   .total-section-mobile {
     display: block;
+  }
+}
+
+@media (max-width: 800px) {
+  .footer-section {
+    border-top: 2px solid #3c3c3c;
   }
 }
