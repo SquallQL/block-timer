@@ -1,15 +1,20 @@
 .addTimer {
-  padding: 8px;
+  padding: 12px;
+  margin-bottom: 24px;
 
-  color: #000000;
+  color: #ff7373;
   font-size: 20px;
 
-  background-color: #ffffff;
-  border: none;
+  background-color: #3c3c3c;
+  border: 2px solid #ff7373;
 
   cursor: pointer;
+
+  transition: 0.2s;
 }
 
 .addTimer:hover {
-  background-color: #c0c0c0;
+  background-color: #ff7373;
+  color: #ffffff;
+  border-color: #ffffff;
 }

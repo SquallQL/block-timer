@@ -31,10 +31,6 @@
   border-bottom: 5px solid #ff7373;
 }
 
-.timer-name::placeholder  {
-  color: #888888;
-}
-
 .timer-setup-active {
   background-color: #ff7373;
   color: #ffffff;
