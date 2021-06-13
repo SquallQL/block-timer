@@ -142,11 +142,16 @@ export default {
           <span v-else class="infinite">&#8734;</span>
         </div>
       </div>
-      <span class="section time-symbol equal-section">
+      <span class="section time-symbol duration-mobile-section">
         =
       </span>
-      <div class="section total-time-section">
-        <TimerSetupTotal :timer="timer" :is-infinite="isInfinite" />
+      <div class="section duration-mobile-section">
+        <div class="subtitle">
+          Duration
+        </div>
+        <div class="total-time-section">
+          <TimerSetupTotal :timer="timer" :is-infinite="isInfinite" />
+        </div>
       </div>
     </div>
   </div>
