@@ -94,7 +94,7 @@ export default {
   <transition appear name="fade">
     <div class="TimerSetup-root">
       <div class="wrapper">
-        <TimerSetupHeader
+        <timer-setup-header
           :has-active-background="hasActiveBackground"
           :has-rest-background="hasRestBackground"
           :index="index"
@@ -114,7 +114,7 @@ export default {
             'time-isRest': hasRestBackground,
           }"
         >
-          <TimerSetupInterval
+          <timer-setup-interval
             :has-active-background="hasActiveBackground"
             :has-rest-background="hasRestBackground"
             :index="index"
@@ -122,13 +122,13 @@ export default {
             :is-start-btn-disabled="isStartBtnDisabled"
             :timer="timer"
           />
-          <TimerSetupOptions
+          <timer-setup-options
             :index="index"
             :is-disabled="!isEditable"
             :timer="timer"
           />
           <div class="start-btn-section-mobile">
-            <TimerSetupActions
+            <timer-setup-actions
               :has-active-background="hasActiveBackground"
               :has-rest-background="hasRestBackground"
               :is-active-timer="isActiveTimer"

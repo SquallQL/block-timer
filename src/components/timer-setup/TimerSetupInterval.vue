@@ -150,7 +150,7 @@ export default {
           Duration
         </div>
         <div class="total-time-section">
-          <TimerSetupTotal :timer="timer" :is-infinite="isInfinite" />
+          <timer-setup-total :timer="timer" :is-infinite="isInfinite" />
         </div>
       </div>
     </div>

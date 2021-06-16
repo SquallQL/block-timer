@@ -27,18 +27,18 @@ export default {
 <template>
   <div id="app">
     <div class="total-timer-container">
-      <TotalTimer />
+      <total-timer />
     </div>
-    <MainTimerDetails />
-    <MainTimer />
+    <main-timer-details />
+    <main-timer />
     <div class="timer-setup-section">
-      <TimerSetup
+      <timer-setup
         v-for="(timer, index) in timers"
         :key="timer.uid"
         :timer="timer"
         :index="index"
       />
     </div>
-    <AddTimerBtn />
+    <add-timer-btn />
   </div>
 </template>

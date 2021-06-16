@@ -71,7 +71,7 @@ export default {
       </div>
     </div>
     <div class="total-section-mobile">
-      <TimerSetupTotal
+      <timer-setup-total
         :is-infinite="isInfinite"
         :timer="timer"
         with-total-text

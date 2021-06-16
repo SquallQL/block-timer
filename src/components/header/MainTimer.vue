@@ -58,7 +58,8 @@ export default {
         this.isRestTime && this.currentRun.cycle === this.totalCycle - 1;
 
       return (
-        this.isActive && !this.isInfinite &&
+        this.isActive &&
+        !this.isInfinite &&
         (this.currentRun.cycle >= this.totalCycle || isLastRestRep)
       );
     },
@@ -189,6 +190,6 @@ export default {
     >
       {{ time }}
     </h1>
-    <PlayerControl v-if="isActive" @rewind="shouldRewind = true" />
+    <player-control v-if="isActive" @rewind="shouldRewind = true" />
   </div>
 </template>

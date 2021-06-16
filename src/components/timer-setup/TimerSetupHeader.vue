@@ -86,7 +86,7 @@ export default {
       @input="setNewTimerName"
     />
     <div class="startBtnContainer start-btn-section-desktop">
-      <TimerSetupActions
+      <timer-setup-actions
         :has-active-background="hasActiveBackground"
         :has-rest-background="hasRestBackground"
         :is-active-timer="isActiveTimer"

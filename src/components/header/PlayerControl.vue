@@ -65,9 +65,9 @@ export default {
 
 <template>
   <div class="player-root" :style="borderStyle">
-    <RepeatIcon :on-click="rewindTimer" :color="currentColor" />
-    <PlayIcon v-if="isPaused" :on-click="togglePause" :color="currentColor" />
-    <PauseIcon v-else :on-click="togglePause" :color="currentColor" />
-    <StopIcon :on-click="stopTimer" :color="currentColor" />
+    <repeat-icon :on-click="rewindTimer" :color="currentColor" />
+    <play-icon v-if="isPaused" :on-click="togglePause" :color="currentColor" />
+    <pause-icon v-else :on-click="togglePause" :color="currentColor" />
+    <stop-icon :on-click="stopTimer" :color="currentColor" />
   </div>
 </template>
