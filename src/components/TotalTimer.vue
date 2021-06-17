@@ -1,11 +1,14 @@
 <script>
 import "./TotalTimer.css";
+import Logo from "./icon/Logo.vue";
 import { mapGetters } from "vuex";
 import { formatTime } from "../util/timeUtils";
 
 export default {
   name: "TotalTimer",
-
+  components: {
+    Logo,
+  },
   data() {
     return {
       intervalObject: null,
