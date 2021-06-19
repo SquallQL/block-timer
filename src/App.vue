@@ -2,7 +2,6 @@
 import { mapGetters } from "vuex";
 
 import MainTimer from "./components/header/MainTimer.vue";
-import MainTimerDetails from "./components/header/MainTimerDetails.vue";
 import TotalTimer from "./components/TotalTimer.vue";
 import TimerSetup from "./components/timer-setup/TimerSetup.vue";
 import AddTimerBtn from "./components/AddTimerBtn.vue";
@@ -14,7 +13,6 @@ export default {
   components: {
     AddTimerBtn,
     MainTimer,
-    MainTimerDetails,
     TimerSetup,
     TotalTimer,
   },
@@ -29,7 +27,6 @@ export default {
     <div class="total-timer-container">
       <total-timer />
     </div>
-    <main-timer-details />
     <main-timer />
     <div class="timer-setup-section">
       <timer-setup

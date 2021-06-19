@@ -1,18 +1,9 @@
 <script>
 export default {
   props: {
-    color: {
-      required: true,
-      type: String,
-    },
     onClick: {
       required: true,
       type: Function,
-    },
-  },
-  computed: {
-    svgStyle() {
-      return `fill:${this.color};`;
     },
   },
 };
@@ -24,7 +15,7 @@ export default {
     width="50 "
     height="50"
     version="1.1"
-    :style="svgStyle"
+    style="fill: #ffffff;"
     @click="onClick"
   >
     <g>

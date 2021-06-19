@@ -1,18 +1,9 @@
 <script>
 export default {
   props: {
-    color: {
-      required: true,
-      type: String,
-    },
     onClick: {
       required: true,
       type: Function,
-    },
-  },
-  computed: {
-    svgStyle() {
-      return `fill:${this.color}`;
     },
   },
 };
@@ -21,7 +12,7 @@ export default {
   <svg
     id="play"
     version="1.1"
-    :style="svgStyle"
+    style="fill: #ffffff;"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0"

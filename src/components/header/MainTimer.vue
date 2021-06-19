@@ -28,11 +28,19 @@ export default {
   },
   computed: {
     ...mapGetters(["currentRun", "currentRunningTimer", "timers"]),
+    cycleText() {
+      return this.isInfinite
+        ? String(this.currentRun.cycle + 1)
+        : `${this.currentRun.cycle + 1}/${this.currentRunningTimer.cycle}`;
+    },
     isActive() {
       return this.currentRun.isActive;
     },
     isPaused() {
       return this.currentRun.isPaused;
+    },
+    isInfinite() {
+      return this.currentRunningTimer.isInfinite;
     },
     isInterval() {
       return this.currentRunningTimer.isInterval;
@@ -63,6 +71,7 @@ export default {
         (this.currentRun.cycle >= this.totalCycle || isLastRestRep)
       );
     },
+
     isRestTime() {
       return (
         this.isActive && this.isInterval && this.currentRunState === REST_STATE
@@ -168,6 +177,7 @@ export default {
           break;
       }
     },
+
     playSound(id) {
       const sound = document.getElementById(id);
 
@@ -184,12 +194,20 @@ export default {
 
 <template>
   <div class="main-timer-root">
-    <h1
-      class="timer"
-      :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
-    >
-      {{ time }}
-    </h1>
+    <h3 v-if="isGettingReady" class="getting-ready">
+      Get ready in:
+    </h3>
+    <div class="main-timer-container">
+      <h1
+        class="timer"
+        :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+      >
+        {{ time }}
+      </h1>
+      <h3 v-if="isActive && !isGettingReady" class="cycle-count">
+        {{ cycleText }}
+      </h3>
+    </div>
     <player-control v-if="isActive" @rewind="shouldRewind = true" />
   </div>
 </template>

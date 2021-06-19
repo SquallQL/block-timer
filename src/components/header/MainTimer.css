@@ -1,7 +1,23 @@
 .main-timer-root {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   font-family: "Roboto Mono", monospace;
+}
+
+.main-timer-container {
+  position: relative;
+}
+
+.cycle-count {
+  position: absolute;
+  top: calc(50% + 20px);
+  right: -60px;
+
+  font-size: 24px;
 }
 
 .timer {
@@ -10,6 +26,23 @@
 
   font-size: 120px;
   font-weight: 400;
+}
+
+.details-text {
+  white-space: nowrap;
+}
+
+.getting-ready {
+  position: absolute;
+  top: 0;
+
+  display: flex;
+  font-family: "Roboto mono";
+  font-size: 26px;
+
+  margin-top: 30px;
+
+  white-space: nowrap;
 }
 
 @media (max-width: 800px) {

@@ -26,7 +26,7 @@ export default {
       colors: {
         [ACTIVE_STATE]: "#ff7373",
         [REST_STATE]: "#6ac5f9",
-        [READY_STATE]: "#000000",
+        [READY_STATE]: "#ffffff",
       },
     };
   },
@@ -65,9 +65,9 @@ export default {
 
 <template>
   <div class="player-root" :style="borderStyle">
-    <repeat-icon :on-click="rewindTimer" :color="currentColor" />
-    <play-icon v-if="isPaused" :on-click="togglePause" :color="currentColor" />
-    <pause-icon v-else :on-click="togglePause" :color="currentColor" />
-    <stop-icon :on-click="stopTimer" :color="currentColor" />
+    <repeat-icon :on-click="rewindTimer" />
+    <play-icon v-if="isPaused" :on-click="togglePause" />
+    <pause-icon v-else :on-click="togglePause" />
+    <stop-icon :on-click="stopTimer" />
   </div>
 </template>
