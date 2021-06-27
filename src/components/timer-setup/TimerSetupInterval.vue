@@ -77,17 +77,24 @@ export default {
       }
     },
     setActiveDefault(e) {
-      if (e.target.value === "") {
+      const { value } = e.target;
+      console.log(value);
+
+      if (value === "" || value === "0") {
         this.activeTime = "15";
       }
     },
     setRestDefault(e) {
-      if (e.target.value === "") {
+      const { value } = e.target;
+
+      if (value === "" || value === "0") {
         this.restTime = "5";
       }
     },
     setCycleDefault(e) {
-      if (e.target.value === "") {
+      const { value } = e.target;
+
+      if (value === "" || value === "0") {
         this.timerCycle = "1";
       }
     },
