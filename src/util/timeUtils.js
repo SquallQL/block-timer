@@ -14,10 +14,10 @@ export function formatTime(time) {
       return `${minutes}m:${formatBaseNumber(seconds)}s`;
     }
   } else if (time < 10) {
-    return formatBaseNumber(time);
+    return `${formatBaseNumber(time)}s`;
   }
 
-  return time.toString();
+  return `${time.toString()}s`;
 }
 
 export function formatBaseNumber(num) {
