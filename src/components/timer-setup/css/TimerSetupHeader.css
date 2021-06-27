@@ -27,9 +27,13 @@
   transition: 0.2s;
 }
 
+.timer-name:focus {
+  border-bottom: 5px solid #ff7373;
+}
+
 .timer-setup-active {
-  background-color: #fff;
-  color: #3c3c3c;
+  background-color: #ff7373;
+  color: #ffffff;
 }
 
 .timer-setup-rest {
@@ -37,7 +41,7 @@
   color: #ffffff;
 }
 
-.close-btn {
+.closeBtn {
   position: absolute;
   left: 10px;
 
@@ -52,12 +56,8 @@
   transition: 0.3s;
 }
 
-.close-btn:hover:enabled {
+.closeBtn:hover:enabled {
   transform: scale(1.4);
-}
-
-.dark-close-btn {
-  color: #3c3c3c;
 }
 
 .startBtnContainer {

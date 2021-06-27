@@ -113,7 +113,8 @@ export default {
           <input
             ref="activeInput"
             v-model="activeTime"
-            class="default-input number active-time"
+            class="default-input number"
+            :class="{ 'active-time': isInterval }"
             :disabled="!isEditable"
             type="text"
             maxlength="2"
