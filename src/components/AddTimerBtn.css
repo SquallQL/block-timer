@@ -2,11 +2,11 @@
   padding: 12px;
   margin-bottom: 24px;
 
-  color: #ffffff;
+  color: #ff7373;
   font-size: 20px;
 
   background-color: #3c3c3c;
-  border: 2px solid #ffffff;
+  border: 2px solid #ff7373;
 
   cursor: pointer;
 
@@ -14,7 +14,7 @@
 }
 
 .addTimer:hover {
-  background-color: #ffffff;
-  color: #3c3c3c;
-  border-color: #3c3c3c;
+  background-color: #ff7373;
+  color: #ffffff;
+  border-color: #ffffff;
 }
