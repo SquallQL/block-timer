@@ -76,6 +76,21 @@ export default {
         e.preventDefault();
       }
     },
+    setActiveDefault(e) {
+      if (e.target.value === "") {
+        this.activeTime = "15";
+      }
+    },
+    setRestDefault(e) {
+      if (e.target.value === "") {
+        this.restTime = "5";
+      }
+    },
+    setCycleDefault(e) {
+      if (e.target.value === "") {
+        this.timerCycle = "1";
+      }
+    },
   },
 };
 </script>
@@ -98,6 +113,7 @@ export default {
             maxlength="2"
             data-testid="activeInput"
             @keypress="isNumber"
+            @blur="setActiveDefault"
           />
         </div>
       </div>
@@ -118,6 +134,7 @@ export default {
               :disabled="!isEditable"
               data-testid="restInput"
               @keypress="isNumber"
+              @blur="setRestDefault"
             />
           </div>
         </div>
@@ -138,6 +155,7 @@ export default {
             :disabled="!isEditable"
             data-testid="cycleInput"
             @keypress="isNumber"
+            @blur="setCycleDefault"
           />
           <span v-else class="infinite">&#8734;</span>
         </div>
