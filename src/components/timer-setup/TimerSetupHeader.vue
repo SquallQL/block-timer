@@ -71,7 +71,8 @@ export default {
 <template>
   <div class="timer-header-section" :class="backgroundClasses">
     <button
-      class="closeBtn"
+      class="close-btn"
+      :class="{ 'dark-close-btn': hasActiveBackground }"
       :disabled="!isEditable"
       @click="removeTimer(index)"
     >
