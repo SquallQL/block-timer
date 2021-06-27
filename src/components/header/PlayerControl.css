@@ -1,7 +1,4 @@
 .player-root {
-  position: absolute;
-  bottom: -60px;
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -13,10 +10,4 @@
   background-color: #3c3c3c;
   border: 4px solid black;
   border-radius: 4px;
-}
-
-@media (max-width: 800px) {
-  .player-root {
-    left: -38%;
-  }
 }

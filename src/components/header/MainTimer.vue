@@ -54,6 +54,9 @@ export default {
     isGettingReady() {
       return this.isActive && this.currentRunState === READY_STATE;
     },
+    isTimerRunning() {
+      return this.isActive || this.isGettingReady;
+    },
     isActiveTime() {
       return (
         this.isActive &&
@@ -78,10 +81,6 @@ export default {
       );
     },
     time() {
-      if (!this.isActive) {
-        return "00:00";
-      }
-
       if (this.countdown < 10) {
         return `0${this.countdown}`;
       }
@@ -195,19 +194,26 @@ export default {
 <template>
   <div class="main-timer-root">
     <h3 v-if="isGettingReady" class="getting-ready">
-      Get ready in:
+      Get ready in
     </h3>
-    <div class="main-timer-container">
-      <h1
-        class="timer"
-        :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+    <h1
+      v-if="isTimerRunning"
+      class="timer"
+      :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+    >
+      {{ time }}
+      <h3
+        class="cycle-count"
+        :class="{ 'cycle-count-visible': !isGettingReady }"
       >
-        {{ time }}
-      </h1>
-      <h3 v-if="isActive && !isGettingReady" class="cycle-count">
         {{ cycleText }}
       </h3>
+    </h1>
+    <h1 v-else class="timer timer-mobile">
+      00:00
+    </h1>
+    <div class="player-control-wrapper">
+      <player-control v-if="isActive" @rewind="shouldRewind = true" />
     </div>
-    <player-control v-if="isActive" @rewind="shouldRewind = true" />
   </div>
 </template>
