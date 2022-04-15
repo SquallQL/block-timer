@@ -11,6 +11,7 @@ import "./MainTimer.css";
 
 const SHORT_BEEP_ID = "beep_short";
 const LONG_BEEP_ID = "beep_long";
+const END_BEEP_ID = "beep_end";
 const COUNTDOWN_DEFAULT_VAL = 3;
 
 export default {
@@ -65,16 +66,14 @@ export default {
       );
     },
     isDone() {
-      const isLastRestRep =
-        this.isRestTime && this.currentRun.cycle === this.totalCycle - 1;
-
+      return this.isActive && !this.isInfinite && this.isLastRep;
+    },
+    isLastRep() {
       return (
-        this.isActive &&
-        !this.isInfinite &&
-        (this.currentRun.cycle >= this.totalCycle || isLastRestRep)
+        (this.isRestTime && this.currentRun.cycle === this.totalCycle - 1) ||
+        this.currentRun.cycle >= this.totalCycle
       );
     },
-
     isRestTime() {
       return (
         this.isActive && this.isInterval && this.currentRunState === REST_STATE
@@ -128,9 +127,14 @@ export default {
       }
 
       if (val === 0) {
-        this.playSound(LONG_BEEP_ID);
-        this.skipNextSound = true;
         this.changeTimerState();
+        this.skipNextSound = true;
+
+        if (this.isLastRep) {
+          this.playSound(END_BEEP_ID);
+        } else {
+          this.playSound(LONG_BEEP_ID);
+        }
       } else if (val <= 3 && !this.skipNextSound) {
         this.playSound(SHORT_BEEP_ID);
       }
