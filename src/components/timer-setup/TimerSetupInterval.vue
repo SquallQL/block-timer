@@ -78,7 +78,6 @@ export default {
     },
     setActiveDefault(e) {
       const { value } = e.target;
-      console.log(value);
 
       if (value === "" || value === "0") {
         this.activeTime = "15";

@@ -16,8 +16,6 @@
 }
 
 .total-timer-main {
-  position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +29,15 @@
 
 .time-mobile {
   display: none;
+}
+
+.logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  padding: 12px;
+  background-color: #ffffff;
 }
 
 @media (max-width: 800px) {

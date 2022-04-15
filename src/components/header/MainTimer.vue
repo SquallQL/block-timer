@@ -196,27 +196,34 @@ export default {
 
 <template>
   <div class="main-timer-root">
-    <h3 v-if="isGettingReady" class="getting-ready">
+    <h3 :class="{ 'show-getting-ready': isGettingReady }" class="getting-ready">
       Get ready in
     </h3>
-    <h1
-      v-if="isTimerRunning"
-      class="timer"
-      :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
-    >
-      {{ time }}
+    <div v-if="isTimerRunning" class="timer-area">
+      <h1
+        class="timer"
+        :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+      >
+        {{ time }}
+      </h1>
       <h3
         class="cycle-count"
         :class="{ 'cycle-count-visible': !isGettingReady }"
       >
         {{ cycleText }}
       </h3>
-    </h1>
+    </div>
     <h1 v-else class="timer timer-mobile">
       00:00
     </h1>
     <div class="player-control-wrapper">
-      <player-control v-if="isActive" @rewind="shouldRewind = true" />
+      <player-control
+        :class="{
+          'active-control-player': isActive,
+          'control-player': !isActive,
+        }"
+        @rewind="shouldRewind = true"
+      />
     </div>
   </div>
 </template>
