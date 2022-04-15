@@ -56,7 +56,7 @@ export const createStore = () =>
     getters: {
       isWorkoutStarted: (state) => state.isWorkoutStarted,
       currentRun: (state) => state.currentRun,
-      currentRunningTimer: (state) => state.timers[state.selectedTimerID],
+      currentTimerSettings: (state) => state.timers[state.selectedTimerID],
       selectedTimerID: (state) => state.selectedTimerID,
       timers: (state) => state.timers,
     },

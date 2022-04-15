@@ -31,7 +31,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentRun", "currentRunningTimer", "selectedTimerID"]),
+    ...mapGetters(["currentRun", "currentTimerSettings", "selectedTimerID"]),
     isActive() {
       return this.currentRun.isActive;
     },
@@ -42,7 +42,7 @@ export default {
       return this.currentRun.state;
     },
     currentColor() {
-      return this.currentRunningTimer.isInterval
+      return this.currentTimerSettings.isInterval
         ? this.colors[this.currentRunState]
         : this.colors[READY_STATE];
     },

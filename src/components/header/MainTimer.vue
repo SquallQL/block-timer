@@ -28,11 +28,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentRun", "currentRunningTimer", "timers"]),
+    ...mapGetters(["currentRun", "currentTimerSettings", "timers"]),
     cycleText() {
       return this.isInfinite
         ? String(this.currentRun.cycle + 1)
-        : `${this.currentRun.cycle + 1}/${this.currentRunningTimer.cycle}`;
+        : `${this.currentRun.cycle + 1}/${this.currentTimerSettings.cycle}`;
     },
     isActive() {
       return this.currentRun.isActive;
@@ -41,13 +41,13 @@ export default {
       return this.currentRun.isPaused;
     },
     isInfinite() {
-      return this.currentRunningTimer.isInfinite;
+      return this.currentTimerSettings.isInfinite;
     },
     isInterval() {
-      return this.currentRunningTimer.isInterval;
+      return this.currentTimerSettings.isInterval;
     },
     totalCycle() {
-      return this.currentRunningTimer.cycle;
+      return this.currentTimerSettings.cycle;
     },
     currentRunState() {
       return this.currentRun.state;
@@ -90,7 +90,7 @@ export default {
   watch: {
     shouldRewind(flag) {
       if (flag) {
-        this.countdown = this.currentRunningTimer[this.currentRunState];
+        this.countdown = this.currentTimerSettings[this.currentRunState];
         this.shouldRewind = false;
       }
     },
@@ -144,27 +144,26 @@ export default {
     ...mapActions([
       "addCycle",
       "addTotalTime",
+      "setCurrentRunState",
+      "stopTimer",
       "removeTimer",
       "resetCycle",
-      "setCurrentRunState",
       "toggleWorkoutStarted",
-      "stopTimer",
-      "TimerSetup",
     ]),
     changeTimerState() {
       switch (this.currentRunState) {
         case READY_STATE:
           this.setCurrentRunState(ACTIVE_STATE);
-          this.countdown = this.currentRunningTimer.active;
+          this.countdown = this.currentTimerSettings.active;
           break;
 
         case ACTIVE_STATE:
           if (this.isInterval) {
             this.setCurrentRunState(REST_STATE);
 
-            this.countdown = this.currentRunningTimer.rest;
+            this.countdown = this.currentTimerSettings.rest;
           } else {
-            this.countdown = this.currentRunningTimer.active;
+            this.countdown = this.currentTimerSettings.active;
             this.addCycle();
           }
           break;
@@ -172,9 +171,9 @@ export default {
         case REST_STATE:
           this.setCurrentRunState(ACTIVE_STATE);
 
-          this.countdown = this.currentRunningTimer.active;
+          this.countdown = this.currentTimerSettings.active;
 
-          if (this.currentRun.cycle < this.currentRunningTimer.cycle) {
+          if (this.currentRun.cycle < this.currentTimerSettings.cycle) {
             this.addCycle();
           }
           break;
