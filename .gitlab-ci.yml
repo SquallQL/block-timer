@@ -1,4 +1,4 @@
-image: node:latest
+image: node:lts-bullseye
 
 # Cache modules in between jobs
 cache:
