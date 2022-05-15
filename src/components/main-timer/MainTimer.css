@@ -27,16 +27,11 @@
 
 .getting-ready {
   margin:0;
-  opacity: 0;
   
   font-family: "Roboto mono";
   font-size: 36px;
   
   white-space: nowrap;
-}
-
-.show-getting-ready{
-  opacity: 1;
 }
 
 .timer-area{

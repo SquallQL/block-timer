@@ -1,10 +1,10 @@
 <script>
-import "./TotalTimer.css";
+import "./WorkoutBanner.css";
 import { mapGetters } from "vuex";
-import { formatTime } from "../util/timeUtils";
+import { formatTime } from "../../util/timeUtils";
 
 export default {
-  name: "TotalTimer",
+  name: "WorkoutBanner",
   data() {
     return {
       intervalObject: null,
@@ -20,14 +20,14 @@ export default {
   watch: {
     isWorkoutStarted(flag) {
       if (flag) {
-        this.toggleTotalTimer();
+        this.startCounting();
       } else {
         clearInterval(this.intervalObject);
       }
     },
   },
   methods: {
-    toggleTotalTimer() {
+    startCounting() {
       this.intervalObject = setInterval(() => {
         this.totalTime += 1;
       }, 1000);
@@ -41,7 +41,9 @@ export default {
     <div class="total-timer-main">
       <p class="total-timer">
         Workout time:
-        <span class="time time-desktop"> {{ formattedTime }}</span>
+        <span class="time time-desktop" data-testId="total-workout-timer">
+          {{ formattedTime }}
+        </span>
       </p>
     </div>
     <strong class="time time-mobile">{{ formattedTime }}</strong>

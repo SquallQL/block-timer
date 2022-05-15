@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import TimerSetupActions from "../../src/components/timer-setup/TimerSetupActions.vue";
+import TimerSetupActions from "!/timer-setup/TimerSetupActions.vue";
 
 describe("TimerSetupActions", () => {
   let wrapper;

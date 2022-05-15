@@ -1,8 +1,8 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
-import TimerSetupHeader from "../../src/components/timer-setup/TimerSetupHeader.vue";
-import { timerMock } from "./mocks/timer_mock.js";
-import { createStore } from "../state/store";
+import TimerSetupHeader from "!/timer-setup/TimerSetupHeader.vue";
+import { intervalTimerMock } from "../../mocks/timer_mock.js";
+import { createStore } from "~/state/store";
 
 jest.mock("lodash.debounce", () => jest.fn().mockImplementation((fn) => fn));
 jest.useFakeTimers();
@@ -16,7 +16,7 @@ describe("TimerSetupHeader", () => {
     isActiveTimer: false,
     isEditable: true,
     isStartBtnDisabled: false,
-    timer: timerMock,
+    timer: intervalTimerMock,
   };
 
   const localVue = createLocalVue();

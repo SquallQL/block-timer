@@ -1,9 +1,9 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import Vuex from "vuex";
-import TimerSetupInterval from "../../src/components/timer-setup/TimerSetupInterval.vue";
-import { timerMock } from "./mocks/timer_mock.js";
-import { createStore } from "../state/store";
+import TimerSetupInterval from "!/timer-setup/TimerSetupInterval.vue";
+import { intervalTimerMock } from "../../mocks/timer_mock.js";
+import { createStore } from "~/state/store";
 
 describe("TimerSetupInterval", () => {
   let wrapper;
@@ -14,7 +14,7 @@ describe("TimerSetupInterval", () => {
     index: 0,
     isActiveTimer: false,
     isStartBtnDisabled: false,
-    timer: timerMock,
+    timer: intervalTimerMock,
   };
 
   const localVue = createLocalVue();
@@ -67,7 +67,7 @@ describe("TimerSetupInterval", () => {
 
   describe("Non-interval timers", () => {
     beforeEach(() => {
-      createWrapper({ timer: { ...timerMock, isInterval: false } });
+      createWrapper({ timer: { ...intervalTimerMock, isInterval: false } });
     });
 
     it("Shows `timer` text and not `active`", () => {
@@ -84,7 +84,7 @@ describe("TimerSetupInterval", () => {
 
   describe("Infinite  timers", () => {
     beforeEach(() => {
-      createWrapper({ timer: { ...timerMock, isInfinite: true } });
+      createWrapper({ timer: { ...intervalTimerMock, isInfinite: true } });
     });
 
     it("Shows infinite symbol", () => {

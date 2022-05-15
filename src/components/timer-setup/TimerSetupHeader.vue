@@ -2,7 +2,7 @@
 import { mapActions } from "vuex";
 import debounce from "lodash.debounce";
 import "./css/TimerSetupHeader.css";
-import TimerSetupActions from "../timer-setup/TimerSetupActions.vue";
+import TimerSetupActions from "./TimerSetupActions.vue";
 
 export default {
   i18n: {
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapActions(["removeTimer", "setTimerName"]),
-    setNewTimerName: debounce(function(e) {
+    setNewTimerName: debounce(function (e) {
       const { value: newName } = e.target;
 
       this.timerName = newName;

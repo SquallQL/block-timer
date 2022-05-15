@@ -1,23 +1,26 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import PlayerControl from "./PlayerControl.vue";
+import hideDirective from "../../hideDirective.js";
 
 import {
   ACTIVE_STATE,
   REST_STATE,
   READY_STATE,
+  SHORT_BEEP_ID,
+  LONG_BEEP_ID,
+  END_BEEP_ID,
+  COUNTDOWN_DEFAULT_VAL,
 } from "../../constants/constants";
 import "./MainTimer.css";
-
-const SHORT_BEEP_ID = "beep_short";
-const LONG_BEEP_ID = "beep_long";
-const END_BEEP_ID = "beep_end";
-const COUNTDOWN_DEFAULT_VAL = 3;
 
 export default {
   name: "MainTimer",
   components: {
     PlayerControl,
+  },
+  directives: {
+    hideDirective,
   },
   data() {
     return {
@@ -31,7 +34,7 @@ export default {
     ...mapGetters(["currentRun", "currentTimerSettings", "timers"]),
     cycleText() {
       return this.isInfinite
-        ? String(this.currentRun.cycle + 1)
+        ? `${this.currentRun.cycle + 1}/∞`
         : `${this.currentRun.cycle + 1}/${this.currentTimerSettings.cycle}`;
     },
     isActive() {
@@ -98,7 +101,7 @@ export default {
       if (flag) {
         this.stopTimer();
         this.resetCycle();
-        this.toggleWorkoutStarted();
+        this.stopWorkout();
       }
     },
     isActive(flag) {
@@ -148,7 +151,7 @@ export default {
       "stopTimer",
       "removeTimer",
       "resetCycle",
-      "toggleWorkoutStarted",
+      "stopWorkout",
     ]),
     changeTimerState() {
       switch (this.currentRunState) {
@@ -196,26 +199,30 @@ export default {
 
 <template>
   <div class="main-timer-root">
-    <h3 :class="{ 'show-getting-ready': isGettingReady }" class="getting-ready">
+    <h3
+      v-hide="!isGettingReady"
+      class="getting-ready"
+      data-testId="getting-ready"
+    >
       Get ready in
     </h3>
     <div v-if="isTimerRunning" class="timer-area">
       <h1
         class="timer"
         :class="{ 'active-time': isActiveTime, 'rest-time': isRestTime }"
+        data-testId="active-time"
       >
         {{ time }}
       </h1>
       <h3
         class="cycle-count"
         :class="{ 'cycle-count-visible': !isGettingReady }"
+        data-testId="cycle-count"
       >
         {{ cycleText }}
       </h3>
     </div>
-    <h1 v-else class="timer timer-mobile">
-      00:00
-    </h1>
+    <h1 v-else class="timer timer-mobile">00:00</h1>
     <div class="player-control-wrapper">
       <player-control
         :class="{

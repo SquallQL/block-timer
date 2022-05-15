@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import TimerSetupTotal from "../../src/components/timer-setup/TimerSetupTotal.vue";
-import { timerMock } from "./mocks/timer_mock";
+import TimerSetupTotal from "!/timer-setup/TimerSetupTotal.vue";
+import { intervalTimerMock } from "../../mocks/timer_mock";
 
 describe("TimerSetupTotal", () => {
   let wrapper;
 
   const defaultProps = {
-    timer: timerMock,
+    timer: intervalTimerMock,
     isInfinite: false,
   };
 

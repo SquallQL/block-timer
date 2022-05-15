@@ -25,14 +25,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["removeTimer", "toggleTimer", "toggleWorkoutStarted"]),
+    ...mapActions(["removeTimer", "toggleTimer", "startWorkout"]),
     deleteTimer(index) {
       this.removeTimer(index);
 
       this.closeDropdown();
     },
     startTimer(index) {
-      this.toggleWorkoutStarted();
+      this.startWorkout();
 
       this.toggleTimer(index);
       window?.scrollTo(0, 0);

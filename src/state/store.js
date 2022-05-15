@@ -13,7 +13,9 @@ const intervalCycleDefault = 10;
 const activeDefault = 60;
 const cycleDefault = 1;
 
-const defaultTimer = {
+let lastUID = 1;
+
+const defaultInvervalTimer = {
   name: "",
   isInterval: true,
   isInfinite: false,
@@ -25,9 +27,20 @@ const defaultTimer = {
   uid: 0,
 };
 
-let lastUID = 1;
+const defaultTimer = {
+  uid: 1,
+  isInterval: false,
+  isInfinite: false,
+  active: activeDefault,
+  cycle: cycleDefault,
+  rest: 10,
+  total: activeDefault * cycleDefault,
+  ready: 3,
+};
 
-export const createStore = () =>
+export const createStore = (
+  defaultTimers = [defaultInvervalTimer, defaultTimer]
+) =>
   new Vuex.Store({
     state: {
       selectedTimerID: 0,
@@ -39,19 +52,7 @@ export const createStore = () =>
         isPaused: false,
         state: READY_STATE,
       },
-      timers: [
-        { ...defaultTimer },
-        {
-          uid: 1,
-          isInterval: false,
-          isInfinite: false,
-          active: activeDefault,
-          cycle: cycleDefault,
-          rest: 10,
-          total: activeDefault * cycleDefault,
-          ready: 3,
-        },
-      ],
+      timers: defaultTimers,
     },
     getters: {
       isWorkoutStarted: (state) => state.isWorkoutStarted,
@@ -83,6 +84,9 @@ export const createStore = () =>
       togglePause(state) {
         state.currentRun.isPaused = !state.currentRun.isPaused;
       },
+      startTimer(state) {
+        state.currentRun.isActive = true;
+      },
       stopTimer(state) {
         state.currentRun.isActive = false;
       },
@@ -99,6 +103,12 @@ export const createStore = () =>
       },
       setCurrentRunState(state, timerState) {
         state.currentRun.state = timerState;
+      },
+      startWorkout(state) {
+        state.isWorkoutStarted = true;
+      },
+      stopWorkout(state) {
+        state.isWorkoutStarted = false;
       },
       toggleWorkoutStarted(state) {
         state.isWorkoutStarted = !state.isWorkoutStarted;
@@ -143,17 +153,26 @@ export const createStore = () =>
       removeTimer({ commit }, id) {
         commit(types.REMOVE_TIMER, id);
       },
+      startTimer({ commit }, id) {
+        commit(types.START_TIMER, id);
+      },
       stopTimer({ commit }) {
         commit(types.STOP_TIMER);
       },
       toggleTimer({ commit }, id) {
-        commit(types.START_TIMER, id);
+        commit(types.TOGGLE_TIMER, id);
       },
       togglePause({ commit }) {
         commit(types.TOGGLE_PAUSE);
       },
       setCurrentRunState({ commit }, timerState) {
         commit(types.SET_CURRENT_RUN_STATE, timerState);
+      },
+      startWorkout({ commit }) {
+        commit(types.START_WORKOUT);
+      },
+      stopWorkout({ commit }) {
+        commit(types.STOP_WORKOUT);
       },
       toggleWorkoutStarted({ commit }) {
         commit(types.TOGGLE_WORKOUT_STARTED);
@@ -177,7 +196,7 @@ export const createStore = () =>
         commit(types.SET_CYCLE, { id, cycle });
       },
       toggleIntervalTimer({ commit }, id) {
-        commit(types.TOGGLE_INTEVAL_TIMER, id);
+        commit(types.TOGGLE_INTERVAL_TIMER_TIMER, id);
       },
       toggleInfiniteTimer({ commit }, id) {
         commit(types.TOGGLE_INFINITE_TIMER, id);

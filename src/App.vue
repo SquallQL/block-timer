@@ -1,10 +1,10 @@
 <script>
 import { mapGetters } from "vuex";
 
-import MainTimer from "./components/header/MainTimer.vue";
-import TotalTimer from "./components/TotalTimer.vue";
+import MainTimer from "./components/main-timer/MainTimer.vue";
+import WorkoutBanner from "./components/header/WorkoutBanner.vue";
 import TimerSetup from "./components/timer-setup/TimerSetup.vue";
-import AddTimerBtn from "./components/AddTimerBtn.vue";
+import AddTimerBtn from "./components/main-timer/AddTimerBtn.vue";
 
 import "./App.css";
 
@@ -14,10 +14,10 @@ export default {
     AddTimerBtn,
     MainTimer,
     TimerSetup,
-    TotalTimer,
+    WorkoutBanner,
   },
   computed: {
-    ...mapGetters(["currentRun", "timers"]),
+    ...mapGetters(["timers"]),
   },
 };
 </script>
@@ -25,7 +25,7 @@ export default {
 <template>
   <div id="app">
     <div class="total-timer-container">
-      <total-timer />
+      <workout-banner />
     </div>
     <main-timer />
     <div class="timer-setup-section">

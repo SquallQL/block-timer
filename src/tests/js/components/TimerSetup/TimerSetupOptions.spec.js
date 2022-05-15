@@ -1,9 +1,9 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import Vuex from "vuex";
-import TimerSetupOptions from "../../src/components/timer-setup/TimerSetupOptions.vue";
-import { timerMock } from "./mocks/timer_mock.js";
-import { createStore } from "../state/store";
+import TimerSetupOptions from "!/timer-setup/TimerSetupOptions.vue";
+import { intervalTimerMock } from "../../mocks/timer_mock.js";
+import { createStore } from "~/state/store";
 
 describe("TimerSetupOptions", () => {
   let wrapper;
@@ -11,7 +11,7 @@ describe("TimerSetupOptions", () => {
   const defaultProps = {
     index: 0,
     isDisbled: false,
-    timer: timerMock,
+    timer: intervalTimerMock,
   };
 
   const localVue = createLocalVue();
