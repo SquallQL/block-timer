@@ -1,23 +1,35 @@
-# dummy
+# Block-timer
+
+Block-timer is a static app made in VueJs that allow the user to customize timers mainly for workouts.
 
 ## Project setup
 ```
-yarn install
+npm run install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+npm run lint
+```
+
+### Run tests
+```
+npm run test
+```
+
+### Deploy to GtiHub pages
+```
+npm run deploy
 ```
 
 ### Customize configuration
